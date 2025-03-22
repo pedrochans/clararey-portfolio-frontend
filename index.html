@@ -1,3 +1,4 @@
+-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,18 +6,230 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio de Clara</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
-    <h1>Bienvenido al Portfolio de Clara</h1>
-    <p id="backend-message">Cargando mensaje del backend...</p>
+    <header>
+        <nav>
+            <div class="logo">Clara Rey</div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#sobre-mi">Sobre mí</a></li>
+                <li><a href="#proyectos">Proyectos</a></li>
+                <li><a href="#habilidades">Habilidades</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>Clara Rey</h1>
+            <p class="subtitle">Desarrolladora & Diseñadora</p>
+            <p class="description">Creando experiencias digitales únicas</p>
+            <a href="#contacto" class="cta-button">Contáctame</a>
+        </div>
+        <div class="hero-image">
+            <!-- Puedes añadir una foto de perfil profesional aquí -->
+            <div class="profile-placeholder">
+                <i class="fas fa-user-circle"></i>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre-mi" class="about">
+        <div class="section-header">
+            <h2>Sobre mí</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Hola, soy Clara. Soy una apasionada desarrolladora y diseñadora con experiencia en la creación de soluciones digitales atractivas y funcionales.</p>
+                <p>Mi objetivo es combinar mis habilidades técnicas y creativas para desarrollar proyectos que no solo se vean bien, sino que también proporcionen una experiencia excepcional al usuario.</p>
+                <p>Cuando no estoy codificando, me gusta [mencionar algunos intereses personales/hobbies de Clara].</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="proyectos" class="projects">
+        <div class="section-header">
+            <h2>Mis Proyectos</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="projects-grid" id="projects-container">
+            <!-- Los proyectos se cargarán aquí desde el backend -->
+            <div class="project-card">
+                <div class="project-image placeholder">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Proyecto Web</h3>
+                    <p>Diseño y desarrollo de una aplicación web responsiva con HTML, CSS y JavaScript.</p>
+                    <div class="project-tags">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JavaScript</span>
+                    </div>
+                    <a href="#" class="project-link">Ver proyecto <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image placeholder">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Diseño UX/UI</h3>
+                    <p>Diseño de interfaces de usuario intuitivas y accesibles para aplicaciones móviles.</p>
+                    <div class="project-tags">
+                        <span>UX/UI</span>
+                        <span>Figma</span>
+                        <span>Diseño</span>
+                    </div>
+                    <a href="#" class="project-link">Ver proyecto <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="habilidades" class="skills">
+        <div class="section-header">
+            <h2>Mis Habilidades</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="skills-container">
+            <div class="skill-category">
+                <h3>Desarrollo Frontend</h3>
+                <div class="skills-list">
+                    <div class="skill-item">
+                        <span>HTML5</span>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span>CSS3</span>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span>JavaScript</span>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <h3>Diseño</h3>
+                <div class="skills-list">
+                    <div class="skill-item">
+                        <span>Figma</span>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span>Adobe Photoshop</span>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="contact">
+        <div class="section-header">
+            <h2>Contacto</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>¡Hablemos!</h3>
+                <p>Si te interesa mi trabajo o tienes alguna propuesta, no dudes en contactarme.</p>
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <i class="fas fa-envelope"></i>
+                        <span>clara@ejemplo.com</span>
+                    </div>
+                    <div class="contact-method">
+                        <i class="fas fa-phone"></i>
+                        <span>+34 600 000 000</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensaje</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Enviar mensaje</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <p>© 2023 Clara Rey. Todos los derechos reservados.</p>
+        </div>
+    </footer>
 
     <script>
+        // Navegación móvil
+        document.querySelector('.burger').addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('nav-active');
+            document.querySelector('.burger').classList.toggle('toggle');
+        });
+
+        // Smooth scrolling para navegación
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Conexión con el backend
         fetch("https://clararey-portfolio-backend.onrender.com")  
             .then(response => response.json())  
             .then(data => {  
-                document.getElementById("backend-message").textContent = data.message;
+                console.log("Conexión con backend exitosa:", data.message);
             })
             .catch(error => console.error("Error al conectar con el backend:", error));
+            
+        // Manejar envío de formulario
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Mensaje enviado! (Esta es una simulación, aún no está conectado a un backend real)');
+            this.reset();
+        });
     </script>
 </body>
 </html>
