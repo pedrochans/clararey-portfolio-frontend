@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio de Clara</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Bienvenido al Portfolio de Clara</h1>
+    <p id="backend-message">Cargando mensaje del backend...</p>
+
+    <script>
+        fetch("http://127.0.0.1:5000/")  
+            .then(response => response.json())  
+            .then(data => {  
+                document.getElementById("backend-message").textContent = data.message;
+            })
+            .catch(error => console.error("Error al conectar con el backend:", error));
+    </script>
+</body>
+</html>
