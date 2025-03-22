@@ -11,7 +11,7 @@
     <p id="backend-message">Cargando mensaje del backend...</p>
 
     <script>
-        fetch("http://127.0.0.1:5000/")  
+        fetch("https://clararey-portfolio-backend.onrender.com")  
             .then(response => response.json())  
             .then(data => {  
                 document.getElementById("backend-message").textContent = data.message;
