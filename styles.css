@@ -73,6 +73,8 @@ nav ul li a.active {
     background-color: #ffffff; /* Fondo que coincide con el body */
     padding: 0;
     margin: 0;
+    /* Asegurarse de que la transición funcione correctamente para la sección hero */
+    transition: opacity 0.5s ease, transform 0.5s ease !important;
 }
 
 .hero-container {
@@ -216,10 +218,47 @@ section {
 .section {
     display: none;
     opacity: 0;
-    /* Eliminar transición de opacidad y visibilidad */
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    position: absolute;
+    width: 100%;
+    left: 0;
 }
 
 .section.active {
     display: block;
     opacity: 1;
+    transform: translateY(0);
+    position: relative;
+}
+
+/* Contenedor principal para las secciones */
+.sections-container {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden; /* Evita problemas de desbordamiento durante las transiciones */
+}
+
+/* Asegurar que la transición funcione correctamente para la sección hero cuando está activa */
+.hero.section.active {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+    position: relative;
+}
+
+/* Animación para la sección que se muestra al cargar la página */
+@keyframes fadeInInitial {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section.initial-active {
+    animation: fadeInInitial 0.8s ease forwards;
 }
