@@ -16,7 +16,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 20px;
+    padding: 15px 20px; /* Reducir el padding vertical del header */
     background-color: #fff;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -26,7 +26,7 @@ header {
 }
 
 .logo img {
-    height: 50px;
+    height: 60px; /* Aumentar la altura del logo */
 }
 
 nav {
@@ -36,24 +36,31 @@ nav {
 nav ul {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 5px;
     margin: 0;
     padding: 0;
 }
 
 nav ul li {
     margin-left: 40px; /* Mayor separación entre elementos del menú */
+    padding: 0; /* Eliminar padding vertical de los <li> */
 }
 
 nav ul li a {
     text-decoration: none;
-    color: #333;
+    color: #888; /* Color gris por defecto */
     font-weight: 380;
     transition: color 0.3s;
+    display: block; /* Hacer que el enlace ocupe todo el área del <li> */
+    padding: 30px 10px; /* Ajustar padding para mantener el área de clic cómoda */
 }
 
 nav ul li a:hover {
-    color: #888;
+    color: #000; /* Cambiar a color negro al pasar el ratón */
+}
+
+nav ul li a.active {
+    color: #000; /* Color negro para la sección activa */
 }
 
 /* Rediseño completo de la sección Hero */
@@ -74,15 +81,19 @@ nav ul li a:hover {
     height: 90vh;
     max-width: 1400px; /* También reducido ligeramente el ancho máximo */
     overflow: hidden; /* Importante: garantiza que nada se salga del contenedor */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
 }
 
 /* Cambiar el estilo de la imagen */
 .hero-img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Cambiado de 'contain' a 'cover' */
+    object-fit: cover; /* Asegura que la imagen cubra todo el contenedor */
     display: block;
-    object-position: center; /* Centra la imagen al recortarse */
+    object-position: center; /* Centra la imagen */
+    position: absolute; /* Asegura que la imagen se posicione correctamente */
+    top: 0;
+    left: 0;
 }
 
 /* Crear un área segura para el texto */
@@ -151,11 +162,11 @@ section {
 }
 
 .sobre-mi h2 {
-    font-size: 2.5rem;
+    font-size: 50px;
     color: #333;
     margin-bottom: 50px;
     text-align: center;
-    font-weight: 400;
+    font-weight: 350;
 }
 
 .sobre-mi-content {
@@ -163,6 +174,7 @@ section {
     align-items: center;    
     text-align: center;
     gap: 50px;
+    flex-direction: row-reverse; /* Intercambiar la posición de la imagen y el texto */
 }
 
 .sobre-mi-imagen {
@@ -177,7 +189,9 @@ section {
 }
 
 .sobre-mi-texto {
-    flex: 1.5;
+    flex: 1;
+    max-width: 50%; /* Ajustar el ancho del texto */
+    margin: 0 auto; /* Centrar el texto horizontalmente */
 }
 
 .sobre-mi-texto p {
@@ -197,4 +211,15 @@ section {
     .sobre-mi-imagen {
         max-width: 80%;
     }
+}
+
+.section {
+    display: none;
+    opacity: 0;
+    /* Eliminar transición de opacidad y visibilidad */
+}
+
+.section.active {
+    display: block;
+    opacity: 1;
 }
