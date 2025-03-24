@@ -407,10 +407,11 @@ html {
 }
 
 .proyecto-info h3 {
-  margin: 0;
-  color: var(--color-text);
-  font-size: 1.1rem;
-  font-weight: 400;
+    margin: 45% 0;
+    color: var(--color-text);
+    font-size: 25px;
+    font-weight: 350;
+    text-align: center;
 }
 
 /* Efectos hover */
@@ -421,6 +422,112 @@ html {
 
 .proyecto-item:hover .proyecto-info {
   transform: translateY(0); /* Hace que aparezca la información */
+}
+
+/* Estilos para los detalles del proyecto */
+.proyecto-detalle {
+  display: none;
+  width: 80%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px 0;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--transition-medium), transform var(--transition-medium);
+}
+
+.proyecto-detalle.visible {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.volver-proyectos {
+  text-align: left;
+  margin-bottom: 40px;
+}
+
+.btn-volver {
+  background: none;
+  border: none;
+  color: var(--color-text-light);
+  font-family: "Lato", sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0;
+  transition: color var(--transition-fast);
+}
+
+.btn-volver:hover {
+  color: var(--color-text);
+}
+
+.proyecto-encabezado {
+  position: relative;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.proyecto-categoria {
+  position: relative;
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+  padding: 0 15px;
+  display: inline-block;
+}
+
+.proyecto-categoria::before,
+.proyecto-categoria::after {
+  content: '';
+  position: absolute;
+  height: 1px;
+  background-color: var(--color-text-light);
+  top: 50%;
+  width: 50px;
+}
+
+.proyecto-categoria::before {
+  right: 100%;
+}
+
+.proyecto-categoria::after {
+  left: 100%;
+}
+
+.proyecto-titulo {
+  font-size: 28px;
+  font-weight: 350;
+  margin: 30px 0;
+  color: var(--color-text);
+}
+
+.proyecto-descripcion {
+  line-height: 1.8;
+  color: var(--color-text-light);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.proyecto-descripcion p {
+  margin-bottom: 20px;
+}
+
+.proyecto-descripcion strong {
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* Hacer el elemento del proyecto 1 clickeable */
+.proyecto-item[data-proyecto] {
+  cursor: pointer;
+}
+
+/* Ocultar la grid cuando se muestra un detalle */
+.proyectos-grid.oculta {
+  display: none;
 }
 
 /* Responsive para proyectos */

@@ -57,6 +57,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.querySelector('.nav-link[data-section="sobre-mi"]').click();
             });
         }
+        
+        // Configurar eventos para los proyectos
+        setupProyectosEventos();
     }
     
     /**
@@ -303,6 +306,66 @@ document.addEventListener("DOMContentLoaded", () => {
         function resetCarouselTimer() {
             clearInterval(intervalId);
             startCarousel();
+        }
+    }
+    
+    /**
+     * Configura los eventos para la navegación entre proyectos y sus detalles
+     */
+    function setupProyectosEventos() {
+        // Obtener elementos
+        const proyectoItems = document.querySelectorAll('.proyecto-item[data-proyecto]');
+        const botonesVolver = document.querySelectorAll('.btn-volver');
+        
+        // Añadir eventos de clic a cada proyecto
+        proyectoItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const proyectoId = this.getAttribute('data-proyecto');
+                mostrarDetalleProyecto(proyectoId);
+            });
+        });
+        
+        // Añadir eventos de clic a los botones de volver
+        botonesVolver.forEach(boton => {
+            boton.addEventListener('click', function() {
+                ocultarDetallesProyecto();
+            });
+        });
+        
+        /**
+         * Muestra los detalles de un proyecto específico
+         * @param {string} proyectoId - ID del proyecto a mostrar
+         */
+        function mostrarDetalleProyecto(proyectoId) {
+            // Ocultar la grid de proyectos
+            document.querySelector('.proyectos-grid').classList.add('oculta');
+            
+            // Mostrar el detalle del proyecto seleccionado
+            const detalleProyecto = document.getElementById(proyectoId);
+            if (detalleProyecto) {
+                // Pequeño retraso para que la animación sea más fluida
+                setTimeout(() => {
+                    detalleProyecto.classList.add('visible');
+                    
+                    // Scroll suave hasta el detalle
+                    detalleProyecto.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 50);
+            }
+        }
+        
+        /**
+         * Oculta los detalles de proyecto y muestra la grid
+         */
+        function ocultarDetallesProyecto() {
+            // Ocultar todos los detalles de proyectos
+            document.querySelectorAll('.proyecto-detalle').forEach(detalle => {
+                detalle.classList.remove('visible');
+            });
+            
+            // Mostrar la grid de proyectos
+            setTimeout(() => {
+                document.querySelector('.proyectos-grid').classList.remove('oculta');
+            }, 300); // Esperar a que termine la animación de desvanecimiento
         }
     }
 });
