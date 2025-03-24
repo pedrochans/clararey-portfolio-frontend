@@ -1,264 +1,400 @@
+/* Variables CSS para reutilización y consistencia */
+:root {
+  /* Colores principales */
+  --color-text: #333;
+  --color-text-light: #444;
+  --color-text-nav: #888;
+  --color-background: #f5f5f5;
+  --color-white: #fff;
+  --color-section-bg: #fafafa;
+  --color-button-hover: #f0f0f0;
+  
+  /* Sombras */
+  --shadow-header: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  --shadow-image: 0 5px 15px rgba(0,0,0,0.1);
+  
+  /* Espaciado y dimensiones */
+  --container-width: 80%;
+  --max-container-width: 1400px;
+  --section-padding: 80px 0;
+  --header-padding: 15px 20px;
+  
+  /* Animaciones */
+  --transition-fast: 0.3s ease;
+  --transition-medium: 0.5s ease;
+}
+
+/* Reset y estilos base */
 body {
-    font-family: "Lato", sans-serif;
-    font-weight: 300;
-    margin: 0;
-    padding: 0;
-    background-color: #f5f5f5;
-    color: #333;
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-background);
+  color: var(--color-text);
 }
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
+}
+
+/* Contenedores generales */
+.container {
+  width: var(--container-width);
+  max-width: var(--max-container-width);
+  margin: 0 auto;
 }
 
 /* Estilos para el encabezado */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px; /* Reducir el padding vertical del header */
-    background-color: #fff;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--header-padding);
+  background-color: var(--color-white);
+  box-shadow: var(--shadow-header);
 }
 
 .logo {
-    margin-left: 120px; /* Margen izquierdo más amplio */
+  margin-left: 120px;
 }
 
 .logo img {
-    height: 60px; /* Aumentar la altura del logo */
+  height: 60px;
 }
 
-nav {
-    margin-right: 120px; /* Añadir margen derecho a todo el nav */
+/* Navegación principal */
+.main-nav {
+  margin-right: 120px;
 }
 
-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 5px;
-    margin: 0;
-    padding: 0;
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
 }
 
-nav ul li {
-    margin-left: 40px; /* Mayor separación entre elementos del menú */
-    padding: 0; /* Eliminar padding vertical de los <li> */
+.main-nav ul li {
+  margin-left: 40px;
+  padding: 0;
 }
 
-nav ul li a {
-    text-decoration: none;
-    color: #888; /* Color gris por defecto */
-    font-weight: 380;
-    transition: color 0.3s;
-    display: block; /* Hacer que el enlace ocupe todo el área del <li> */
-    padding: 30px 10px; /* Ajustar padding para mantener el área de clic cómoda */
+.main-nav ul li a {
+  text-decoration: none;
+  color: var(--color-text-nav);
+  font-weight: 380;
+  transition: color var(--transition-fast);
+  display: block;
+  padding: 30px 10px;
 }
 
-nav ul li a:hover {
-    color: #000; /* Cambiar a color negro al pasar el ratón */
+.main-nav ul li a:hover {
+  color: var(--color-text);
 }
 
-nav ul li a.active {
-    color: #000; /* Color negro para la sección activa */
+.main-nav ul li a.active {
+  color: var(--color-text);
 }
 
-/* Rediseño completo de la sección Hero */
-.hero {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #ffffff; /* Fondo que coincide con el body */
-    padding: 0;
-    margin: 0;
-    /* Asegurarse de que la transición funcione correctamente para la sección hero */
-    transition: opacity 0.5s ease, transform 0.5s ease !important;
-}
-
-.hero-container {
-    position: relative;
-    width: 80%; /* Reducido de 90% a 80% para márgenes laterales más amplios */
-    height: 90vh;
-    max-width: 1400px; /* También reducido ligeramente el ancho máximo */
-    overflow: hidden; /* Importante: garantiza que nada se salga del contenedor */
-    margin: 0 auto; /* Centra el contenedor horizontalmente */
-}
-
-/* Cambiar el estilo de la imagen */
-.hero-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Asegura que la imagen cubra todo el contenedor */
-    display: block;
-    object-position: center; /* Centra la imagen */
-    position: absolute; /* Asegura que la imagen se posicione correctamente */
-    top: 0;
-    left: 0;
-}
-
-/* Crear un área segura para el texto */
-.hero-content {
-    position: absolute;
-    top: 3%; /* Reducido del 10% al 5% */
-    left: 2%; /* Reducido del 5% al 3% */
-    max-width: 50%;
-    z-index: 10;
-    
-    /* Márgenes mínimos mucho más pequeños */
-    margin-top: max(2%, 10px); /* Reducido de 5%/30px a 2%/10px */
-    margin-left: max(2%, 10px); /* Reducido de 5%/30px a 2%/10px */
-}
-
-.hero-content p {
-    font-size: 27px;
-    color: #fff;
-    margin: 0;
-    padding: 0;
-    font-weight: 400; 
-}
-
-.hero-content h1 {
-    font-size: 50px;
-    color: #fff;
-    margin: 0 0 20px 0;
-    padding: 0;
-    font-weight: 400; 
-}
-
-/* Botón de "Ver más" */
-.btn-ver-mas {
-    background-color: #fff;
-    color: #333;
-    border: none;
-    padding: 10px 25px;
-    font-size: 15px;
-    font-weight: 300;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border-radius: 25px; /* Bordes redondeados */
-    font-family: "Lato", sans-serif;
-    margin-top: -10px; /* Añadido margen para elevar el botón */
-}
-
-.btn-ver-mas:hover {
-    background-color: #f0f0f0;
-    transform: translateY(-2px);
-}
-
-/* Estilos generales para secciones */
-section {
-    padding: 80px 0;
-}
-
-.container {
-    width: 80%;
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-/* Estilos para la sección "Sobre mí" */
-.sobre-mi {
-    background-color: #fafafa;
-}
-
-.sobre-mi h2 {
-    font-size: 50px;
-    color: #333;
-    margin-bottom: 50px;
-    text-align: center;
-    font-weight: 350;
-}
-
-.sobre-mi-content {
-    display: flex;
-    align-items: center;    
-    text-align: center;
-    gap: 50px;
-    flex-direction: row-reverse; /* Intercambiar la posición de la imagen y el texto */
-}
-
-.sobre-mi-imagen {
-    flex: 1;
-    max-width: 40%;
-}
-
-.sobre-mi-imagen img {
-    width: 100%;
-    border-radius: 5px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.sobre-mi-texto {
-    flex: 1;
-    max-width: 50%; /* Ajustar el ancho del texto */
-    margin: 0 auto; /* Centrar el texto horizontalmente */
-}
-
-.sobre-mi-texto p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    margin-bottom: 20px;
-    color: #444;
-}
-
-/* Añadir media queries para hacerlo responsive */
-@media (max-width: 768px) {
-    .sobre-mi-content {
-        flex-direction: column;
-        gap: 30px;
-    }
-    
-    .sobre-mi-imagen {
-        max-width: 80%;
-    }
-}
-
+/* Sistema de secciones con transiciones */
 .section {
-    display: none;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    position: absolute;
-    width: 100%;
-    left: 0;
+  display: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--transition-medium), transform var(--transition-medium);
+  position: absolute;
+  width: 100%;
+  left: 0;
+  padding: var(--section-padding);
+  box-sizing: border-box;
 }
 
 .section.active {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-    position: relative;
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  position: relative;
 }
 
-/* Contenedor principal para las secciones */
 .sections-container {
-    position: relative;
-    min-height: 100vh;
-    overflow: hidden; /* Evita problemas de desbordamiento durante las transiciones */
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: var(--color-white);
+  margin-bottom: -1px; /* Elimina pequeño gap entre secciones y footer */
 }
 
-/* Asegurar que la transición funcione correctamente para la sección hero cuando está activa */
-.hero.section.active {
-    display: flex;
+/* Animación para la carga inicial */
+@keyframes fadeInInitial {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
     opacity: 1;
     transform: translateY(0);
-    position: relative;
-}
-
-/* Animación para la sección que se muestra al cargar la página */
-@keyframes fadeInInitial {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  }
 }
 
 .section.initial-active {
-    animation: fadeInInitial 0.8s ease forwards;
+  animation: fadeInInitial 0.8s ease forwards;
+}
+
+/* Sección Hero */
+.hero {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-white);
+  padding: 0;
+  margin: 0;
+  transition: opacity var(--transition-medium), transform var(--transition-medium) !important;
+}
+
+.hero.section.active {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+  position: relative;
+}
+
+.hero-container {
+  position: relative;
+  width: var(--container-width);
+  height: 90vh;
+  max-width: var(--max-container-width);
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  object-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.hero-content {
+  position: absolute;
+  top: 3%;
+  left: 2%;
+  max-width: 50%;
+  z-index: 10;
+  margin-top: max(2%, 10px);
+  margin-left: max(2%, 10px);
+}
+
+.hero-content p {
+  font-size: 27px;
+  color: var(--color-white);
+  margin: 0;
+  padding: 0;
+  font-weight: 400; 
+}
+
+.hero-content h1 {
+  font-size: 50px;
+  color: var(--color-white);
+  margin: 0 0 20px 0;
+  padding: 0;
+  font-weight: 400; 
+}
+
+/* Botones */
+.btn-primary {
+  background-color: var(--color-white);
+  color: var(--color-text);
+  border: none;
+  padding: 10px 25px;
+  font-size: 15px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border-radius: 25px;
+  font-family: "Lato", sans-serif;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-button-hover);
+  transform: translateY(-2px);
+}
+
+.btn-ver-mas {
+  margin-top: -10px;
+}
+
+/* Sección Sobre mí */
+.sobre-mi {
+  background-color: var(--color-section-bg);
+}
+
+.sobre-mi h2 {
+  font-size: 50px;
+  color: var(--color-text);
+  margin-bottom: 50px;
+  text-align: center;
+  font-weight: 350;
+}
+
+.sobre-mi-content {
+  display: flex;
+  align-items: center;    
+  text-align: center;
+  gap: 20px;
+  flex-direction: row-reverse;
+}
+
+.sobre-mi-imagen {
+  flex: 1;
+  max-width: 40%;
+}
+
+.sobre-mi-imagen img {
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: var(--shadow-image);
+}
+
+.sobre-mi-texto {
+  flex: 5;
+  max-width: 38%;
+  margin: 0 auto;
+}
+
+.sobre-mi-texto p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  color: var(--color-text-light);
+}
+
+/* Estilos para los botones en la sección Sobre mí */
+.sobre-mi-botones {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.sobre-mi-botones .btn-primary {
+  background-color: var(--color-white);
+  box-shadow: var(--shadow-image);
+  text-decoration: none; /* Elimina el subrayado de los enlaces */
+  min-width: 140px; /* Ancho mínimo fijo para ambos botones */
+  text-align: center; /* Centra el texto dentro del botón */
+  display: inline-block; /* Permite establecer dimensiones */
+}
+
+.sobre-mi-botones .btn-primary:hover {
+  background-color: var(--color-button-hover);
+}
+
+/* Secciones adicionales con estilos base */
+.proyectos, .galeria, .contacto {
+  background-color: var(--color-section-bg);
+}
+
+.proyectos h2, .galeria h2, .contacto h2 {
+  font-size: 50px;
+  color: var(--color-text);
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 350;
+}
+
+/* Pie de página */
+.main-footer {
+  background-color: var(--color-white);
+  text-align: center;
+  padding: 4px 0;
+  font-size: 14px;
+  position: relative; /* Asegura que el footer esté correctamente posicionado */
+  z-index: 1; /* Asegura que el footer esté por encima de posibles elementos flotantes */
+}
+
+/* Media queries para responsividad */
+@media (max-width: 992px) {
+  .logo {
+    margin-left: 60px;
+  }
+  
+  .main-nav {
+    margin-right: 60px;
+  }
+  
+  .main-nav ul li {
+    margin-left: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .logo {
+    margin-left: 20px;
+  }
+  
+  .main-nav {
+    margin-right: 20px;
+  }
+  
+  .hero-content {
+    max-width: 80%;
+  }
+  
+  .sobre-mi-content {
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .sobre-mi-imagen, .sobre-mi-texto {
+    max-width: 90%;
+  }
+  
+  h2 {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 576px) {
+  .main-header {
+    flex-direction: column;
+    padding: 15px 10px;
+  }
+  
+  .logo {
+    margin: 0 0 15px 0;
+  }
+  
+  .main-nav {
+    margin: 0;
+    width: 100%;
+  }
+  
+  .main-nav ul {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .main-nav ul li {
+    margin: 0 10px;
+  }
+  
+  .main-nav ul li a {
+    padding: 15px 8px;
+  }
+  
+  .hero-content p {
+    font-size: 22px;
+  }
+  
+  .hero-content h1 {
+    font-size: 36px;
+  }
 }
