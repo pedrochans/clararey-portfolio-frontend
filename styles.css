@@ -357,6 +357,93 @@ html {
   font-weight: 350;
 }
 
+/* Estilos específicos para la sección de Proyectos */
+.proyectos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 30px;
+  margin: 50px 0;
+}
+
+.proyecto-item {
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: var(--shadow-image);
+  background-color: var(--color-white);
+  aspect-ratio: 1/1; /* Mantiene los elementos como cuadrados perfectos */
+}
+
+.proyecto-imagen {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.proyecto-imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.proyecto-link {
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.proyecto-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 15px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.proyecto-info h3 {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+/* Efectos hover */
+.proyecto-item:hover .proyecto-imagen img {
+  filter: brightness(1.3); /* Efecto blanquecino al pasar el ratón */
+  transform: scale(1.05); /* Ligero zoom */
+}
+
+.proyecto-item:hover .proyecto-info {
+  transform: translateY(0); /* Hace que aparezca la información */
+}
+
+/* Responsive para proyectos */
+@media (max-width: 992px) {
+  .proyectos-grid {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .proyectos-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablets */
+    grid-template-rows: repeat(3, 1fr); /* 3 filas en tablets */
+  }
+}
+
+@media (max-width: 576px) {
+  .proyectos-grid {
+    grid-template-columns: 1fr; /* 1 columna en móviles */
+    grid-template-rows: repeat(6, 1fr); /* 6 filas en móviles */
+  }
+}
+
 /* Pie de página */
 .main-footer {
   background-color: var(--color-white);
