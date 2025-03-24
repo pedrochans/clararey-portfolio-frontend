@@ -19,6 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
     setupNavigationEvents();
     setupAdditionalEventListeners();
     
+    // Sistema de carrusel para la sección Hero
+    setupHeroCarousel();
+    
     /**
      * Configura la vista inicial de la aplicación
      */
@@ -227,5 +230,79 @@ document.addEventListener("DOMContentLoaded", () => {
         section.style.removeProperty('opacity');
         section.style.removeProperty('transform');
         section.style.removeProperty('display');
+    }
+    
+    /**
+     * Configura el carrusel de la sección hero
+     */
+    function setupHeroCarousel() {
+        const carouselImages = document.querySelectorAll('.hero-img');
+        const indicators = document.querySelectorAll('.indicator');
+        let currentImageIndex = 0;
+        let intervalId;
+        
+        // Iniciar el carrusel automáticamente
+        startCarousel();
+        
+        // Añadir eventos a los indicadores
+        indicators.forEach(indicator => {
+            indicator.addEventListener('click', () => {
+                const targetIndex = parseInt(indicator.dataset.index);
+                showImage(targetIndex);
+                resetCarouselTimer();
+            });
+        });
+        
+        /**
+         * Muestra la imagen en el índice especificado
+         * @param {number} index - Índice de la imagen a mostrar
+         */
+        function showImage(index) {
+            // Marcar la imagen actual como anterior
+            if (carouselImages[currentImageIndex]) {
+                carouselImages[currentImageIndex].classList.remove('active');
+                carouselImages[currentImageIndex].classList.add('previous');
+                indicators[currentImageIndex].classList.remove('active');
+                
+                // Eliminar la clase 'previous' después de la animación
+                setTimeout(() => {
+                    carouselImages[currentImageIndex].classList.remove('previous');
+                }, 1000);
+            }
+            
+            // Actualizar el índice actual
+            currentImageIndex = index;
+            
+            // Si el índice es inválido, volver al principio
+            if (currentImageIndex >= carouselImages.length) {
+                currentImageIndex = 0;
+            }
+            
+            // Mostrar la nueva imagen
+            carouselImages[currentImageIndex].classList.add('active');
+            indicators[currentImageIndex].classList.add('active');
+        }
+        
+        /**
+         * Avanza el carrusel a la siguiente imagen
+         */
+        function nextImage() {
+            showImage((currentImageIndex + 1) % carouselImages.length);
+        }
+        
+        /**
+         * Inicia el carrusel automático
+         */
+        function startCarousel() {
+            intervalId = setInterval(nextImage, 5000); // Cambiar cada 5 segundos
+        }
+        
+        /**
+         * Reinicia el temporizador del carrusel
+         */
+        function resetCarouselTimer() {
+            clearInterval(intervalId);
+            startCarousel();
+        }
     }
 });

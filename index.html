@@ -32,11 +32,25 @@
         <!-- Sección de inicio/presentación -->
         <section id="inicio" class="hero section active">
             <div class="hero-container">
-                <img src="./img/01_ini_ofelia_prueba.jpg" alt="Imagen principal" class="hero-img">
+                <div class="hero-carousel">
+                    <!-- Las imágenes del carrusel -->
+                    <img src="./img/01_ini_ofelia_prueba.jpg" alt="Imagen principal 1" class="hero-img active">
+                    <img src="./img/01_ini_oasis.png" alt="Imagen principal 2" class="hero-img">
+                    <img src="./img/03_carrusel.jpg" alt="Imagen principal 3" class="hero-img">
+                    <!-- Puedes añadir más imágenes según necesites -->
+                </div>
                 <div class="hero-content">
                     <p>Portfolio</p>
                     <h1>Clara Rey</h1>
                     <button class="btn-primary btn-ver-mas">Ver más</button>
+                </div>
+                
+                <!-- Indicadores del carrusel (puntos) -->
+                <div class="carousel-indicators">
+                    <span class="indicator active" data-index="0"></span>
+                    <span class="indicator" data-index="1"></span>
+                    <span class="indicator" data-index="2"></span>
+                    <!-- Añade más indicadores si añades más imágenes -->
                 </div>
             </div>
         </section>
