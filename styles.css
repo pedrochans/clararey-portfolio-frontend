@@ -947,10 +947,67 @@ html {
 .main-footer {
   background-color: var(--color-white);
   text-align: center;
-  padding: 4px 0;
+  padding: 15px 0;
   font-size: 14px;
   position: relative; /* Asegura que el footer esté correctamente posicionado */
   z-index: 1; /* Asegura que el footer esté por encima de posibles elementos flotantes */
+}
+
+/* Contenido del footer */
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: var(--container-width);
+  max-width: var(--max-container-width);
+  margin: 0 auto;
+}
+
+/* Iconos de redes sociales en el footer */
+.footer-social {
+  display: flex;
+  gap: 15px;
+}
+
+.footer-social a {
+  color: var(--color-text-light);
+  font-size: 20px;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+/* Mismos efectos de color que en la sección de contacto */
+.footer-social a.instagram:hover {
+  color: var(--color-instagram);
+  transform: translateY(-3px);
+}
+
+.footer-social a.linkedin:hover {
+  color: var(--color-linkedin);
+  transform: translateY(-3px);
+}
+
+.footer-social a.behance:hover {
+  color: var(--color-behance);
+  transform: translateY(-3px);
+}
+
+.footer-social a.pinterest:hover {
+  color: var(--color-pinterest);
+  transform: translateY(-3px);
+}
+
+/* Ajuste para el texto de copyright */
+.footer-content p {
+  margin: 0;
+}
+
+/* Responsive para el footer */
+@media (max-width: 576px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
 
 /* Media queries para responsividad */
