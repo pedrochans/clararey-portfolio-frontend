@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+    <!-- Añadimos Font Awesome para los iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -362,7 +364,80 @@
         <section id="contacto" class="contacto section">
             <div class="container">
                 <h2>Contacto</h2>
-                <p>Formulario o datos de contacto.</p>
+                <div class="contacto-contenido">
+                    <!-- Información de contacto (izquierda) -->
+                    <div class="contacto-info">
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div class="info-texto">
+                                <h3>Dirección</h3>
+                                <p>Calle Principal 123, 28001 Madrid, España</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div class="info-texto">
+                                <h3>Teléfono</h3>
+                                <p>+34 600 123 456</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div class="info-texto">
+                                <h3>Email</h3>
+                                <p>contacto@clararey.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item redes-sociales">
+                            <div class="info-icon">
+                                <i class="fa-solid fa-share-nodes"></i>
+                            </div>
+                            <div class="info-texto">
+                                <h3>Redes Sociales</h3>
+                                <div class="redes-iconos">
+                                    <a href="https://instagram.com" target="_blank" class="instagram"><i class="fa-brands fa-instagram"></i></a>
+                                    <a href="https://linkedin.com" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in"></i></a>
+                                    <a href="https://behance.net" target="_blank" class="behance"><i class="fa-brands fa-behance"></i></a>
+                                    <a href="https://pinterest.com" target="_blank" class="pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Formulario de contacto (derecha) -->
+                    <div class="contacto-formulario">
+                        <form id="formulario-contacto">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" id="nombre" name="nombre" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="apellido">Apellido</label>
+                                    <input type="text" id="apellido" name="apellido" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="mensaje">Mensaje</label>
+                                <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary">Enviar</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </section>
     </main>

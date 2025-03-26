@@ -61,6 +61,9 @@ document.addEventListener("DOMContentLoaded", () => {
         // Configurar eventos para los proyectos y galería
         setupProyectosEventos();
         setupGaleriaEventos();
+        
+        // Configurar evento del formulario de contacto
+        setupContactoFormulario();
     }
     
     /**
@@ -427,6 +430,25 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(() => {
                 document.querySelector('.galeria-grid').classList.remove('oculta');
             }, 300); // Esperar a que termine la animación de desvanecimiento
+        }
+    }
+    
+    /**
+     * Configura la funcionalidad del formulario de contacto
+     */
+    function setupContactoFormulario() {
+        const formulario = document.getElementById('formulario-contacto');
+        if (formulario) {
+            formulario.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                // Aquí se puede agregar la lógica para enviar el formulario
+                // Por ejemplo, usando fetch() para enviar a un backend
+                
+                // Por ahora, solo mostramos un mensaje de confirmación
+                alert('¡Gracias por tu mensaje! Te responderemos lo antes posible.');
+                formulario.reset();
+            });
         }
     }
 });
