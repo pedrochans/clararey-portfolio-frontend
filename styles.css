@@ -408,8 +408,8 @@ html {
 
 .proyecto-info h3 {
     margin: 45% 0;
-    color: var(--color-text);
-    font-size: 25px;
+    color: var(--color-text-light);
+    font-size: 35px;
     font-weight: 350;
     text-align: center;
 }
@@ -548,6 +548,205 @@ html {
   .proyectos-grid {
     grid-template-columns: 1fr; /* 1 columna en móviles */
     grid-template-rows: repeat(6, 1fr); /* 6 filas en móviles */
+  }
+}
+
+/* Estilos específicos para la sección de Galería */
+.galeria-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  margin: 50px 0;
+}
+
+.galeria-item {
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: var(--shadow-image);
+  background-color: var(--color-white);
+  cursor: pointer;
+}
+
+.galeria-imagen {
+  width: 100%;
+  height: 0;
+  padding-bottom: 66.67%; /* Proporción 3:2 horizontal (ancho es 1.5x el alto) */
+  overflow: hidden;
+  position: relative;
+}
+
+.galeria-imagen img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.galeria-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.galeria-info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 0.3s ease;
+}
+
+.galeria-info h3 {
+  color: rgba(255, 255, 255, 0);
+  font-size: 35px;
+  font-weight: 350;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+/* Efectos hover inversos a los de proyectos */
+.galeria-item:hover .galeria-imagen img {
+  filter: brightness(0.7); /* Efecto oscuro al pasar el ratón */
+  transform: scale(1.05); /* Ligero zoom */
+}
+
+.galeria-item:hover .galeria-info {
+  background-color: rgba(0, 0, 0, 0.3); /* Fondo oscuro semi-transparente */
+}
+
+.galeria-item:hover .galeria-info h3 {
+  color: var(--color-white); /* Texto blanco */
+}
+
+/* Estilos para los detalles de la galería */
+.galeria-detalle {
+  display: none;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 0;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--transition-medium), transform var(--transition-medium);
+}
+
+.galeria-detalle.visible {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.volver-galeria {
+  text-align: left;
+  margin-bottom: 40px;
+}
+
+.galeria-encabezado {
+  position: relative;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.galeria-categoria {
+  position: relative;
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+  padding: 0 15px;
+  display: inline-block;
+}
+
+.galeria-categoria::before,
+.galeria-categoria::after {
+  content: '';
+  position: absolute;
+  height: 1px;
+  background-color: var(--color-text-light);
+  top: 50%;
+  width: 50px;
+}
+
+.galeria-categoria::before {
+  right: 100%;
+}
+
+.galeria-categoria::after {
+  left: 100%;
+}
+
+.galeria-titulo {
+  font-size: 28px;
+  font-weight: 350;
+  margin: 30px 0;
+  color: var(--color-text);
+}
+
+.galeria-contenido {
+  line-height: 1.8;
+  color: var(--color-text-light);
+  margin: 0 auto;
+}
+
+.galeria-contenido p {
+  margin-bottom: 30px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.galeria-imagenes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.galeria-img-container {
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: var(--shadow-image);
+}
+
+.galeria-img-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.galeria-img-container:hover img {
+  transform: scale(1.03);
+}
+
+/* Hacer el elemento de galería clickeable */
+.galeria-item[data-galeria] {
+  cursor: pointer;
+}
+
+/* Ocultar la grid cuando se muestra un detalle */
+.galeria-grid.oculta {
+  display: none;
+}
+
+/* Responsive para galerías */
+@media (max-width: 768px) {
+  .galeria-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .galeria-imagenes {
+    grid-template-columns: 1fr;
   }
 }
 

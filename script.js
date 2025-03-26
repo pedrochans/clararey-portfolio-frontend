@@ -58,8 +58,9 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
         
-        // Configurar eventos para los proyectos
+        // Configurar eventos para los proyectos y galería
         setupProyectosEventos();
+        setupGaleriaEventos();
     }
     
     /**
@@ -365,6 +366,66 @@ document.addEventListener("DOMContentLoaded", () => {
             // Mostrar la grid de proyectos
             setTimeout(() => {
                 document.querySelector('.proyectos-grid').classList.remove('oculta');
+            }, 300); // Esperar a que termine la animación de desvanecimiento
+        }
+    }
+    
+    /**
+     * Configura los eventos para la navegación entre elementos de la galería y sus detalles
+     */
+    function setupGaleriaEventos() {
+        // Obtener elementos
+        const galeriaItems = document.querySelectorAll('.galeria-item[data-galeria]');
+        const botonesVolver = document.querySelectorAll('.galeria-detalle .btn-volver');
+        
+        // Añadir eventos de clic a cada elemento de galería
+        galeriaItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const galeriaId = this.getAttribute('data-galeria');
+                mostrarDetalleGaleria(galeriaId);
+            });
+        });
+        
+        // Añadir eventos de clic a los botones de volver
+        botonesVolver.forEach(boton => {
+            boton.addEventListener('click', function() {
+                ocultarDetallesGaleria();
+            });
+        });
+        
+        /**
+         * Muestra los detalles de un elemento de la galería específico
+         * @param {string} galeriaId - ID del elemento de galería a mostrar
+         */
+        function mostrarDetalleGaleria(galeriaId) {
+            // Ocultar la grid de galería
+            document.querySelector('.galeria-grid').classList.add('oculta');
+            
+            // Mostrar el detalle del elemento seleccionado
+            const detalleGaleria = document.getElementById(galeriaId);
+            if (detalleGaleria) {
+                // Pequeño retraso para que la animación sea más fluida
+                setTimeout(() => {
+                    detalleGaleria.classList.add('visible');
+                    
+                    // Scroll suave hasta el detalle
+                    detalleGaleria.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 50);
+            }
+        }
+        
+        /**
+         * Oculta los detalles de galería y muestra la grid
+         */
+        function ocultarDetallesGaleria() {
+            // Ocultar todos los detalles de galería
+            document.querySelectorAll('.galeria-detalle').forEach(detalle => {
+                detalle.classList.remove('visible');
+            });
+            
+            // Mostrar la grid de galería
+            setTimeout(() => {
+                document.querySelector('.galeria-grid').classList.remove('oculta');
             }, 300); // Esperar a que termine la animación de desvanecimiento
         }
     }
