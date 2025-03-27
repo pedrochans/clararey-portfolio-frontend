@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Elementos DOM principales 
     const navLinks = document.querySelectorAll(".nav-link");
     const sections = document.querySelectorAll(".section");
+    const logoLink = document.querySelector(".logo-link");
     const transitionDuration = 500; // ms - debe coincidir con el CSS
     
     // Control del estado de la aplicación
@@ -42,9 +43,15 @@ document.addEventListener("DOMContentLoaded", () => {
      * Configura los eventos de navegación principal
      */
     function setupNavigationEvents() {
+        // Configurar navegación desde los enlaces del menú
         navLinks.forEach(link => {
             link.addEventListener("click", handleNavigation);
         });
+        
+        // Configurar navegación desde el logo
+        if (logoLink) {
+            logoLink.addEventListener("click", handleNavigation);
+        }
     }
     
     /**
@@ -54,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const botonVerMas = document.querySelector('.btn-ver-mas');
         if (botonVerMas) {
             botonVerMas.addEventListener('click', () => {
-                document.querySelector('.nav-link[data-section="sobre-mi"]').click();
+                document.querySelector('.nav-link[data-section="proyectos"]').click();
             });
         }
         
@@ -248,6 +255,17 @@ document.addEventListener("DOMContentLoaded", () => {
         let currentImageIndex = 0;
         let intervalId;
         
+        // Verificar que las imágenes se han cargado correctamente
+        carouselImages.forEach((img, index) => {
+            img.addEventListener('load', () => {
+                console.log(`Imagen ${index + 1} cargada correctamente`);
+            });
+            
+            img.addEventListener('error', () => {
+                console.error(`Error al cargar la imagen ${index + 1}: ${img.src}`);
+            });
+        });
+        
         // Iniciar el carrusel automáticamente
         startCarousel();
         
@@ -265,15 +283,15 @@ document.addEventListener("DOMContentLoaded", () => {
          * @param {number} index - Índice de la imagen a mostrar
          */
         function showImage(index) {
-            // Marcar la imagen actual como anterior
+            // Aplicar animación de salida a la imagen actual (hacia la derecha)
             if (carouselImages[currentImageIndex]) {
                 carouselImages[currentImageIndex].classList.remove('active');
-                carouselImages[currentImageIndex].classList.add('previous');
+                carouselImages[currentImageIndex].classList.add('exit-right');
                 indicators[currentImageIndex].classList.remove('active');
                 
-                // Eliminar la clase 'previous' después de la animación
+                // Limpieza: eliminar la clase exit-right después de la transición
                 setTimeout(() => {
-                    carouselImages[currentImageIndex].classList.remove('previous');
+                    carouselImages[currentImageIndex].classList.remove('exit-right');
                 }, 1000);
             }
             
@@ -285,7 +303,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 currentImageIndex = 0;
             }
             
-            // Mostrar la nueva imagen
+            // Mostrar la nueva imagen (entrará desde la izquierda)
             carouselImages[currentImageIndex].classList.add('active');
             indicators[currentImageIndex].classList.add('active');
         }

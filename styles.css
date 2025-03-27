@@ -4,16 +4,14 @@
   --color-text: #333;
   --color-text-light: #444;
   --color-text-nav: #888;
-  --color-background: #f5f5f5;
+  --color-background: #fff;
   --color-white: #fff;
-  --color-section-bg: #fafafa;
+  --color-section-bg: #fff; /* Cambiado de #fafafa a #fff */
   --color-button-hover: #f0f0f0;
   
   /* Colores de redes sociales */
   --color-instagram: #E1306C;
   --color-linkedin: #0A66C2;
-  --color-behance: #053EFF;
-  --color-pinterest: #BD081C;
   
   /* Sombras */
   --shadow-header: 0px 2px 10px rgba(0, 0, 0, 0.1);
@@ -38,6 +36,9 @@ body {
   padding: 0;
   background-color: var(--color-background);
   color: var(--color-text);
+  display: flex; /* Añadido: usar flexbox para toda la página */
+  flex-direction: column; /* Añadido: elementos en columna */
+  min-height: 100vh; /* Añadido: asegurar altura mínima */
 }
 
 html {
@@ -67,6 +68,17 @@ html {
 
 .logo img {
   height: 60px;
+  transition: transform var(--transition-fast); /* Añadido: transición para el zoom */
+}
+
+.logo-link {
+  cursor: pointer; /* Añade cursor de tipo pointer para indicar que es clickeable */
+  display: block; /* Asegura que el enlace abarque toda la imagen */
+  overflow: hidden; /* Prevenir que el zoom sobrepase los límites */
+}
+
+.logo-link:hover img {
+  transform: scale(1.05); /* Efecto de zoom al pasar el ratón */
 }
 
 /* Navegación principal */
@@ -113,7 +125,7 @@ html {
   position: absolute;
   width: 100%;
   left: 0;
-  padding: var(--section-padding);
+  padding: 40px 0 20px; /* Reducido el padding inferior de 80px a 40px */
   box-sizing: border-box;
 }
 
@@ -126,10 +138,10 @@ html {
 
 .sections-container {
   position: relative;
-  min-height: 100vh;
-  overflow: hidden;
   background-color: var(--color-white);
-  margin-bottom: -1px; /* Elimina pequeño gap entre secciones y footer */
+  flex-grow: 1; /* Añadido: permite que el contenedor crezca */
+  display: flex; /* Añadido: usar flexbox */
+  flex-direction: column; /* Añadido: elementos en columna */
 }
 
 /* Animación para la carga inicial */
@@ -148,7 +160,7 @@ html {
   animation: fadeInInitial 0.8s ease forwards;
 }
 
-/* Sección Hero */
+/* Sección Hero - Diseño renovado */
 .hero {
   width: 100%;
   height: 100%;
@@ -161,6 +173,10 @@ html {
   transition: opacity var(--transition-medium), transform var(--transition-medium) !important;
 }
 
+.hero.section {
+  padding: 0; /* La sección hero no necesita padding */
+}
+
 .hero.section.active {
   display: flex;
   opacity: 1;
@@ -170,11 +186,11 @@ html {
 
 .hero-container {
   position: relative;
-  width: var(--container-width);
-  height: 90vh;
-  max-width: var(--max-container-width);
+  width: 100%; /* Cambiado a 100% para ocupar todo el ancho */
+  height: 82vh; /* Reducido de 85vh a 80vh para menos altura */
   overflow: hidden;
-  margin: 0 auto;
+  margin: 0;
+  max-width: none; /* Eliminado el max-width para permitir ancho completo */
 }
 
 /* Carrusel Hero */
@@ -185,45 +201,90 @@ html {
   overflow: hidden;
 }
 
+/* Carrusel Hero - Transiciones para barrido de izquierda a derecha */
 .hero-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  object-position: center;
+  object-position: center; 
   position: absolute;
   top: 0;
   left: 0;
   opacity: 0;
-  transform: translateX(100%); /* Comienza fuera de la vista a la derecha */
+  transform: translateX(-100%); /* Posición inicial: fuera de la pantalla a la izquierda */
   transition: transform 1s ease, opacity 1s ease;
+  z-index: 1;
 }
 
 .hero-img.active {
   opacity: 1;
-  transform: translateX(0); /* Posición normal */
+  transform: translateX(0); /* Posición activa: centrada */
+  z-index: 2;
+}
+
+.hero-img.exit-right {
+  transform: translateX(100%); /* Posición de salida: fuera de la pantalla a la derecha */
+  opacity: 0;
   z-index: 1;
 }
 
-.hero-img.previous {
-  transform: translateX(-100%); /* Sale hacia la izquierda */
-  opacity: 0;
-  z-index: 0;
+/* Overlay oscuro para mejorar contraste con texto */
+.hero-carousel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.05) 100%);
+  z-index: 1; /* Se mantiene en 1, por debajo de las imágenes activas */
 }
 
-/* Indicadores del carrusel */
+/* Reposicionar el contenido de hero */
+.hero-content {
+  position: absolute;
+  top: 3%; /* Vuelto al valor original, más arriba */
+  left: 2%; /* Vuelto al valor original, más a la izquierda */
+  max-width: 50%;
+  z-index: 10;
+  margin-top: max(2%, 10px);
+  margin-left: max(2%, 10px);
+  transform: none; /* Eliminar la transformación que centraba verticalmente */
+  padding: 0; /* Eliminar padding adicional */
+}
+
+.hero-content p {
+  font-size: 27px;
+  color: var(--color-white);
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  text-shadow: none; /* Eliminar sombra añadida */
+}
+
+.hero-content h1 {
+  font-size: 50px; /* Vuelto al tamaño original */
+  color: var(--color-white);
+  margin: 0 0 10px 0; /* Reducido de 20px a 10px el margen inferior */
+  padding: 0;
+  font-weight: 400;
+  text-shadow: none; /* Eliminar sombra añadida */
+}
+
+/* Repositioning the carousel indicators */
 .carousel-indicators {
   position: absolute;
   bottom: 20px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%); /* Centrado como estaba originalmente */
   display: flex;
-  gap: 10px;
+  gap: 10px; /* Volver al gap original */
   z-index: 10;
 }
 
 .indicator {
-  width: 10px;
+  width: 10px; /* Vuelto al tamaño original */
   height: 10px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.5);
@@ -233,66 +294,47 @@ html {
 
 .indicator.active {
   background-color: var(--color-white);
+  transform: none; /* Eliminar efecto de escala */
 }
 
-.hero-content {
-  position: absolute;
-  top: 3%;
-  left: 2%;
-  max-width: 50%;
-  z-index: 10;
-  margin-top: max(2%, 10px);
-  margin-left: max(2%, 10px);
-}
-
-.hero-content p {
-  font-size: 27px;
-  color: var(--color-white);
-  margin: 0;
-  padding: 0;
-  font-weight: 400; 
-}
-
-.hero-content h1 {
-  font-size: 50px;
-  color: var(--color-white);
-  margin: 0 0 20px 0;
-  padding: 0;
-  font-weight: 400; 
-}
-
-/* Botones */
-.btn-primary {
-  background-color: var(--color-white);
-  color: var(--color-text);
-  border: none;
-  padding: 10px 25px;
-  font-size: 15px;
-  font-weight: 300;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  border-radius: 25px;
-  font-family: "Lato", sans-serif;
-}
-
-.btn-primary:hover {
-  background-color: var(--color-button-hover);
-  transform: translateY(-2px);
-}
-
-.btn-ver-mas {
-  margin-top: -10px;
+/* Ajustes responsivos para el hero */
+@media (max-width: 768px) {
+  .hero-container {
+    height: 60vh; /* Altura reducida en móviles */
+  }
+  
+  .hero-content {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 90%;
+  }
+  
+  .hero-content h1 {
+    font-size: 40px;
+  }
+  
+  .hero-content p {
+    font-size: 22px;
+  }
+  
+  .carousel-indicators {
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 /* Sección Sobre mí */
 .sobre-mi {
-  background-color: var(--color-section-bg);
+  background-color: var(--color-section-bg); /* Ahora usa #fff */
 }
 
-.sobre-mi h2 {
+.sobre-mi h2, .proyectos h2, .galeria h2, .contacto h2 {
   font-size: 50px;
   color: var(--color-text);
   margin-bottom: 50px;
+  margin-top: 0; /* Aseguramos que no haya margen superior adicional */
   text-align: center;
   font-weight: 350;
 }
@@ -318,7 +360,7 @@ html {
 
 .sobre-mi-texto {
   flex: 5;
-  max-width: 38%;
+  max-width: 48%;
   margin: 0 auto;
 }
 
@@ -334,7 +376,7 @@ html {
   display: flex;
   gap: 20px;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: 60px; /* Aumentado de 30px a 50px para mayor separación del texto */
 }
 
 .sobre-mi-botones .btn-primary {
@@ -344,6 +386,7 @@ html {
   min-width: 140px; /* Ancho mínimo fijo para ambos botones */
   text-align: center; /* Centra el texto dentro del botón */
   display: inline-block; /* Permite establecer dimensiones */
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Añadido: borde sutil */
 }
 
 .sobre-mi-botones .btn-primary:hover {
@@ -352,7 +395,7 @@ html {
 
 /* Secciones adicionales con estilos base */
 .proyectos, .galeria, .contacto {
-  background-color: var(--color-section-bg);
+  background-color: var(--color-section-bg); /* Ahora usa #fff */
 }
 
 .proyectos h2, .galeria h2, .contacto h2 {
@@ -363,31 +406,48 @@ html {
   font-weight: 350;
 }
 
-/* Estilos específicos para la sección de Proyectos */
+/* Estilos específicos para la sección de Proyectos - Rediseñada con estilo rústico */
 .proyectos-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 30px;
-  margin: 50px 0;
+  gap: 40px 30px; /* Aumentado el espacio vertical entre elementos */
+  margin: 60px 0 40px;
 }
 
 .proyecto-item {
   position: relative;
-  border-radius: 5px;
-  overflow: hidden;
-  box-shadow: var(--shadow-image);
-  background-color: var(--color-white);
-  aspect-ratio: 1/1; /* Mantiene los elementos como cuadrados perfectos */
+  display: flex;
+  flex-direction: column;
+  background-color: transparent; /* Fondo transparente para un estilo más limpio */
+  transition: transform 0.4s ease;
 }
 
 .proyecto-imagen {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 66.67%; /* Relación de aspecto 3:2 (horizontal) */
+  overflow: hidden;
+  border-radius: 3px;
+  box-shadow: var(--shadow-image);
+}
+
+.proyecto-imagen::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.05); /* Borde sutil para efecto rústico */
+  box-sizing: border-box;
+  pointer-events: none;
 }
 
 .proyecto-imagen img {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -398,36 +458,61 @@ html {
   text-decoration: none;
   display: block;
   width: 100%;
-  height: 100%;
 }
 
+/* Textos fuera del marco, debajo de la imagen y con categoría a la derecha */
 .proyecto-info {
+  padding: 18px 5px 0;
+  background-color: transparent;
+  position: relative;
+  display: flex;
+  align-items: baseline; /* Alinea los elementos por la línea base del texto */
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+}
+
+.proyecto-info::before {
+  content: "";
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 15px;
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
+  top: 12px;
+  left: 5px;
+  width: 30px;
+  height: 1px;
+  background-color: var(--color-text-light);
+  opacity: 0.6;
 }
 
 .proyecto-info h3 {
-    margin: 45% 0;
-    color: var(--color-text-light);
-    font-size: 35px;
-    font-weight: 350;
-    text-align: center;
+  margin: 0;
+  color: var(--color-text);
+  font-size: 22px;
+  font-weight: 350;
+  letter-spacing: 0.2px;
+  transition: color 0.3s ease;
+  margin-right: 10px; /* Espacio entre el título y la categoría */
 }
 
-/* Efectos hover */
+/* Pequeño detalle adicional con categoría - ahora a la derecha */
+.proyecto-info .categoria {
+  display: inline-block;
+  font-size: 14px;
+  color: var(--color-text-light);
+  font-style: italic;
+  opacity: 0.8;
+  margin-top: 0; /* Eliminado el margen superior */
+}
+
+/* Efectos hover modificados para estilo rústico */
+.proyecto-item:hover {
+  transform: translateY(-5px);
+}
+
 .proyecto-item:hover .proyecto-imagen img {
-  filter: brightness(1.3); /* Efecto blanquecino al pasar el ratón */
-  transform: scale(1.05); /* Ligero zoom */
+  filter: brightness(1.15) sepia(0.1); /* Efecto blanquecino sutil con toque sepia */
+  transform: scale(1.05); /* Mantenemos el ligero zoom */
 }
 
-.proyecto-item:hover .proyecto-info {
-  transform: translateY(0); /* Hace que aparezca la información */
+.proyecto-item:hover .proyecto-info h3 {
+  color: #9b7e5d; /* Color tierra cálido al hacer hover */
 }
 
 /* Estilos para los detalles del proyecto */
@@ -436,7 +521,7 @@ html {
   width: 80%;
   max-width: 800px;
   margin: 0 auto;
-  padding: 20px 0;
+  padding: 20px 0 10px; /* Reducido el padding inferior */
   text-align: center;
   opacity: 0;
   transform: translateY(20px);
@@ -539,7 +624,7 @@ html {
 /* Responsive para proyectos */
 @media (max-width: 992px) {
   .proyectos-grid {
-    gap: 20px;
+    gap: 30px 20px;
   }
 }
 
@@ -547,6 +632,19 @@ html {
   .proyectos-grid {
     grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablets */
     grid-template-rows: repeat(3, 1fr); /* 3 filas en tablets */
+  }
+  
+  .proyecto-info {
+    flex-direction: column; /* En pantallas pequeñas, vuelve a poner la categoría debajo */
+  }
+  
+  .proyecto-info h3 {
+    margin-right: 0;
+    margin-bottom: 4px;
+  }
+  
+  .proyecto-info h3 {
+    font-size: 20px;
   }
 }
 
@@ -562,7 +660,7 @@ html {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 40px;
-  margin: 50px 0;
+  margin: 50px 0 10px; /* Reducido el margen inferior de la grid */
 }
 
 .galeria-item {
@@ -639,7 +737,7 @@ html {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px 0;
+  padding: 20px 0 10px; /* Reducido el padding inferior */
   text-align: center;
   opacity: 0;
   transform: translateY(20px);
@@ -758,7 +856,7 @@ html {
 
 /* Estilos para la sección de Contacto */
 .contacto {
-  background-color: var(--color-section-bg);
+  background-color: var(--color-section-bg); /* Ahora usa #fff */
 }
 
 .contacto h2 {
@@ -775,7 +873,7 @@ html {
   justify-content: center;
   gap: 30px;
   max-width: 1000px;
-  margin: 0 auto;
+  margin: 0 auto 10px; /* Añadido margen inferior reducido */
 }
 
 /* Estilos para la información de contacto (izquierda) */
@@ -805,6 +903,7 @@ html {
   align-items: center;
   justify-content: center;
   box-shadow: var(--shadow-image);
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Añadido: borde sutil */
 }
 
 .info-texto h3 {
@@ -917,6 +1016,7 @@ html {
   background-color: var(--color-white);
   box-shadow: var(--shadow-image);
   transition: all var(--transition-fast);
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Añadido: borde sutil */
 }
 
 .contacto-formulario .btn-primary:hover {
@@ -1087,4 +1187,37 @@ html {
   .hero-content h1 {
     font-size: 36px;
   }
+}
+
+/* Botones con estilos consistentes */
+.btn-primary {
+  background-color: var(--color-white);
+  color: var(--color-text);
+  border: none;
+  padding: 10px 25px;
+  font-size: 15px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border-radius: 25px;
+  font-family: "Lato", sans-serif;
+  box-shadow: var(--shadow-image);
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Borde sutil igual al de los botones de Sobre mí */
+}
+
+.btn-primary:hover {
+  background-color: var(--color-button-hover);
+  transform: translateY(-2px);
+}
+
+.btn-ver-mas {
+  margin-top: 0; /* Reducido de 10px a 0 para acercar más al título */
+}
+
+/* Ajustes específicos para el botón en el hero */
+.hero-content .btn-primary {
+  margin-top: 0; /* Eliminado margen superior para acercarlo más al título */
+  min-width: 140px;
+  text-align: center;
+  display: inline-block;
 }
