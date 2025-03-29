@@ -469,4 +469,16 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     }
+    
+    /**
+     * Al cargar contenido dinámicamente, asegúrate de añadir loading="lazy"
+     * @param {HTMLElement} contenedor - Contenedor con imágenes dinámicas
+     */
+    function cargarImagenesDinamicas(contenedor) {
+        const imagenes = contenedor.querySelectorAll('img');
+        imagenes.forEach(img => {
+            img.setAttribute('loading', 'lazy');
+            // Opcionalmente, si es posible, añade también width y height
+        });
+    }
 });

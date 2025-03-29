@@ -63,7 +63,7 @@ html {
 }
 
 .logo {
-  margin-left: 120px;
+  margin-left: 30px;
 }
 
 .logo img {
@@ -83,7 +83,7 @@ html {
 
 /* Navegación principal */
 .main-nav {
-  margin-right: 120px;
+  margin-right: 30px;
 }
 
 .main-nav ul {
@@ -328,6 +328,7 @@ html {
 /* Sección Sobre mí */
 .sobre-mi {
   background-color: var(--color-section-bg); /* Ahora usa #fff */
+  padding-bottom: 80px; /* Añadido: mayor margen inferior para esta sección */
 }
 
 .sobre-mi h2, .proyectos h2, .galeria h2, .contacto h2 {
@@ -466,8 +467,8 @@ html {
   background-color: transparent;
   position: relative;
   display: flex;
-  align-items: baseline; /* Alinea los elementos por la línea base del texto */
-  flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+  flex-direction: column; /* Cambiado de flex-wrap a flex-direction: column */
+  align-items: baseline;
 }
 
 .proyecto-info::before {
@@ -488,17 +489,18 @@ html {
   font-weight: 350;
   letter-spacing: 0.2px;
   transition: color 0.3s ease;
-  margin-right: 10px; /* Espacio entre el título y la categoría */
+  margin-right: 0; /* Eliminado el margen derecho */
+  margin-bottom: 5px; /* Añadido margen inferior para separar del texto de categoría */
 }
 
-/* Pequeño detalle adicional con categoría - ahora a la derecha */
+/* Pequeño detalle adicional con categoría - ahora debajo del título */
 .proyecto-info .categoria {
   display: inline-block;
   font-size: 14px;
   color: var(--color-text-light);
   font-style: italic;
   opacity: 0.8;
-  margin-top: 0; /* Eliminado el margen superior */
+  margin-top: 0;
 }
 
 /* Efectos hover modificados para estilo rústico */
@@ -507,7 +509,7 @@ html {
 }
 
 .proyecto-item:hover .proyecto-imagen img {
-  filter: brightness(1.15) sepia(0.1); /* Efecto blanquecino sutil con toque sepia */
+  filter: brightness(0.8); /* Cambiado de brightness(1.15) sepia(0.1) a brightness(0.9) para oscurecer ligeramente */
   transform: scale(1.05); /* Mantenemos el ligero zoom */
 }
 
@@ -655,29 +657,46 @@ html {
   }
 }
 
-/* Estilos específicos para la sección de Galería */
+/* Estilos específicos para la sección de Galería - Modificados para ser idénticos a Proyectos */
+.galeria {
+  padding-bottom: 80px; /* Añadido: mayor margen inferior para esta sección */
+}
+
 .galeria-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 40px;
-  margin: 50px 0 10px; /* Reducido el margen inferior de la grid */
+  margin: 50px 0 10px;
 }
 
 .galeria-item {
   position: relative;
-  border-radius: 5px;
-  overflow: hidden;
-  box-shadow: var(--shadow-image);
-  background-color: var(--color-white);
-  cursor: pointer;
+  display: flex; /* Cambiado para igualar a .proyecto-item */
+  flex-direction: column;
+  background-color: transparent;
+  transition: transform 0.4s ease; /* Añadido para igualar el efecto hover de los proyectos */
 }
 
 .galeria-imagen {
+  position: relative;
   width: 100%;
   height: 0;
-  padding-bottom: 66.67%; /* Proporción 3:2 horizontal (ancho es 1.5x el alto) */
+  padding-bottom: 66.67%;
   overflow: hidden;
-  position: relative;
+  border-radius: 3px; /* Igualado al de proyectos */
+  box-shadow: var(--shadow-image);
+}
+
+.galeria-imagen::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(0,0,0,0.05); /* Borde sutil para efecto rústico - igualado a proyectos */
+  box-sizing: border-box;
+  pointer-events: none;
 }
 
 .galeria-imagen img {
@@ -687,48 +706,67 @@ html {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease, filter 0.5s ease;
+  transition: transform 0.5s ease, filter 0.5s ease; /* Transición igual a proyectos */
 }
 
 .galeria-link {
+  text-decoration: none;
   display: block;
   width: 100%;
-  height: 100%;
 }
 
+/* Textos fuera del marco, usando exactamente el mismo estilo que en proyectos */
 .galeria-info {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  padding: 18px 5px 0;
+  background-color: transparent;
+  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0);
-  transition: background-color 0.3s ease;
+  flex-direction: column;
+  align-items: baseline;
+}
+
+.galeria-info::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 5px;
+  width: 30px;
+  height: 1px;
+  background-color: var(--color-text-light);
+  opacity: 0.6;
 }
 
 .galeria-info h3 {
-  color: rgba(255, 255, 255, 0);
-  font-size: 35px;
+  margin: 0;
+  color: var(--color-text);
+  font-size: 22px;
   font-weight: 350;
-  text-align: center;
+  letter-spacing: 0.2px;
   transition: color 0.3s ease;
+  margin-bottom: 5px; /* Espaciado igual a proyectos */
 }
 
-/* Efectos hover inversos a los de proyectos */
+.galeria-info .categoria {
+  display: inline-block;
+  font-size: 14px;
+  color: var(--color-text-light);
+  font-style: italic;
+  opacity: 0.8;
+  margin-top: 0;
+}
+
+/* Efectos hover modificados para igualarlos a los proyectos */
+.galeria-item:hover {
+  transform: translateY(-5px); /* Igual que proyectos */
+}
+
 .galeria-item:hover .galeria-imagen img {
-  filter: brightness(0.7); /* Efecto oscuro al pasar el ratón */
-  transform: scale(1.05); /* Ligero zoom */
-}
-
-.galeria-item:hover .galeria-info {
-  background-color: rgba(0, 0, 0, 0.3); /* Fondo oscuro semi-transparente */
+  filter: brightness(0.8); /* Cambiado para igualar a proyectos - efecto de oscurecimiento ligero */
+  transform: scale(1.05); /* Mantenemos el ligero zoom igual que proyectos */
 }
 
 .galeria-item:hover .galeria-info h3 {
-  color: var(--color-white); /* Texto blanco */
+  color: #9b7e5d; /* Color tierra cálido al hacer hover - igual a proyectos */
 }
 
 /* Estilos para los detalles de la galería */
@@ -851,6 +889,10 @@ html {
   
   .galeria-imagenes {
     grid-template-columns: 1fr;
+  }
+  
+  .galeria-info h3 {
+    font-size: 20px; /* Tamaño igual a proyectos en móviles */
   }
 }
 
@@ -1149,6 +1191,19 @@ html {
   
   h2 {
     font-size: 40px;
+  }
+  
+  .proyecto-info, .galeria-info {
+    flex-direction: column; /* Mantener dirección de columna en pantallas pequeñas */
+  }
+  
+  .proyecto-info h3, .galeria-info h3 {
+    margin-right: 0;
+    margin-bottom: 4px;
+  }
+  
+  .proyecto-info h3, .galeria-info h3 {
+    font-size: 20px;
   }
 }
 
