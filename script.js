@@ -168,6 +168,13 @@ document.addEventListener("DOMContentLoaded", () => {
         // Limpiar estilos residuales
         resetStyles(section);
         
+        // Resetear vistas de proyectos y galería cuando se navega a estas secciones
+        if (section.id === 'proyectos') {
+            resetProyectosView();
+        } else if (section.id === 'galeria') {
+            resetGaleriaView();
+        }
+        
         // Configurar display según el tipo de sección
         section.style.display = section.id === 'inicio' ? "flex" : "block";
         section.style.opacity = "0";
@@ -193,6 +200,38 @@ document.addEventListener("DOMContentLoaded", () => {
             section.style.opacity = "1";
             section.style.transform = "translateY(0)";
         });
+    }
+    
+    /**
+     * Resetea la vista de proyectos a su estado inicial con todos los proyectos visibles
+     */
+    function resetProyectosView() {
+        // Ocultar todos los detalles de proyectos
+        document.querySelectorAll('.proyecto-detalle').forEach(detalle => {
+            detalle.classList.remove('visible');
+        });
+        
+        // Mostrar la grid de proyectos
+        const proyectosGrid = document.querySelector('.proyectos-grid');
+        if (proyectosGrid) {
+            proyectosGrid.classList.remove('oculta');
+        }
+    }
+    
+    /**
+     * Resetea la vista de galería a su estado inicial con todas las categorías visibles
+     */
+    function resetGaleriaView() {
+        // Ocultar todos los detalles de galería
+        document.querySelectorAll('.galeria-detalle').forEach(detalle => {
+            detalle.classList.remove('visible');
+        });
+        
+        // Mostrar la grid de galería
+        const galeriaGrid = document.querySelector('.galeria-grid');
+        if (galeriaGrid) {
+            galeriaGrid.classList.remove('oculta');
+        }
     }
     
     /**
@@ -431,8 +470,44 @@ document.addEventListener("DOMContentLoaded", () => {
                     
                     // Scroll suave hasta el detalle
                     detalleGaleria.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    
+                    // Si son los moodboards, inicializar el scroll effect
+                    if (galeriaId === 'moodboards') {
+                        setupMoodboardsScroll();
+                    }
                 }, 50);
             }
+        }
+        
+        /**
+         * Configura el efecto de scroll para los moodboards
+         */
+        function setupMoodboardsScroll() {
+            const moodboards = document.querySelectorAll('.moodboard-item');
+            
+            // Función para comprobar si un elemento está visible en el viewport
+            function isElementInViewport(el) {
+                const rect = el.getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight * 0.75) &&
+                    rect.bottom >= (window.innerHeight * 0.25)
+                );
+            }
+            
+            // Función para revisar todos los moodboards y activar los visibles
+            function checkMoodboardsVisibility() {
+                moodboards.forEach(moodboard => {
+                    if (isElementInViewport(moodboard)) {
+                        moodboard.classList.add('visible');
+                    }
+                });
+            }
+            
+            // Revisar visibilidad inicial
+            checkMoodboardsVisibility();
+            
+            // Añadir escucha para el evento scroll
+            window.addEventListener('scroll', checkMoodboardsVisibility, { passive: true });
         }
         
         /**

@@ -64,8 +64,12 @@
             <div class="container">
                 <h2>¡Hola!</h2>
                 <div class="sobre-mi-content">
-                    <div class="sobre-mi-imagen">
-                        <img src="./img/02_sobre_mi_video.mov" alt="Clara Rey" loading="lazy">
+                    <div class="sobre-mi-imagen video-container">
+                        <!-- Video modificado para reproducción estilo GIF -->
+                        <video autoplay loop muted playsinline preload="auto" disableRemotePlayback>
+                            <source src="./img/02_sobre_mi_video.mp4" type="video/mp4">
+                            Tu navegador no soporta videos HTML5.
+                        </video>
                     </div>
                     <div class="sobre-mi-texto">
                         <p>Mi nombre es Clara Rey. Soy diseñadora de moda, también amante del arte. Soy indecisa, soy puro mimo. Soy un poco de Van Gogh, a veces un poco de Rothko. Soy Notting Hill, soy El club de los poetas muertos. Soy meticulosa, pero caótica.</p>
@@ -79,7 +83,7 @@
                         <!-- Nuevos botones para CV y Portfolio -->
                         <div class="sobre-mi-botones">
                             <a href="./docs/CV_ClaraRey.pdf" target="_blank" class="btn-primary">Ver CV</a>
-                            <a href="./docs/portfolio-clara-rey.pdf" target="_blank" class="btn-primary">Ver Portfolio</a>
+                            <a href="./docs/Porfolio_ClaraRey.pdf" target="_blank" class="btn-primary">Ver Portfolio</a>
                         </div>
                     </div>
                 </div>
@@ -120,7 +124,7 @@
                     <div class="proyecto-item" data-proyecto="proyecto3">
                         <div class="proyecto-link">
                             <div class="proyecto-imagen">
-                                <img src="./img/proyectos/proyecto3.jpg" alt="Proyecto 3" loading="lazy">
+                                <img src="./img/03_pr_arboles_flores.jpg" alt="Proyecto 3" loading="lazy">
                             </div>
                             <div class="proyecto-info">
                                 <h3>Árboles y flores</h3>
@@ -332,31 +336,65 @@
                 </div>
                 
                 <!-- Subsección de Moodboards -->
-                <div id="moodboards" class="galeria-detalle">
+                <div id="moodboards" class="galeria-detalle galeria-moodboards">
                     <div class="volver-galeria">
                         <button class="btn-volver">← Volver a galería</button>
                     </div>
                     
-                    <div class="galeria-encabezado">
-                        <span class="galeria-categoria">Inspiración</span>
-                    </div>
-                    
-                    <h3 class="galeria-titulo">Moodboards</h3>
-                    
-                    <div class="galeria-contenido">
-                        <p>Paneles visuales de inspiración que muestran el proceso creativo y las influencias estéticas.</p>
+                    <div class="moodboards-container">
+                        <!-- Moodboard 1 -->
+                        <div class="moodboard-item">
+                            <div class="moodboard-imagen">
+                                <img src="./img/moodboards/moodboard_cielito.jpg" alt="Moodboard Naturaleza" loading="lazy">
+                            </div>
+                            <div class="moodboard-info">
+                                <h3 class="moodboard-titulo">Cielito Lindo</h3>
+                                <p class="moodboard-descripcion">Brainstorming del proyecto "Cielito Lindo" que recoge posibles técnicas, tejidos, estampados y tipologías de prendas a utilizar en los diseños definitivos.</p>
+                            </div>
+                        </div>
                         
-                        <div class="galeria-imagenes">
-                            <div class="galeria-img-container">
-                                <img src="./img/galeria/moodboard1.jpg" alt="Moodboard 1" loading="lazy">
+                        <!-- Moodboard 2 -->
+                        <div class="moodboard-item">
+                            <div class="moodboard-imagen">
+                                <img src="./img/moodboards/moodboard_lea.jpg" alt="Moodboard Tradición" loading="lazy">
                             </div>
-                            <div class="galeria-img-container">
-                                <img src="./img/galeria/moodboard2.jpg" alt="Moodboard 2" loading="lazy">
+                            <div class="moodboard-info">
+                                <h3 class="moodboard-titulo">Lea</h3>
+                                <p class="moodboard-descripcion">Moodboard de target. Describe a Lea, una mujer joven, estudiante de bellas artes, con pasión por el cine, el arte y las causas sociales.</p>
                             </div>
-                            <div class="galeria-img-container">
-                                <img src="./img/galeria/moodboard3.jpg" alt="Moodboard 3" loading="lazy">
+                        </div>
+                        
+                        <!-- Moodboard 3 -->
+                        <div class="moodboard-item">
+                            <div class="moodboard-imagen">
+                                <img src="./img/moodboards/moodboard_oasis.jpg" alt="Moodboard Urbano" loading="lazy">
                             </div>
-                            <!-- Puedes añadir más imágenes según necesites -->
+                            <div class="moodboard-info">
+                                <h3 class="moodboard-titulo">Oasis</h3>
+                                <p class="moodboard-descripcion">La ciudad como lienzo de inspiración, donde las líneas arquitectónicas se encuentran con la fluidez de la moda contemporánea.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Moodboard 4 -->
+                        <div class="moodboard-item">
+                            <div class="moodboard-imagen">
+                                <img src="./img/moodboards/moodboard_telar.jpg" alt="Moodboard Sostenibilidad" loading="lazy">
+                            </div>
+                            <div class="moodboard-info">
+                                <h3 class="moodboard-titulo">Explórate</h3>
+                                <p class="moodboard-descripcion">Moodboard para el proyecto de telar circular "Explórate", basado en la ciudad de Breslavia (Polonia) , la obra cinematográfica de Pedro Almodóvar y el bienestar personal.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Moodboard 5 -->
+                        <div class="moodboard-item">
+                            <div class="moodboard-imagen">
+                                <img src="./img/moodboards/moodboard_urbano.jpg" alt="Moodboard Minimalismo" loading="lazy">
+                            </div>
+                            <div class="moodboard-info">
+                                <h3 class="moodboard-titulo">Urbano</h3>
+                                <p class="moodboard-descripcion">Moodboard de la colección de moda "Urbano", basada en el mar, el surrealismo y, la obra pictórica del artista coruñés Urbano Lugrís.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
