@@ -1019,6 +1019,141 @@ html {
   }
 }
 
+/* Estilos para la visualización de ilustraciones */
+.galeria-ilustraciones {
+  width: 100%;
+  max-width: none;
+  padding-bottom: 40px;
+}
+
+.ilustraciones-container {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.ilustracion-viewer {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 40px;
+  justify-content: center;
+}
+
+.ilustracion-selector {
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Distribuye las miniaturas para alinear con la imagen principal */
+  height: 600px; /* Misma altura que la imagen principal para alineación perfecta */
+}
+
+.ilustracion-miniatura {
+  height: calc((100% - 30px) / 4); /* Divide el espacio en 4 partes iguales, dejando espacio para los gaps */
+  overflow: hidden;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: var(--shadow-image);
+  opacity: 0.7;
+}
+
+.ilustracion-miniatura img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.ilustracion-miniatura:hover {
+  transform: translateX(5px);
+  opacity: 0.9;
+}
+
+.ilustracion-miniatura.active {
+  opacity: 1;
+  border: 2px solid var(--color-text);
+  transform: translateX(5px);
+}
+
+.ilustracion-principal {
+  width: 400px; /* Ancho fijo para mantener relación 2:3 */
+  height: 600px; /* Alto = ancho * 1.5 para relación 2:3 */
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: var(--shadow-image);
+}
+
+.ilustracion-principal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.4s ease;
+}
+
+/* Animación para el cambio de imagen */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.ilustracion-principal img.changing {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+/* Estilos responsive para ilustraciones */
+@media (max-width: 992px) {
+  .ilustracion-principal {
+    width: 350px;
+    height: 525px;
+  }
+  
+  .ilustracion-selector {
+    width: 100px;
+    height: 525px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ilustracion-viewer {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .ilustracion-selector {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    gap: 10px;
+  }
+  
+  .ilustracion-miniatura {
+    height: 75px;
+    width: calc((100% - 30px) / 4);
+  }
+  
+  .ilustracion-miniatura:hover, 
+  .ilustracion-miniatura.active {
+    transform: translateY(-5px);
+  }
+  
+  .ilustracion-principal {
+    width: 300px;
+    height: 450px;
+  }
+}
+
+@media (max-width: 576px) {
+  .ilustracion-principal {
+    width: 260px;
+    height: 390px;
+  }
+}
+
 /* Estilos para la sección de Contacto */
 .contacto {
   background-color: var(--color-section-bg); /* Ahora usa #fff */

@@ -23,6 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Sistema de carrusel para la sección Hero
     setupHeroCarousel();
     
+    // Configurar el selector de ilustraciones
+    setupIlustracionesSelector();
+    
     /**
      * Configura la vista inicial de la aplicación
      */
@@ -543,6 +546,51 @@ document.addEventListener("DOMContentLoaded", () => {
                 formulario.reset();
             });
         }
+    }
+    
+    /**
+     * Configura la funcionalidad del selector de ilustraciones
+     */
+    function setupIlustracionesSelector() {
+        const miniaturas = document.querySelectorAll('.ilustracion-miniatura');
+        const imagenPrincipal = document.getElementById('ilustracion-main');
+        
+        // Asegurarse de que la imagen principal coincida con la miniatura activa al cargar
+        const miniaturActiva = document.querySelector('.ilustracion-miniatura.active');
+        if (miniaturActiva && imagenPrincipal) {
+            imagenPrincipal.src = miniaturActiva.querySelector('img').src;
+        }
+        
+        miniaturas.forEach(miniatura => {
+            miniatura.addEventListener('click', () => {
+                // Quitar la clase active de todas las miniaturas
+                miniaturas.forEach(m => m.classList.remove('active'));
+                
+                // Añadir la clase active a la miniatura seleccionada
+                miniatura.classList.add('active');
+                
+                // Añadir clase para la animación
+                imagenPrincipal.classList.add('changing');
+                
+                // Actualizar la imagen principal
+                setTimeout(() => {
+                    imagenPrincipal.src = miniatura.querySelector('img').src;
+                    
+                    // Quitar la clase de animación después de que la imagen se cargue
+                    imagenPrincipal.onload = () => {
+                        setTimeout(() => {
+                            imagenPrincipal.classList.remove('changing');
+                        }, 300);
+                    };
+                }, 100);
+            });
+        });
+        
+        // Precargar las imágenes para una transición más suave
+        miniaturas.forEach(miniatura => {
+            const img = new Image();
+            img.src = miniatura.querySelector('img').src;
+        });
     }
     
     /**
