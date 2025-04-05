@@ -692,6 +692,101 @@ html {
   font-weight: 500;
 }
 
+/* Estilos para las imágenes con scroll en proyectos */
+.proyecto-imagen-item {
+  min-height: 95vh; /* Aumentado de 90vh a 95vh para ocupar casi toda la pantalla */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px; /* Reducido el padding para aprovechar más espacio */
+  margin-bottom: 20px; /* Reducido el margen inferior */
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.proyecto-imagen-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.proyecto-imagen-container {
+  width: 95%; /* Aumentado de 90% a 95% */
+  max-width: 1400px; /* Aumentado de 1000px a 1400px para permitir imágenes más grandes */
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: var(--shadow-image);
+}
+
+.proyecto-imagen-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 1.5s ease;
+}
+
+.proyecto-imagen-container:hover img {
+  transform: scale(1.02);
+}
+
+.proyecto-imagen-info {
+  text-align: center;
+  max-width: 800px;
+  margin: 30px auto 0;
+  padding: 0 20px;
+}
+
+.proyecto-imagen-titulo {
+  font-size: 28px; /* Ligeramente más pequeño que los moodboards */
+  font-weight: 350;
+  margin: 0 0 15px 0;
+  color: var(--color-text);
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.proyecto-imagen-titulo::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 1px;
+  background-color: var(--color-text-light);
+}
+
+.proyecto-imagen-descripcion {
+  font-size: 18px;
+  color: var(--color-text-light);
+  margin: 0;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* Media queries para proyecto imágenes con scroll */
+@media (max-width: 768px) {
+  .proyecto-imagen-item {
+    min-height: 80vh;
+    padding: 30px 15px;
+  }
+  
+  .proyecto-imagen-container {
+    width: 95%;
+  }
+  
+  .proyecto-imagen-titulo {
+    font-size: 24px;
+  }
+  
+  .proyecto-imagen-descripcion {
+    font-size: 16px;
+  }
+}
+
 /* Media queries para proyectos horizontales */
 @media (max-width: 992px) {
   .proyectos .proyecto-item {

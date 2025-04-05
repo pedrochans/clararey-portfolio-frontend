@@ -417,6 +417,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     
                     // Scroll suave hasta el detalle
                     detalleProyecto.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    
+                    // Si es el proyecto Oasis, inicializar el efecto de scroll para las imágenes
+                    if (proyectoId === 'proyecto1') {
+                        setupProyectoImagenesScroll();
+                    }
                 }, 50);
             }
         }
@@ -434,6 +439,37 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(() => {
                 document.querySelector('.proyectos-scroll-container').classList.remove('oculta');
             }, 300); // Esperar a que termine la animación de desvanecimiento
+        }
+
+        /**
+         * Configura el efecto de scroll para las imágenes de proyectos
+         */
+        function setupProyectoImagenesScroll() {
+            const proyectoImagenes = document.querySelectorAll('.proyecto-imagen-item');
+            
+            // Función para comprobar si un elemento está visible en el viewport
+            function isElementInViewport(el) {
+                const rect = el.getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight * 0.75) &&
+                    rect.bottom >= (window.innerHeight * 0.25)
+                );
+            }
+            
+            // Función para revisar todas las imágenes y activar las visibles
+            function checkImagenesVisibility() {
+                proyectoImagenes.forEach(imagen => {
+                    if (isElementInViewport(imagen)) {
+                        imagen.classList.add('visible');
+                    }
+                });
+            }
+            
+            // Revisar visibilidad inicial
+            checkImagenesVisibility();
+            
+            // Añadir escucha para el evento scroll
+            window.addEventListener('scroll', checkImagenesVisibility, { passive: true });
         }
     }
     
