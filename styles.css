@@ -495,11 +495,7 @@ html {
 
 /* Efectos hover para proyectos - añadido efecto de tono marrón */
 .proyectos .proyecto-item:hover .proyecto-imagen img {
-  filter: sepia(40%) brightness(0.9); /* Añadido: tono marrón al pasar el ratón */
-}
-
-.proyectos .proyecto-item:hover .proyecto-info h3 {
-  color: #9b7e5d; /* Color tierra cálido al hacer hover - igual que en galería */
+  filter: brightness(0.85); /* Cambiado: ahora solo oscurece la imagen */
 }
 
 /* Estilos para los textos de proyectos - alineados a la izquierda y sin separador */
@@ -874,8 +870,8 @@ html {
 }
 
 .galeria-item:hover .galeria-imagen img {
-  filter: sepia(40%) brightness(0.9); /* Cambiado para igualar a proyectos - efecto de tono marrón */
-  transform: scale(1.05); /* Mantenemos el ligero zoom igual que proyectos */
+  filter: brightness(0.85); /* Cambiado: ahora solo oscurece la imagen en lugar de sepia */
+  transform: scale(1.05); /* Mantenemos el ligero zoom igual que antes */
 }
 
 .galeria-item:hover .galeria-info h3 {
