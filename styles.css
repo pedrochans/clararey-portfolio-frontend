@@ -424,124 +424,186 @@ html {
   font-weight: 350;
 }
 
-/* Estilos específicos para la sección de Proyectos - Rediseñada con estilo rústico */
-.proyectos-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px 30px; /* Aumentado el espacio vertical entre elementos */
-  margin: 60px 0 40px;
-}
-
-.proyecto-item {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  background-color: transparent; /* Fondo transparente para un estilo más limpio */
-  transition: transform 0.4s ease;
-}
-
-.proyecto-imagen {
+/* Estilos específicos para la sección de Proyectos - Rediseñados para scroll horizontal */
+.proyectos-scroll-container {
   position: relative;
   width: 100%;
+  margin: 60px 0 40px;
+  overflow: hidden;
+}
+
+.proyectos-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch; /* Para scrolling suave en iOS */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE y Edge */
+  padding-bottom: 20px; /* Espacio para la barra de progreso */
+}
+
+/* Ocultar scrollbar pero mantener funcionalidad */
+.proyectos-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.proyectos-horizontal {
+  display: flex;
+  gap: 30px;
+  padding: 10px 30px;
+  will-change: transform; /* Optimización para navegadores modernos */
+  transition: transform 0.3s ease-out;
+}
+
+/* Diseño de cada proyecto en horizontal */
+.proyectos .proyecto-item {
+  flex: 0 0 auto;
+  width: 400px; /* Ancho fijo para cada proyecto */
+  cursor: pointer;
+  transition: all 0.5s ease;
+  opacity: 0.85;
+  transform-origin: center;
+}
+
+.proyectos .proyecto-item:hover {
+  transform: translateY(-10px) scale(1.02);
+  opacity: 1;
+  z-index: 2;
+}
+
+/* Ajustar tamaño de imagen en el nuevo layout con ratio 3:2 */
+.proyectos .proyecto-imagen {
+  width: 100%;
   height: 0;
-  padding-bottom: 66.67%; /* Relación de aspecto 3:2 (horizontal) */
+  padding-bottom: 66.67%; /* Exactamente relación 3:2 */
+  position: relative;
   overflow: hidden;
   border-radius: 3px;
   box-shadow: var(--shadow-image);
 }
 
-.proyecto-imagen::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: 1px solid rgba(0,0,0,0.05); /* Borde sutil para efecto rústico */
-  box-sizing: border-box;
-  pointer-events: none;
-}
-
-.proyecto-imagen img {
+.proyectos .proyecto-imagen img {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease, filter 0.5s ease;
+  transition: transform 0.5s ease, filter 0.5s ease; /* Añadido filter para el efecto de color */
+  border-radius: 3px; /* Mantener esquinas redondeadas incluso durante hover */
 }
 
-.proyecto-link {
-  text-decoration: none;
-  display: block;
-  width: 100%;
+/* Efectos hover para proyectos - añadido efecto de tono marrón */
+.proyectos .proyecto-item:hover .proyecto-imagen img {
+  filter: sepia(40%) brightness(0.9); /* Añadido: tono marrón al pasar el ratón */
 }
 
-/* Textos fuera del marco, debajo de la imagen y con categoría a la derecha */
-.proyecto-info {
+.proyectos .proyecto-item:hover .proyecto-info h3 {
+  color: #9b7e5d; /* Color tierra cálido al hacer hover - igual que en galería */
+}
+
+/* Estilos para los textos de proyectos - alineados a la izquierda y sin separador */
+.proyectos .proyecto-info {
   padding: 18px 5px 0;
   background-color: transparent;
   position: relative;
   display: flex;
-  flex-direction: column; /* Cambiado de flex-wrap a flex-direction: column */
-  align-items: baseline;
+  flex-direction: column;
+  align-items: flex-start; /* Cambiado de center a flex-start para alinear a la izquierda */
+  text-align: left; /* Cambiado de center a left */
 }
 
-.proyecto-info::before {
-  content: "";
-  position: absolute;
-  top: 12px;
-  left: 5px;
-  width: 30px;
-  height: 1px;
-  background-color: var(--color-text-light);
-  opacity: 0.6;
-}
-
-.proyecto-info h3 {
+.proyectos .proyecto-info h3 {
   margin: 0;
   color: var(--color-text);
   font-size: 22px;
   font-weight: 350;
   letter-spacing: 0.2px;
   transition: color 0.3s ease;
-  margin-right: 0; /* Eliminado el margen derecho */
-  margin-bottom: 5px; /* Añadido margen inferior para separar del texto de categoría */
+  margin-bottom: 5px;
 }
 
-/* Pequeño detalle adicional con categoría - ahora debajo del título */
-.proyecto-info .categoria {
+.proyectos .proyecto-info .categoria {
   display: inline-block;
   font-size: 14px;
   color: var(--color-text-light);
-  font-style: italic;
+  font-style: italic; /* Agregado: texto en cursiva para categoría */
   opacity: 0.8;
   margin-top: 0;
 }
 
-/* Efectos hover modificados para estilo rústico */
-.proyecto-item:hover {
-  transform: translateY(-5px);
+/* Flechas de navegación */
+.scroll-indicator {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-image);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
 }
 
-.proyecto-item:hover .proyecto-imagen img {
-  filter: brightness(0.8); /* Cambiado de brightness(1.15) sepia(0.1) a brightness(0.9) para oscurecer ligeramente */
-  transform: scale(1.05); /* Mantenemos el ligero zoom */
+.scroll-indicator.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-.proyecto-item:hover .proyecto-info h3 {
-  color: #9b7e5d; /* Color tierra cálido al hacer hover */
+.scroll-indicator:hover {
+  transform: translateY(-50%) scale(1.1);
 }
 
-/* Estilos para los detalles del proyecto */
+.left-indicator {
+  left: 15px;
+}
+
+.right-indicator {
+  right: 15px;
+}
+
+.scroll-indicator i {
+  color: var(--color-text);
+  font-size: 18px;
+}
+
+/* Barra de progreso de scroll */
+.scroll-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.scroll-progress-bar {
+  height: 100%;
+  width: 0;
+  background-color: #777; /* Cambiado de var(--color-text) a un gris más oscuro */
+  transition: width 0.1s ease;
+}
+
+/* Cuando se muestra un detalle, ajustar la grid */
+.proyectos-scroll-container.oculta {
+  display: none;
+}
+
+/* Estilos para la visualización de detalles de proyectos */
 .proyecto-detalle {
   display: none;
-  width: 80%;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px 0 10px; /* Reducido el padding inferior */
-  text-align: center;
+  width: 90%;
+  max-width: 800px; /* Reducido de 1200px a 800px para que no ocupe todo el ancho */
+  margin: 40px auto;
+  padding: 20px 0;
+  text-align: center; /* Centrar todos los textos */
   opacity: 0;
   transform: translateY(20px);
   transition: opacity var(--transition-medium), transform var(--transition-medium);
@@ -555,24 +617,27 @@ html {
 
 .volver-proyectos {
   text-align: left;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 }
 
 .btn-volver {
-  background: none;
+  background: transparent;
   border: none;
-  color: var(--color-text-light);
-  font-family: "Lato", sans-serif;
-  font-size: 0.9rem;
+  color: var(--color-text);
   cursor: pointer;
+  font-family: "Lato", sans-serif;
+  font-size: 1rem;
   padding: 0;
   transition: color var(--transition-fast);
+  display: flex;
+  align-items: center;
 }
 
 .btn-volver:hover {
-  color: var(--color-text);
+  color: #777;
 }
 
+/* Encabezado del proyecto con estilo similar al de galería con líneas a los lados */
 .proyecto-encabezado {
   position: relative;
   margin-bottom: 20px;
@@ -587,8 +652,10 @@ html {
   color: var(--color-text-light);
   padding: 0 15px;
   display: inline-block;
+  font-style: italic;
 }
 
+/* Añadir líneas decorativas a los lados de la categoría */
 .proyecto-categoria::before,
 .proyecto-categoria::after {
   content: '';
@@ -596,7 +663,7 @@ html {
   height: 1px;
   background-color: var(--color-text-light);
   top: 50%;
-  width: 50px;
+  width: 30px;
 }
 
 .proyecto-categoria::before {
@@ -608,7 +675,7 @@ html {
 }
 
 .proyecto-titulo {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 350;
   margin: 30px 0;
   color: var(--color-text);
@@ -617,8 +684,8 @@ html {
 .proyecto-descripcion {
   line-height: 1.8;
   color: var(--color-text-light);
-  max-width: 700px;
-  margin: 0 auto;
+  max-width: 700px; /* Limitar ancho para mejor legibilidad */
+  margin: 0 auto; /* Centrar el texto */
 }
 
 .proyecto-descripcion p {
@@ -626,51 +693,90 @@ html {
 }
 
 .proyecto-descripcion strong {
-  font-weight: 700;
-  color: var(--color-text);
+  font-weight: 500;
 }
 
-/* Hacer el elemento del proyecto 1 clickeable */
-.proyecto-item[data-proyecto] {
-  cursor: pointer;
-}
-
-/* Ocultar la grid cuando se muestra un detalle */
-.proyectos-grid.oculta {
-  display: none;
-}
-
-/* Responsive para proyectos */
+/* Media queries para proyectos horizontales */
 @media (max-width: 992px) {
-  .proyectos-grid {
-    gap: 30px 20px;
+  .proyectos .proyecto-item {
+    width: 350px;
+  }
+  
+  .proyectos-horizontal {
+    padding: 10px 20px;
+    gap: 25px;
   }
 }
 
 @media (max-width: 768px) {
-  .proyectos-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablets */
-    grid-template-rows: repeat(3, 1fr); /* 3 filas en tablets */
+  .proyectos .proyecto-item {
+    width: 300px;
   }
   
-  .proyecto-info {
-    flex-direction: column; /* En pantallas pequeñas, vuelve a poner la categoría debajo */
+  .proyectos-horizontal {
+    gap: 20px;
   }
   
-  .proyecto-info h3 {
-    margin-right: 0;
-    margin-bottom: 4px;
-  }
-  
-  .proyecto-info h3 {
-    font-size: 20px;
+  .proyecto-titulo {
+    font-size: 28px;
   }
 }
 
 @media (max-width: 576px) {
-  .proyectos-grid {
-    grid-template-columns: 1fr; /* 1 columna en móviles */
-    grid-template-rows: repeat(6, 1fr); /* 6 filas en móviles */
+  .proyectos .proyecto-item {
+    width: 250px;
+  }
+  
+  .proyectos-horizontal {
+    gap: 15px;
+    padding: 10px;
+  }
+  
+  .scroll-indicator {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .proyecto-titulo {
+    font-size: 24px;
+  }
+}
+
+/* Media queries para proyectos horizontales */
+@media (max-width: 992px) {
+  .proyectos .proyecto-item {
+    width: 350px;
+  }
+  
+  .proyectos-horizontal {
+    padding: 10px 20px;
+    gap: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .proyectos .proyecto-item {
+    width: 300px;
+  }
+  
+  .proyectos-horizontal {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .proyectos .proyecto-item {
+    width: 250px;
+  }
+  
+  .proyectos-horizontal {
+    gap: 15px;
+    padding: 10px;
+  }
+  
+  .scroll-indicator {
+    width: 40px;
+    height: 40px;
   }
 }
 
@@ -724,6 +830,7 @@ html {
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease, filter 0.5s ease; /* Transición igual a proyectos */
+  border-radius: 3px; /* Asegurar que la imagen tenga bordes redondeados */
 }
 
 .galeria-link {
@@ -732,25 +839,14 @@ html {
   width: 100%;
 }
 
-/* Textos fuera del marco, usando exactamente el mismo estilo que en proyectos */
+/* Textos fuera del marco, alineados a la izquierda y sin separador */
 .galeria-info {
   padding: 18px 5px 0;
   background-color: transparent;
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: baseline;
-}
-
-.galeria-info::before {
-  content: "";
-  position: absolute;
-  top: 12px;
-  left: 5px;
-  width: 30px;
-  height: 1px;
-  background-color: var(--color-text-light);
-  opacity: 0.6;
+  align-items: flex-start; /* Mantiene la alineación a la izquierda */
 }
 
 .galeria-info h3 {
@@ -767,18 +863,18 @@ html {
   display: inline-block;
   font-size: 14px;
   color: var(--color-text-light);
-  font-style: italic;
+  font-style: italic; /* Agregado: texto en cursiva para categoría */
   opacity: 0.8;
   margin-top: 0;
 }
 
-/* Efectos hover modificados para igualarlos a los proyectos */
+/* Efectos hover modificados para mantener bordes redondeados */
 .galeria-item:hover {
   transform: translateY(-5px); /* Igual que proyectos */
 }
 
 .galeria-item:hover .galeria-imagen img {
-  filter: brightness(0.8); /* Cambiado para igualar a proyectos - efecto de oscurecimiento ligero */
+  filter: sepia(40%) brightness(0.9); /* Cambiado para igualar a proyectos - efecto de tono marrón */
   transform: scale(1.05); /* Mantenemos el ligero zoom igual que proyectos */
 }
 

@@ -95,83 +95,93 @@
             <div class="container">
                 <h2>Proyectos</h2>
                 
-                <div class="proyectos-grid">
-                    <!-- Proyecto 1 -->
-                    <div class="proyecto-item" data-proyecto="proyecto1">
-                        <div class="proyecto-imagen">
-                            <img src="./img/03_pr_oasis.png" alt="Proyecto Oasis" loading="lazy" width="400" height="267">
-                        </div>
-                        <div class="proyecto-info">
-                            <h3>Oasis</h3>
-                            <span class="categoria">Complementos</span>
+                <div class="proyectos-scroll-container">
+                    <div class="scroll-indicator left-indicator">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </div>
+                    
+                    <div class="proyectos-wrapper">
+                        <div class="proyectos-horizontal">
+                            <!-- Proyecto 1 -->
+                            <div class="proyecto-item" data-proyecto="proyecto1">
+                                <div class="proyecto-imagen">
+                                    <img src="./img/03_pr_oasis.png" alt="Proyecto Oasis" loading="lazy">
+                                </div>
+                                <div class="proyecto-info">
+                                    <h3>Oasis</h3>
+                                    <span class="categoria">Complementos</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Proyecto 2 -->
+                            <div class="proyecto-item" data-proyecto="proyecto2">
+                                <div class="proyecto-imagen">
+                                    <img src="./img/03_pr_cielito_lindo.png" alt="Proyecto Cielito Lindo" loading="lazy">
+                                </div>
+                                <div class="proyecto-info">
+                                    <h3>Cielito Lindo</h3>
+                                    <span class="categoria">Diseño</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Proyecto 3 -->
+                            <div class="proyecto-item" data-proyecto="proyecto3">
+                                <div class="proyecto-imagen">
+                                    <img src="./img/03_pr_arboles_flores.jpg" alt="Proyecto Árboles y flores" loading="lazy">
+                                </div>
+                                <div class="proyecto-info">
+                                    <h3>Árboles y flores</h3>
+                                    <span class="categoria">Moda Infantil</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Proyecto 4 -->
+                            <div class="proyecto-item" data-proyecto="proyecto4">
+                                <div class="proyecto-imagen">
+                                    <img src="./img/03_pr_teloclaro_2.png" alt="Proyecto Teloclaro" loading="lazy">
+                                </div>
+                                <div class="proyecto-info">
+                                    <h3>Teloclaro</h3>
+                                    <span class="categoria">Marca Comercial</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Proyecto 5 -->
+                            <div class="proyecto-item" data-proyecto="proyecto5">
+                                <div class="proyecto-imagen">
+                                    <img src="./img/03_pr_marea.png" alt="Proyecto Marea" loading="lazy">
+                                </div>
+                                <div class="proyecto-info">
+                                    <h3>Marea</h3>
+                                    <span class="categoria">Diseño</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Proyecto 6 -->
+                            <div class="proyecto-item" data-proyecto="proyecto6">
+                                <div class="proyecto-imagen">
+                                    <img src="./img/proyectos/proyecto6.jpg" alt="Proyecto 6" loading="lazy">
+                                </div>
+                                <div class="proyecto-info">
+                                    <h3>Nombre del Proyecto</h3>
+                                    <span class="categoria">Categoría</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
-                    <!-- Proyecto 2 -->
-                    <div class="proyecto-item" data-proyecto="proyecto2">
-                        <div class="proyecto-link">
-                            <div class="proyecto-imagen">
-                                <img src="./img/03_pr_cielito_lindo.png" alt="Proyecto 2" loading="lazy">
-                            </div>
-                            <div class="proyecto-info">
-                                <h3>Cielito Lindo</h3>
-                                <span class="categoria">Diseño</span>
-                            </div>
-                        </div>
+                    <div class="scroll-indicator right-indicator active">
+                        <i class="fa-solid fa-chevron-right"></i>
                     </div>
                     
-                    <!-- Proyecto 3 -->
-                    <div class="proyecto-item" data-proyecto="proyecto3">
-                        <div class="proyecto-link">
-                            <div class="proyecto-imagen">
-                                <img src="./img/03_pr_arboles_flores.jpg" alt="Proyecto 3" loading="lazy">
-                            </div>
-                            <div class="proyecto-info">
-                                <h3>Árboles y flores</h3>
-                                <span class="categoria">Moda Infantil</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Proyecto 4 -->
-                    <div class="proyecto-item" data-proyecto="proyecto4">
-                        <div class="proyecto-link">
-                            <div class="proyecto-imagen">
-                                <img src="./img/03_pr_teloclaro_2.png" alt="Proyecto 4" loading="lazy">
-                            </div>
-                            <div class="proyecto-info">
-                                <h3>Teloclaro</h3>
-                                <span class="categoria">Marca Comercial</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Proyecto 5 -->
-                    <div class="proyecto-item" data-proyecto="proyecto5">
-                        <div class="proyecto-link">
-                            <div class="proyecto-imagen">
-                                <img src="./img/03_pr_marea.png" alt="Proyecto 5" loading="lazy">
-                            </div>
-                            <div class="proyecto-info">
-                                <h3>Marea</h3>
-                                <span class="categoria">Diseño</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Proyecto 6 -->
-                    <div class="proyecto-item">
-                        <a href="#" class="proyecto-link">
-                            <div class="proyecto-imagen">
-                                <img src="./img/proyectos/proyecto6.jpg" alt="Proyecto 6" loading="lazy">
-                            </div>
-                            <div class="proyecto-info">
-                                <h3>Nombre del Proyecto</h3>
-                            </div>
-                        </a>
+                    <div class="scroll-progress">
+                        <div class="scroll-progress-bar"></div>
                     </div>
                 </div>
-                
+            </div>
+
+            <!-- Subsecciones de proyectos (se mostrarán solo al hacer clic) -->
+            <div class="proyecto-subsecciones">
                 <!-- Subsección del Proyecto 1 -->
                 <div id="proyecto1" class="proyecto-detalle">
                     <div class="volver-proyectos">
@@ -185,14 +195,14 @@
                     <h3 class="proyecto-titulo">Oasis</h3>
                     
                     <div class="proyecto-descripcion">
-                        <p>“Oasis” es un proyecto basado en el <strong>upcycling</strong> y la <strong>tradición</strong> del oficio de la
-                            zapatería. Partiendo de la estructura de unas zapatillas “Victoria” convencionales , y                        
-                            tras el desmontaje y la modificación de cada una de sus piezas, se ha conseguido
-                            otorgarle a este calzado una segunda vida transformándolo por completo.</p>
+                        <p>"Oasis" es un proyecto basado en el <strong>upcycling</strong> y la <strong>tradición</strong> del oficio de la
+                            zapatería. Partiendo de la estructura de unas zapatillas "Victoria" convencionales , y                        
+                            tras el desmontaje y la modificación de cada una de sus piezas, se ha conseguido
+                            otorgarle a este calzado una segunda vida transformándolo por completo.</p>
 
-                        <p><strong>¿El resultado?</strong> Un botín acordonado, formal pero con un toque divertido
-                            proporcionado por el estampado vacuno. De inspiración <strong>rústica</strong> y <strong>natural</strong>, este
-                            diseño busca transmitir el deseo de evasión hacia el mundo rural frente al bullicio de la ciudad.</p>
+                        <p><strong>¿El resultado?</strong> Un botín acordonado, formal pero con un toque divertido
+                            proporcionado por el estampado vacuno. De inspiración <strong>rústica</strong> y <strong>natural</strong>, este
+                            diseño busca transmitir el deseo de evasión hacia el mundo rural frente al bullicio de la ciudad.</p>
                     </div>
                 </div>
                 
@@ -271,6 +281,25 @@
                         <p>Se compone de 3 estilismos de cuerpo entero y su objetivo es <strong>elevar el traje tradicional</strong> a una perspectiva más casual y atemporal mediante el uso de tejidos informales como el denim y estampados alegres y orgánicos.</p>
                         
                         <p>La inspiración no es solo formal, sino que la colección está planteada a través de materiales y procesos de fabricación y distribución <strong>respetuosos con el medio ambiente</strong>.</p>
+                    </div>
+                </div>
+                
+                <!-- Subsección del Proyecto 6 -->
+                <div id="proyecto6" class="proyecto-detalle">
+                    <div class="volver-proyectos">
+                        <button class="btn-volver">← Volver a proyectos</button>
+                    </div>
+                    
+                    <div class="proyecto-encabezado">
+                        <span class="proyecto-categoria">Categoría</span>
+                    </div>
+                    
+                    <h3 class="proyecto-titulo">Nombre del Proyecto</h3>
+                    
+                    <div class="proyecto-descripcion">
+                        <p>Descripción del proyecto. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>
+                        
+                        <p>Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
                     </div>
                 </div>
             </div>

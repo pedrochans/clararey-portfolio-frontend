@@ -26,6 +26,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Configurar el selector de ilustraciones
     setupIlustracionesSelector();
     
+    // Configurar el scroll horizontal de proyectos
+    setupProyectosScroll();
+    
     /**
      * Configura la vista inicial de la aplicación
      */
@@ -214,10 +217,10 @@ document.addEventListener("DOMContentLoaded", () => {
             detalle.classList.remove('visible');
         });
         
-        // Mostrar la grid de proyectos
-        const proyectosGrid = document.querySelector('.proyectos-grid');
-        if (proyectosGrid) {
-            proyectosGrid.classList.remove('oculta');
+        // Mostrar el contenedor de scroll de proyectos (en lugar de la grid)
+        const proyectosScrollContainer = document.querySelector('.proyectos-scroll-container');
+        if (proyectosScrollContainer) {
+            proyectosScrollContainer.classList.remove('oculta');
         }
     }
     
@@ -391,7 +394,8 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // Añadir eventos de clic a los botones de volver
         botonesVolver.forEach(boton => {
-            boton.addEventListener('click', function() {
+            boton.addEventListener('click', function(e) {
+                e.preventDefault();
                 ocultarDetallesProyecto();
             });
         });
@@ -401,8 +405,8 @@ document.addEventListener("DOMContentLoaded", () => {
          * @param {string} proyectoId - ID del proyecto a mostrar
          */
         function mostrarDetalleProyecto(proyectoId) {
-            // Ocultar la grid de proyectos
-            document.querySelector('.proyectos-grid').classList.add('oculta');
+            // Ocultar el contenedor de scroll de proyectos
+            document.querySelector('.proyectos-scroll-container').classList.add('oculta');
             
             // Mostrar el detalle del proyecto seleccionado
             const detalleProyecto = document.getElementById(proyectoId);
@@ -418,7 +422,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         
         /**
-         * Oculta los detalles de proyecto y muestra la grid
+         * Oculta los detalles de proyecto y muestra el scroll horizontal de proyectos
          */
         function ocultarDetallesProyecto() {
             // Ocultar todos los detalles de proyectos
@@ -426,10 +430,142 @@ document.addEventListener("DOMContentLoaded", () => {
                 detalle.classList.remove('visible');
             });
             
-            // Mostrar la grid de proyectos
+            // Mostrar el contenedor de scroll de proyectos
             setTimeout(() => {
-                document.querySelector('.proyectos-grid').classList.remove('oculta');
+                document.querySelector('.proyectos-scroll-container').classList.remove('oculta');
             }, 300); // Esperar a que termine la animación de desvanecimiento
+        }
+    }
+    
+    /**
+     * Configura el scroll horizontal para la sección de proyectos
+     */
+    function setupProyectosScroll() {
+        const scrollContainer = document.querySelector('.proyectos-wrapper');
+        const proyectosCarousel = document.querySelector('.proyectos-horizontal');
+        const leftIndicator = document.querySelector('.left-indicator');
+        const rightIndicator = document.querySelector('.right-indicator');
+        const progressBar = document.querySelector('.scroll-progress-bar');
+        
+        // Variables de control para el drag scrolling
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        
+        // Si no hay container, salir
+        if (!scrollContainer) return;
+        
+        // Inicializar estado de los indicadores
+        updateIndicators();
+        
+        // Añadir eventos para scroll manual
+        scrollContainer.addEventListener('scroll', handleScroll);
+        
+        // Añadir eventos para los botones de navegación
+        if (leftIndicator) {
+            leftIndicator.addEventListener('click', (e) => {
+                e.stopPropagation(); // Evitar que el clic se propague a elementos superiores
+                scrollContainer.scrollBy({ 
+                    left: -scrollContainer.clientWidth * 0.8, 
+                    behavior: 'smooth' 
+                });
+            });
+        }
+        
+        if (rightIndicator) {
+            rightIndicator.addEventListener('click', (e) => {
+                e.stopPropagation(); // Evitar que el clic se propague a elementos superiores
+                scrollContainer.scrollBy({ 
+                    left: scrollContainer.clientWidth * 0.8, 
+                    behavior: 'smooth' 
+                });
+            });
+        }
+        
+        // Añadir eventos para drag scroll
+        scrollContainer.addEventListener('mousedown', (e) => {
+            isDown = true;
+            scrollContainer.classList.add('grabbing');
+            startX = e.pageX - scrollContainer.offsetLeft;
+            scrollLeft = scrollContainer.scrollLeft;
+        });
+        
+        scrollContainer.addEventListener('mouseleave', () => {
+            isDown = false;
+            scrollContainer.classList.remove('grabbing');
+        });
+        
+        scrollContainer.addEventListener('mouseup', () => {
+            isDown = false;
+            scrollContainer.classList.remove('grabbing');
+        });
+        
+        scrollContainer.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - scrollContainer.offsetLeft;
+            const walk = (x - startX) * 1.5; // Efecto de multiplicador de scroll
+            scrollContainer.scrollLeft = scrollLeft - walk;
+        });
+        
+        // Añadir eventos touch para móviles
+        scrollContainer.addEventListener('touchstart', (e) => {
+            isDown = true;
+            startX = e.touches[0].pageX - scrollContainer.offsetLeft;
+            scrollLeft = scrollContainer.scrollLeft;
+        }, { passive: true });
+        
+        scrollContainer.addEventListener('touchend', () => {
+            isDown = false;
+        }, { passive: true });
+        
+        scrollContainer.addEventListener('touchmove', (e) => {
+            if (!isDown) return;
+            const x = e.touches[0].pageX - scrollContainer.offsetLeft;
+            const walk = (x - startX) * 1.5;
+            scrollContainer.scrollLeft = scrollLeft - walk;
+        }, { passive: true });
+        
+        /**
+         * Maneja el evento de scroll para actualizar indicadores y barra de progreso
+         */
+        function handleScroll() {
+            updateIndicators();
+            updateProgressBar();
+        }
+        
+        /**
+         * Actualiza la visibilidad de los indicadores de dirección
+         */
+        function updateIndicators() {
+            if (!scrollContainer || !leftIndicator || !rightIndicator) return;
+            
+            const isAtStart = scrollContainer.scrollLeft < 10;
+            const isAtEnd = scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth - 10;
+            
+            // Mostrar/ocultar indicador izquierdo
+            if (isAtStart) {
+                leftIndicator.classList.remove('active');
+            } else {
+                leftIndicator.classList.add('active');
+            }
+            
+            // Mostrar/ocultar indicador derecho
+            if (isAtEnd) {
+                rightIndicator.classList.remove('active');
+            } else {
+                rightIndicator.classList.add('active');
+            }
+        }
+        
+        /**
+         * Actualiza la barra de progreso del scroll
+         */
+        function updateProgressBar() {
+            if (!scrollContainer || !progressBar) return;
+            
+            const scrollPercentage = (scrollContainer.scrollLeft / (scrollContainer.scrollWidth - scrollContainer.clientWidth)) * 100;
+            progressBar.style.width = `${scrollPercentage}%`;
         }
     }
     
