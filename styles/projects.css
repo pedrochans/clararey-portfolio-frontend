@@ -269,6 +269,7 @@
   color: var(--color-text-light);
   max-width: 700px;
   margin: 0 auto;
+  margin-bottom: 30px; /* Reducir el espacio entre el texto y la imagen */
 }
 
 .proyecto-descripcion p {
@@ -281,13 +282,13 @@
 
 /* Estilos para las imágenes con scroll en proyectos */
 .proyecto-imagen-item {
-  min-height: 95vh;
+  min-height: 80vh; /* Reducido de 95vh para mejor proporción */
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 10px 20px; /* Reducido el padding vertical */
   margin-bottom: 20px;
   opacity: 0;
   transform: translateY(50px);
@@ -300,8 +301,8 @@
 }
 
 .proyecto-imagen-container {
-  width: 95%;
-  max-width: 1400px;
+  width: 100%; 
+  max-width: 1600px; 
   margin: 0 auto;
   overflow: hidden;
   border-radius: 5px;
@@ -317,6 +318,40 @@
 
 .proyecto-imagen-container:hover img {
   transform: scale(1.02);
+}
+
+/* Ajustes para las imágenes en el proyecto Oasis específicamente */
+#proyecto1 .proyecto-imagen-container {
+  width: 150%; 
+  max-width: 1800px; 
+  margin-left: -25%; 
+  margin-top: 15px; 
+}
+
+#proyecto1 .proyecto-descripcion {
+  margin-bottom: 20px; /* Mantener el espacio reducido */
+}
+
+/* Ajuste para pantallas más pequeñas del proyecto Oasis */
+@media (max-width: 1200px) {
+  #proyecto1 .proyecto-imagen-container {
+    width: 115%; /* Tamaño intermedio para pantallas más pequeñas pero aún grandes */
+    margin-left: -7.5%;
+  }
+}
+
+@media (max-width: 960px) {
+  #proyecto1 .proyecto-imagen-container {
+    width: 110%; /* Reducir proporcionalmente para pantallas medianas */
+    margin-left: -5%;
+  }
+}
+
+@media (max-width: 768px) {
+  #proyecto1 .proyecto-imagen-container {
+    width: 100%; /* Volver al ancho estándar en pantallas pequeñas */
+    margin-left: 0;
+  }
 }
 
 .proyecto-imagen-info {
@@ -415,12 +450,12 @@
 /* Media queries para proyecto imágenes con scroll */
 @media (max-width: 768px) {
   .proyecto-imagen-item {
-    min-height: 80vh;
-    padding: 30px 15px;
+    min-height: 60vh; /* Reducido de 80vh para mejor visualización en móviles */
+    padding: 20px 15px;
   }
   
   .proyecto-imagen-container {
-    width: 95%;
+    width: 100%;
   }
   
   .proyecto-imagen-titulo {
