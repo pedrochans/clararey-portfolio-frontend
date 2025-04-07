@@ -383,12 +383,29 @@ document.addEventListener("DOMContentLoaded", () => {
         // Obtener elementos
         const proyectoItems = document.querySelectorAll('.proyecto-item[data-proyecto]');
         const botonesVolver = document.querySelectorAll('.btn-volver');
+        const proyectosScrollContainer = document.querySelector('.proyectos-scroll-container');
         
         // Añadir eventos de clic a cada proyecto
         proyectoItems.forEach(item => {
             item.addEventListener('click', function() {
                 const proyectoId = this.getAttribute('data-proyecto');
-                mostrarDetalleProyecto(proyectoId);
+                
+                // Efecto de "pulsación" al hacer clic
+                this.classList.add('pulsado');
+                
+                // Añadir clase de animación de salida al contenedor de proyectos
+                proyectosScrollContainer.classList.add('saliendo');
+                
+                // Retraso para permitir que la animación de salida comience
+                setTimeout(() => {
+                    mostrarDetalleProyecto(proyectoId);
+                    
+                    // Eliminar clases de animación después de la transición
+                    setTimeout(() => {
+                        this.classList.remove('pulsado');
+                        proyectosScrollContainer.classList.remove('saliendo');
+                    }, 600);
+                }, 400);
             });
         });
         
@@ -396,7 +413,30 @@ document.addEventListener("DOMContentLoaded", () => {
         botonesVolver.forEach(boton => {
             boton.addEventListener('click', function(e) {
                 e.preventDefault();
-                ocultarDetallesProyecto();
+                
+                // Añadir clase de pulsación al botón
+                this.classList.add('pulsado');
+                
+                // Obtener el contenedor de detalle actual
+                const detalleActual = this.closest('.proyecto-detalle');
+                
+                // Añadir clase de animación de salida
+                detalleActual.classList.add('saliendo');
+                
+                // Retraso para permitir que la animación de salida comience
+                setTimeout(() => {
+                    ocultarDetallesProyecto();
+                    
+                    // Preparar el contenedor de proyectos para la animación de entrada
+                    proyectosScrollContainer.classList.add('entrando');
+                    
+                    // Eliminar clases de animación después de la transición
+                    setTimeout(() => {
+                        this.classList.remove('pulsado');
+                        detalleActual.classList.remove('saliendo');
+                        proyectosScrollContainer.classList.remove('entrando');
+                    }, 600);
+                }, 400);
             });
         });
         
@@ -411,18 +451,22 @@ document.addEventListener("DOMContentLoaded", () => {
             // Mostrar el detalle del proyecto seleccionado
             const detalleProyecto = document.getElementById(proyectoId);
             if (detalleProyecto) {
-                // Pequeño retraso para que la animación sea más fluida
+                // Añadir clase para la animación de entrada
+                detalleProyecto.classList.add('entrando');
+                detalleProyecto.classList.add('visible');
+                
+                // Scroll suave hasta el detalle
+                detalleProyecto.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                // Si es el proyecto Oasis, inicializar el efecto de scroll para las imágenes
+                if (proyectoId === 'proyecto1') {
+                    setupProyectoImagenesScroll();
+                }
+                
+                // Eliminar clase de animación después de completar
                 setTimeout(() => {
-                    detalleProyecto.classList.add('visible');
-                    
-                    // Scroll suave hasta el detalle
-                    detalleProyecto.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    
-                    // Si es el proyecto Oasis, inicializar el efecto de scroll para las imágenes
-                    if (proyectoId === 'proyecto1') {
-                        setupProyectoImagenesScroll();
-                    }
-                }, 50);
+                    detalleProyecto.classList.remove('entrando');
+                }, 600);
             }
         }
         
