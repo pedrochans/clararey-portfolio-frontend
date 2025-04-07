@@ -523,6 +523,7 @@ document.addEventListener("DOMContentLoaded", () => {
      */
     function setupOasisImageSelector() {
         const miniaturas = document.querySelectorAll('.oasis-miniatura');
+        const imagenPrincipalContainer = document.querySelector('.oasis-imagen-principal');
         const imagenPrincipal = document.getElementById('oasis-main');
         
         if (!miniaturas.length || !imagenPrincipal) return;
@@ -533,35 +534,58 @@ document.addEventListener("DOMContentLoaded", () => {
             imagenPrincipal.src = miniaturActiva.querySelector('img').src;
         }
         
+        // Precargar las imágenes para transiciones más suaves
+        miniaturas.forEach(miniatura => {
+            const img = new Image();
+            img.src = miniatura.querySelector('img').src;
+        });
+        
         miniaturas.forEach(miniatura => {
             miniatura.addEventListener('click', () => {
+                // No hacer nada si ya está activa o si hay una transición en curso
+                if (miniatura.classList.contains('active') || 
+                    imagenPrincipalContainer.classList.contains('loading')) return;
+                
                 // Quitar la clase active de todas las miniaturas
                 miniaturas.forEach(m => m.classList.remove('active'));
                 
                 // Añadir la clase active a la miniatura seleccionada
                 miniatura.classList.add('active');
                 
-                // Añadir clase para la animación
-                imagenPrincipal.classList.add('changing');
+                // Obtener la URL de la nueva imagen
+                const newImageSrc = miniatura.querySelector('img').src;
                 
-                // Actualizar la imagen principal
+                // No hacer nada si es la misma imagen
+                if (imagenPrincipal.src === newImageSrc) return;
+                
+                // Iniciar la transición
+                imagenPrincipalContainer.classList.add('loading');
+                imagenPrincipalContainer.classList.add('changing');
+                
+                // Tiempo para que inicie la animación de salida
                 setTimeout(() => {
-                    imagenPrincipal.src = miniatura.querySelector('img').src;
+                    // Cambiar la fuente de la imagen
+                    imagenPrincipal.src = newImageSrc;
                     
-                    // Quitar la clase de animación después de que la imagen se cargue
+                    // Cuando la imagen se carga
                     imagenPrincipal.onload = () => {
+                        // Quitar clase de cambio para iniciar la animación de entrada
+                        imagenPrincipalContainer.classList.remove('changing');
+                        
+                        // Dar tiempo a la animación de entrada y luego quitar loading
                         setTimeout(() => {
-                            imagenPrincipal.classList.remove('changing');
+                            imagenPrincipalContainer.classList.remove('loading');
                         }, 300);
                     };
-                }, 100);
+                    
+                    // Manejo de error en la carga
+                    imagenPrincipal.onerror = () => {
+                        console.error('Error al cargar la imagen:', newImageSrc);
+                        imagenPrincipalContainer.classList.remove('changing');
+                        imagenPrincipalContainer.classList.remove('loading');
+                    };
+                }, 200);
             });
-        });
-        
-        // Precargar las imágenes para una transición más suave
-        miniaturas.forEach(miniatura => {
-            const img = new Image();
-            img.src = miniatura.querySelector('img').src;
         });
     }
     
