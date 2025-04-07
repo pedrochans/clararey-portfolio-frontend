@@ -1,0 +1,181 @@
+/* Estilos para el encabezado */
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--header-padding);
+  background-color: var(--color-white);
+  box-shadow: var(--shadow-header);
+}
+
+.logo {
+  margin-left: 30px;
+}
+
+.logo img {
+  height: 60px;
+  transition: transform var(--transition-fast);
+}
+
+.logo-link {
+  cursor: pointer;
+  display: block;
+  overflow: hidden;
+}
+
+.logo-link:hover img {
+  transform: scale(1.05);
+}
+
+/* Navegación principal */
+.main-nav {
+  margin-right: 30px;
+}
+
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav ul li {
+  margin-left: 40px;
+  padding: 0;
+}
+
+.main-nav ul li a {
+  text-decoration: none;
+  color: var(--color-text-nav);
+  font-weight: 380;
+  transition: color var(--transition-fast);
+  display: block;
+  padding: 30px 10px;
+}
+
+.main-nav ul li a:hover {
+  color: var(--color-text);
+}
+
+.main-nav ul li a.active {
+  color: var(--color-text);
+}
+
+/* Pie de página */
+.main-footer {
+  background-color: var(--color-white);
+  text-align: center;
+  padding: 15px 0;
+  font-size: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Contenido del footer */
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: var(--container-width);
+  max-width: var(--max-container-width);
+  margin: 0 auto;
+}
+
+/* Iconos de redes sociales en el footer */
+.footer-social {
+  display: flex;
+  gap: 15px;
+}
+
+.footer-social a {
+  color: var(--color-text-light);
+  font-size: 20px;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+/* Mismos efectos de color que en la sección de contacto */
+.footer-social a.instagram:hover {
+  color: var(--color-instagram);
+  transform: translateY(-3px);
+}
+
+.footer-social a.linkedin:hover {
+  color: var(--color-linkedin);
+  transform: translateY(-3px);
+}
+
+.footer-social a.behance:hover {
+  color: var(--color-behance);
+  transform: translateY(-3px);
+}
+
+.footer-social a.pinterest:hover {
+  color: var(--color-pinterest);
+  transform: translateY(-3px);
+}
+
+/* Ajuste para el texto de copyright */
+.footer-content p {
+  margin: 0;
+}
+
+/* Media queries para el header y footer */
+@media (max-width: 992px) {
+  .logo {
+    margin-left: 60px;
+  }
+  
+  .main-nav {
+    margin-right: 60px;
+  }
+  
+  .main-nav ul li {
+    margin-left: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .logo {
+    margin-left: 20px;
+  }
+  
+  .main-nav {
+    margin-right: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .main-header {
+    flex-direction: column;
+    padding: 15px 10px;
+  }
+  
+  .logo {
+    margin: 0 0 15px 0;
+  }
+  
+  .main-nav {
+    margin: 0;
+    width: 100%;
+  }
+  
+  .main-nav ul {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .main-nav ul li {
+    margin: 0 10px;
+  }
+  
+  .main-nav ul li a {
+    padding: 15px 8px;
+  }
+  
+  .footer-content {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

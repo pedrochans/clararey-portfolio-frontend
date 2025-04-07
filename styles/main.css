@@ -1,0 +1,14 @@
+/* Main CSS file that imports all component styles */
+
+/* Import base styles and variables */
+@import 'common.css';
+
+/* Import layout components */
+@import 'header-footer.css';
+
+/* Import section-specific styles */
+@import 'hero.css';
+@import 'about.css';
+@import 'projects.css';
+@import 'gallery.css';
+@import 'contact.css';

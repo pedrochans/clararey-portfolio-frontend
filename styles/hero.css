@@ -1,0 +1,182 @@
+/* Sección Hero - Diseño renovado */
+.hero {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-white);
+  padding: 0;
+  margin: 0;
+  transition: opacity var(--transition-medium), transform var(--transition-medium) !important;
+}
+
+.hero.section {
+  padding: 0; /* La sección hero no necesita padding */
+}
+
+.hero.section.active {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+  position: relative;
+}
+
+.hero-container {
+  position: relative;
+  width: 100%;
+  height: 82vh;
+  overflow: hidden;
+  margin: 0;
+  max-width: none;
+}
+
+/* Carrusel Hero */
+.hero-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Carrusel Hero - Transiciones para barrido de izquierda a derecha */
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  object-position: center; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: transform 1s ease, opacity 1s ease;
+  z-index: 1;
+}
+
+.hero-img.active {
+  opacity: 1;
+  transform: translateX(0);
+  z-index: 2;
+}
+
+.hero-img.exit-right {
+  transform: translateX(100%);
+  opacity: 0;
+  z-index: 1;
+}
+
+/* Overlay oscuro para mejorar contraste con texto */
+.hero-carousel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.05) 100%);
+  z-index: 1;
+}
+
+/* Reposicionar el contenido de hero */
+.hero-content {
+  position: absolute;
+  top: 3%;
+  left: 2%;
+  max-width: 50%;
+  z-index: 10;
+  margin-top: max(2%, 10px);
+  margin-left: max(2%, 10px);
+  transform: none;
+  padding: 0;
+}
+
+.hero-content p {
+  font-size: 27px;
+  color: var(--color-white);
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  text-shadow: none;
+}
+
+.hero-content h1 {
+  font-size: 50px;
+  color: var(--color-white);
+  margin: 0 0 10px 0;
+  padding: 0;
+  font-weight: 400;
+  text-shadow: none;
+}
+
+/* Ajustes específicos para el botón en el hero */
+.hero-content .btn-primary {
+  margin-top: 0;
+  min-width: 140px;
+  text-align: center;
+  display: inline-block;
+}
+
+/* Repositioning the carousel indicators */
+.carousel-indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.indicator.active {
+  background-color: var(--color-white);
+  transform: none;
+}
+
+/* Ajustes responsivos para el hero */
+@media (max-width: 768px) {
+  .hero-container {
+    height: 60vh;
+  }
+  
+  .hero-content {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 90%;
+  }
+  
+  .hero-content h1 {
+    font-size: 40px;
+  }
+  
+  .hero-content p {
+    font-size: 22px;
+  }
+  
+  .carousel-indicators {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-content h1 {
+    font-size: 36px;
+  }
+  
+  .hero-content p {
+    font-size: 22px;
+  }
+}

@@ -1,0 +1,475 @@
+/* Estilos específicos para la sección de Galería */
+.galeria {
+  background-color: var(--color-section-bg);
+  padding-bottom: 80px;
+}
+
+.galeria h2 {
+  font-size: 50px;
+  color: var(--color-text);
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 350;
+}
+
+.galeria-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  margin: 50px 0 10px;
+}
+
+.galeria-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  transition: transform 0.4s ease;
+}
+
+.galeria-imagen {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 66.67%;
+  overflow: hidden;
+  border-radius: 3px;
+  box-shadow: var(--shadow-image);
+}
+
+.galeria-imagen::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(0,0,0,0.05);
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.galeria-imagen img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease, filter 0.5s ease;
+  border-radius: 3px;
+}
+
+.galeria-link {
+  text-decoration: none;
+  display: block;
+  width: 100%;
+}
+
+/* Textos fuera del marco, alineados a la izquierda y sin separador */
+.galeria-info {
+  padding: 18px 5px 0;
+  background-color: transparent;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.galeria-info h3 {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 22px;
+  font-weight: 350;
+  letter-spacing: 0.2px;
+  transition: color 0.3s ease;
+  margin-bottom: 5px;
+}
+
+.galeria-info .categoria {
+  display: inline-block;
+  font-size: 14px;
+  color: var(--color-text-light);
+  font-style: italic;
+  opacity: 0.8;
+  margin-top: 0;
+}
+
+/* Efectos hover modificados para mantener bordes redondeados */
+.galeria-item:hover {
+  transform: translateY(-5px);
+}
+
+.galeria-item:hover .galeria-imagen img {
+  filter: brightness(0.85);
+  transform: scale(1.05);
+}
+
+.galeria-item:hover .galeria-info h3 {
+  color: #9b7e5d;
+}
+
+/* Estilos para los detalles de la galería */
+.galeria-detalle {
+  display: none;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 0 10px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--transition-medium), transform var(--transition-medium);
+}
+
+.galeria-detalle.visible {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.volver-galeria {
+  text-align: left;
+  margin-bottom: 40px;
+}
+
+.galeria-encabezado {
+  position: relative;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.galeria-categoria {
+  position: relative;
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+  padding: 0 15px;
+  display: inline-block;
+}
+
+.galeria-categoria::before,
+.galeria-categoria::after {
+  content: '';
+  position: absolute;
+  height: 1px;
+  background-color: var(--color-text-light);
+  top: 50%;
+  width: 50px;
+}
+
+.galeria-categoria::before {
+  right: 100%;
+}
+
+.galeria-categoria::after {
+  left: 100%;
+}
+
+.galeria-titulo {
+  font-size: 28px;
+  font-weight: 350;
+  margin: 30px 0;
+  color: var(--color-text);
+}
+
+.galeria-contenido {
+  line-height: 1.8;
+  color: var(--color-text-light);
+  margin: 0 auto;
+}
+
+.galeria-contenido p {
+  margin-bottom: 30px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.galeria-imagenes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.galeria-img-container {
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: var(--shadow-image);
+}
+
+.galeria-img-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.galeria-img-container:hover img {
+  transform: scale(1.03);
+}
+
+/* Hacer el elemento de galería clickeable */
+.galeria-item[data-galeria] {
+  cursor: pointer;
+}
+
+/* Ocultar la grid cuando se muestra un detalle */
+.galeria-grid.oculta {
+  display: none;
+}
+
+/* Estilos para la vista de moodboards con desplazamiento vertical */
+.galeria-moodboards {
+  width: 100%;
+  max-width: none;
+}
+
+.moodboards-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.moodboard-item {
+  min-height: 90vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  margin-bottom: 60px; 
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.moodboard-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.moodboard-imagen {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: var(--shadow-image);
+}
+
+.moodboard-imagen img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 1.5s ease;
+}
+
+.moodboard-imagen:hover img {
+  transform: scale(1.02);
+}
+
+.moodboard-info {
+  text-align: center;
+  max-width: 800px;
+  margin: 30px auto 0;
+  padding: 0 20px;
+}
+
+.moodboard-titulo {
+  font-size: 32px;
+  font-weight: 350;
+  margin: 0 0 15px 0;
+  color: var(--color-text);
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.moodboard-titulo::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 1px;
+  background-color: var(--color-text-light);
+}
+
+.moodboard-descripcion {
+  font-size: 18px;
+  color: var(--color-text-light);
+  margin: 0;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* Estilos para la visualización de ilustraciones */
+.galeria-ilustraciones {
+  width: 100%;
+  max-width: none;
+  padding-bottom: 40px;
+}
+
+.ilustraciones-container {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.ilustracion-viewer {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 40px;
+  justify-content: center;
+}
+
+.ilustracion-selector {
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 600px;
+}
+
+.ilustracion-miniatura {
+  height: calc((100% - 30px) / 4);
+  overflow: hidden;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: var(--shadow-image);
+  opacity: 0.7;
+}
+
+.ilustracion-miniatura img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.ilustracion-miniatura:hover {
+  transform: translateX(5px);
+  opacity: 0.9;
+}
+
+.ilustracion-miniatura.active {
+  opacity: 1;
+  border: 2px solid var(--color-text);
+  transform: translateX(5px);
+}
+
+.ilustracion-principal {
+  width: 400px;
+  height: 600px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: var(--shadow-image);
+}
+
+.ilustracion-principal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.4s ease;
+}
+
+/* Animación para el cambio de imagen */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.ilustracion-principal img.changing {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+/* Media queries para moodboards */
+@media (max-width: 768px) {
+  .moodboard-item {
+    min-height: 80vh;
+    padding: 30px 15px;
+  }
+  
+  .moodboard-imagen {
+    width: 95%;
+  }
+  
+  .moodboard-titulo {
+    font-size: 26px;
+  }
+  
+  .moodboard-descripcion {
+    font-size: 16px;
+  }
+  
+  .galeria-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .galeria-imagenes {
+    grid-template-columns: 1fr;
+  }
+  
+  .galeria-info h3 {
+    font-size: 20px;
+  }
+}
+
+/* Estilos responsive para ilustraciones */
+@media (max-width: 992px) {
+  .ilustracion-principal {
+    width: 350px;
+    height: 525px;
+  }
+  
+  .ilustracion-selector {
+    width: 100px;
+    height: 525px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ilustracion-viewer {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .ilustracion-selector {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    gap: 10px;
+  }
+  
+  .ilustracion-miniatura {
+    height: 75px;
+    width: calc((100% - 30px) / 4);
+  }
+  
+  .ilustracion-miniatura:hover, 
+  .ilustracion-miniatura.active {
+    transform: translateY(-5px);
+  }
+  
+  .ilustracion-principal {
+    width: 300px;
+    height: 450px;
+  }
+}
+
+@media (max-width: 576px) {
+  .ilustracion-principal {
+    width: 260px;
+    height: 390px;
+  }
+}

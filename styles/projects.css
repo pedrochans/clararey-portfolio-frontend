@@ -1,0 +1,431 @@
+/* Sección de proyectos */
+.proyectos {
+  background-color: var(--color-section-bg);
+}
+
+.proyectos h2 {
+  font-size: 50px;
+  color: var(--color-text);
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 350;
+}
+
+/* Estilos específicos para la sección de Proyectos - Rediseñados para scroll horizontal */
+.proyectos-scroll-container {
+  position: relative;
+  width: 100%;
+  margin: 60px 0 40px;
+  overflow: hidden;
+}
+
+.proyectos-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 20px;
+}
+
+/* Ocultar scrollbar pero mantener funcionalidad */
+.proyectos-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.proyectos-horizontal {
+  display: flex;
+  gap: 30px;
+  padding: 10px 30px;
+  will-change: transform;
+  transition: transform 0.3s ease-out;
+}
+
+/* Diseño de cada proyecto en horizontal */
+.proyectos .proyecto-item {
+  flex: 0 0 auto;
+  width: 480px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  opacity: 0.85;
+  transform-origin: center;
+}
+
+.proyectos .proyecto-item:hover {
+  transform: translateY(-10px) scale(1.02);
+  opacity: 1;
+  z-index: 2;
+}
+
+/* Ajustar tamaño de imagen en el nuevo layout con ratio 3:2 */
+.proyectos .proyecto-imagen {
+  width: 100%;
+  height: 0;
+  padding-bottom: 66.67%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 3px;
+  box-shadow: var(--shadow-image);
+}
+
+.proyectos .proyecto-imagen img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease, filter 0.5s ease;
+  border-radius: 3px;
+}
+
+/* Efectos hover para proyectos */
+.proyectos .proyecto-item:hover .proyecto-imagen img {
+  filter: brightness(0.85);
+}
+
+/* Estilos para los textos de proyectos - alineados a la izquierda y sin separador */
+.proyectos .proyecto-info {
+  padding: 18px 5px 0;
+  background-color: transparent;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.proyectos .proyecto-info h3 {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 22px;
+  font-weight: 350;
+  letter-spacing: 0.2px;
+  transition: color 0.3s ease;
+  margin-bottom: 5px;
+}
+
+.proyectos .proyecto-info .categoria {
+  display: inline-block;
+  font-size: 14px;
+  color: var(--color-text-light);
+  font-style: italic;
+  opacity: 0.8;
+  margin-top: 0;
+}
+
+/* Flechas de navegación */
+.scroll-indicator {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-image);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.scroll-indicator.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.scroll-indicator:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
+.left-indicator {
+  left: 15px;
+}
+
+.right-indicator {
+  right: 15px;
+}
+
+.scroll-indicator i {
+  color: var(--color-text);
+  font-size: 18px;
+}
+
+/* Barra de progreso de scroll */
+.scroll-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.scroll-progress-bar {
+  height: 100%;
+  width: 0;
+  background-color: #777;
+  transition: width 0.1s ease;
+}
+
+/* Cuando se muestra un detalle, ajustar la grid */
+.proyectos-scroll-container.oculta {
+  display: none;
+}
+
+/* Estilos para la visualización de detalles de proyectos */
+.proyecto-detalle {
+  display: none;
+  width: 90%;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px 0;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--transition-medium), transform var(--transition-medium);
+}
+
+.proyecto-detalle.visible {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.volver-proyectos {
+  text-align: left;
+  margin-bottom: 50px;
+}
+
+.btn-volver {
+  background: transparent;
+  border: none;
+  color: var(--color-text);
+  cursor: pointer;
+  font-family: "Lato", sans-serif;
+  font-size: 1rem;
+  padding: 0;
+  transition: color var(--transition-fast);
+  display: flex;
+  align-items: center;
+}
+
+.btn-volver:hover {
+  color: #777;
+}
+
+/* Encabezado del proyecto con estilo similar al de galería con líneas a los lados */
+.proyecto-encabezado {
+  position: relative;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.proyecto-categoria {
+  position: relative;
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+  padding: 0 15px;
+  display: inline-block;
+  font-style: italic;
+}
+
+/* Añadir líneas decorativas a los lados de la categoría */
+.proyecto-categoria::before,
+.proyecto-categoria::after {
+  content: '';
+  position: absolute;
+  height: 1px;
+  background-color: var(--color-text-light);
+  top: 50%;
+  width: 30px;
+}
+
+.proyecto-categoria::before {
+  right: 100%;
+}
+
+.proyecto-categoria::after {
+  left: 100%;
+}
+
+.proyecto-titulo {
+  font-size: 32px;
+  font-weight: 350;
+  margin: 30px 0;
+  color: var(--color-text);
+}
+
+.proyecto-descripcion {
+  line-height: 1.8;
+  color: var(--color-text-light);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.proyecto-descripcion p {
+  margin-bottom: 20px;
+}
+
+.proyecto-descripcion strong {
+  font-weight: 500;
+}
+
+/* Estilos para las imágenes con scroll en proyectos */
+.proyecto-imagen-item {
+  min-height: 95vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.proyecto-imagen-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.proyecto-imagen-container {
+  width: 95%;
+  max-width: 1400px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: var(--shadow-image);
+}
+
+.proyecto-imagen-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 1.5s ease;
+}
+
+.proyecto-imagen-container:hover img {
+  transform: scale(1.02);
+}
+
+.proyecto-imagen-info {
+  text-align: center;
+  max-width: 800px;
+  margin: 30px auto 0;
+  padding: 0 20px;
+}
+
+.proyecto-imagen-titulo {
+  font-size: 28px;
+  font-weight: 350;
+  margin: 0 0 15px 0;
+  color: var(--color-text);
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.proyecto-imagen-titulo::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 1px;
+  background-color: var(--color-text-light);
+}
+
+.proyecto-imagen-descripcion {
+  font-size: 18px;
+  color: var(--color-text-light);
+  margin: 0;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* Media queries para proyecto imágenes con scroll */
+@media (max-width: 768px) {
+  .proyecto-imagen-item {
+    min-height: 80vh;
+    padding: 30px 15px;
+  }
+  
+  .proyecto-imagen-container {
+    width: 95%;
+  }
+  
+  .proyecto-imagen-titulo {
+    font-size: 24px;
+  }
+  
+  .proyecto-imagen-descripcion {
+    font-size: 16px;
+  }
+  
+  .proyecto-info {
+    flex-direction: column;
+  }
+  
+  .proyecto-info h3 {
+    margin-right: 0;
+    margin-bottom: 4px;
+    font-size: 20px;
+  }
+}
+
+/* Media queries para proyectos horizontales */
+@media (max-width: 992px) {
+  .proyectos .proyecto-item {
+    width: 420px;
+  }
+  
+  .proyectos-horizontal {
+    padding: 10px 20px;
+    gap: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .proyectos .proyecto-item {
+    width: 360px;
+  }
+  
+  .proyectos-horizontal {
+    gap: 20px;
+  }
+  
+  .proyecto-titulo {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 576px) {
+  .proyectos .proyecto-item {
+    width: 300px;
+  }
+  
+  .proyectos-horizontal {
+    gap: 15px;
+    padding: 10px;
+  }
+  
+  .scroll-indicator {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .proyecto-titulo {
+    font-size: 24px;
+  }
+}
