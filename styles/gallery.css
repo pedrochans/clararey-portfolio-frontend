@@ -473,3 +473,165 @@
     height: 390px;
   }
 }
+
+/* Efectos de transición para la sección de Galería */
+
+/* Animación de salida para la galería-grid */
+@keyframes fadeOutScale {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+/* Animación de entrada para los detalles */
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Animación para volver desde los detalles a la galería */
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Animación para salir de los detalles */
+@keyframes slideOutToRight {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+}
+
+/* Aplicamos las animaciones */
+.galeria-grid.saliendo {
+  animation: fadeOutScale 0.5s ease forwards;
+  pointer-events: none;
+}
+
+.galeria-detalle.entrando {
+  animation: fadeInScale 0.6s ease-out forwards;
+}
+
+.galeria-detalle.saliendo {
+  animation: slideOutToRight 0.5s ease forwards;
+  pointer-events: none;
+}
+
+.galeria-grid.entrando {
+  animation: slideInFromLeft 0.6s ease-out forwards;
+}
+
+/* Efecto de pulsación para elementos clickeables en galería */
+.galeria-item[data-galeria].pulsado {
+  transform: scale(0.97);
+  transition: transform 0.2s ease;
+}
+
+/* Efecto para el botón volver */
+.btn-volver {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.btn-volver::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: -3px;
+  left: 0;
+  background-color: var(--color-text);
+  transform: scaleX(0);
+  transform-origin: bottom left;
+  transition: transform 0.3s ease;
+}
+
+.btn-volver:hover {
+  color: #555;
+}
+
+.btn-volver:hover::before {
+  transform: scaleX(1);
+}
+
+.btn-volver.pulsado {
+  transform: translateX(-5px);
+}
+
+/* Efecto de rotación para los iconos de flechas en botones volver */
+.btn-volver i {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.btn-volver:hover i {
+  animation: arrowBounce 0.7s infinite alternate;
+}
+
+@keyframes arrowBounce {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-4px);
+  }
+}
+
+/* Efecto de zoom suave al seleccionar miniaturas de ilustraciones */
+.ilustracion-miniatura.active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid var(--color-text);
+  border-radius: 4px;
+  box-sizing: border-box;
+  animation: borderPulse 1.5s infinite;
+}
+
+@keyframes borderPulse {
+  0% { box-shadow: 0 0 0 0 rgba(51, 51, 51, 0.4); }
+  70% { box-shadow: 0 0 0 6px rgba(51, 51, 51, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(51, 51, 51, 0); }
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+  .btn-volver.pulsado {
+    transform: translateY(-3px);
+  }
+  
+  @keyframes arrowBounce {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-3px);
+    }
+  }
+}

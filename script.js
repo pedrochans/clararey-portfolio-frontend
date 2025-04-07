@@ -612,19 +612,60 @@ document.addEventListener("DOMContentLoaded", () => {
         // Obtener elementos
         const galeriaItems = document.querySelectorAll('.galeria-item[data-galeria]');
         const botonesVolver = document.querySelectorAll('.galeria-detalle .btn-volver');
+        const galeriaGrid = document.querySelector('.galeria-grid');
         
         // Añadir eventos de clic a cada elemento de galería
         galeriaItems.forEach(item => {
             item.addEventListener('click', function() {
                 const galeriaId = this.getAttribute('data-galeria');
-                mostrarDetalleGaleria(galeriaId);
+                
+                // Efecto de "pulsación" al hacer clic
+                this.classList.add('pulsado');
+                
+                // Añadir clase de animación de salida a la grid
+                galeriaGrid.classList.add('saliendo');
+                
+                // Retraso para permitir que la animación de salida comience
+                setTimeout(() => {
+                    mostrarDetalleGaleria(galeriaId);
+                    
+                    // Eliminar clases de animación después de la transición
+                    setTimeout(() => {
+                        this.classList.remove('pulsado');
+                        galeriaGrid.classList.remove('saliendo');
+                    }, 600);
+                }, 400);
             });
         });
         
         // Añadir eventos de clic a los botones de volver
         botonesVolver.forEach(boton => {
-            boton.addEventListener('click', function() {
-                ocultarDetallesGaleria();
+            boton.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Añadir clase de pulsación al botón
+                this.classList.add('pulsado');
+                
+                // Obtener el contenedor de detalle
+                const detalleActual = this.closest('.galeria-detalle');
+                
+                // Añadir clase de animación de salida
+                detalleActual.classList.add('saliendo');
+                
+                // Retraso para permitir que la animación de salida comience
+                setTimeout(() => {
+                    ocultarDetallesGaleria();
+                    
+                    // Preparar la grid para la animación de entrada
+                    galeriaGrid.classList.add('entrando');
+                    
+                    // Eliminar clases de animación después de la transición
+                    setTimeout(() => {
+                        this.classList.remove('pulsado');
+                        detalleActual.classList.remove('saliendo');
+                        galeriaGrid.classList.remove('entrando');
+                    }, 600);
+                }, 400);
             });
         });
         
@@ -634,23 +675,27 @@ document.addEventListener("DOMContentLoaded", () => {
          */
         function mostrarDetalleGaleria(galeriaId) {
             // Ocultar la grid de galería
-            document.querySelector('.galeria-grid').classList.add('oculta');
+            galeriaGrid.classList.add('oculta');
             
             // Mostrar el detalle del elemento seleccionado
             const detalleGaleria = document.getElementById(galeriaId);
             if (detalleGaleria) {
-                // Pequeño retraso para que la animación sea más fluida
+                // Añadir clase para la animación de entrada
+                detalleGaleria.classList.add('entrando');
+                detalleGaleria.classList.add('visible');
+                
+                // Scroll suave hasta el detalle
+                detalleGaleria.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                // Si son los moodboards, inicializar el scroll effect
+                if (galeriaId === 'moodboards') {
+                    setupMoodboardsScroll();
+                }
+                
+                // Eliminar clase de animación después de completar
                 setTimeout(() => {
-                    detalleGaleria.classList.add('visible');
-                    
-                    // Scroll suave hasta el detalle
-                    detalleGaleria.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    
-                    // Si son los moodboards, inicializar el scroll effect
-                    if (galeriaId === 'moodboards') {
-                        setupMoodboardsScroll();
-                    }
-                }, 50);
+                    detalleGaleria.classList.remove('entrando');
+                }, 600);
             }
         }
         
@@ -695,9 +740,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             
             // Mostrar la grid de galería
-            setTimeout(() => {
-                document.querySelector('.galeria-grid').classList.remove('oculta');
-            }, 300); // Esperar a que termine la animación de desvanecimiento
+            galeriaGrid.classList.remove('oculta');
         }
     }
     
