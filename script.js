@@ -458,9 +458,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Scroll suave hasta el detalle
                 detalleProyecto.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 
-                // Si es el proyecto Oasis, inicializar el efecto de scroll para las imágenes
+                // Si es el proyecto Oasis, inicializar el efecto de scroll para las imágenes y el selector
                 if (proyectoId === 'proyecto1') {
                     setupProyectoImagenesScroll();
+                    setupOasisImageSelector();
                 }
                 
                 // Eliminar clase de animación después de completar
@@ -515,6 +516,53 @@ document.addEventListener("DOMContentLoaded", () => {
             // Añadir escucha para el evento scroll
             window.addEventListener('scroll', checkImagenesVisibility, { passive: true });
         }
+    }
+    
+    /**
+     * Configura la funcionalidad del selector de imágenes de Oasis
+     */
+    function setupOasisImageSelector() {
+        const miniaturas = document.querySelectorAll('.oasis-miniatura');
+        const imagenPrincipal = document.getElementById('oasis-main');
+        
+        if (!miniaturas.length || !imagenPrincipal) return;
+        
+        // Asegurarse de que la imagen principal coincida con la miniatura activa al cargar
+        const miniaturActiva = document.querySelector('.oasis-miniatura.active');
+        if (miniaturActiva && imagenPrincipal) {
+            imagenPrincipal.src = miniaturActiva.querySelector('img').src;
+        }
+        
+        miniaturas.forEach(miniatura => {
+            miniatura.addEventListener('click', () => {
+                // Quitar la clase active de todas las miniaturas
+                miniaturas.forEach(m => m.classList.remove('active'));
+                
+                // Añadir la clase active a la miniatura seleccionada
+                miniatura.classList.add('active');
+                
+                // Añadir clase para la animación
+                imagenPrincipal.classList.add('changing');
+                
+                // Actualizar la imagen principal
+                setTimeout(() => {
+                    imagenPrincipal.src = miniatura.querySelector('img').src;
+                    
+                    // Quitar la clase de animación después de que la imagen se cargue
+                    imagenPrincipal.onload = () => {
+                        setTimeout(() => {
+                            imagenPrincipal.classList.remove('changing');
+                        }, 300);
+                    };
+                }, 100);
+            });
+        });
+        
+        // Precargar las imágenes para una transición más suave
+        miniaturas.forEach(miniatura => {
+            const img = new Image();
+            img.src = miniatura.querySelector('img').src;
+        });
     }
     
     /**

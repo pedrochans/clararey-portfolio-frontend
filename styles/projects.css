@@ -522,3 +522,98 @@
     font-size: 24px;
   }
 }
+
+/* Estilos para la galería de imágenes en la subsección Oasis */
+.oasis-galeria {
+  width: 100%;
+  max-width: 1800px;
+  margin: 40px auto 0;
+}
+
+.oasis-imagen-principal {
+  width: 100%;
+  height: 0;
+  padding-bottom: 66.67%; /* Proporción 3:2 */
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: var(--shadow-image);
+  margin-bottom: 15px;
+}
+
+.oasis-imagen-principal img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+  border-radius: 5px;
+}
+
+.oasis-imagen-principal img.changing {
+  opacity: 0.5;
+}
+
+.oasis-selector {
+  display: flex;
+  justify-content: space-between; /* Alinear con los bordes */
+  flex-wrap: wrap;
+  gap: 8px; /* Reducir el espacio entre miniaturas */
+  width: 100%; /* Ocupar todo el ancho de la imagen principal */
+  margin: 0 auto;
+}
+
+.oasis-miniatura {
+  flex: 0 0 calc(25% - 6px); /* 4 miniaturas por fila, ligeramente más pequeñas */
+  height: 0;
+  padding-bottom: calc(16.67% - 6px); /* Proporción 3:2 (33.33% ÷ 2 = 16.67%) */
+  position: relative;
+  overflow: hidden;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.7;
+  margin-bottom: 8px; /* Espacio entre filas */
+}
+
+.oasis-miniatura.active {
+  opacity: 1;
+  transform: translateY(-3px); /* Reducir el desplazamiento para miniaturas más pequeñas */
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1); /* Sombra más sutil */
+}
+
+.oasis-miniatura img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.oasis-miniatura:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* Ajustes responsive para la galería de Oasis */
+@media (max-width: 992px) {
+  .oasis-miniatura {
+    flex: 0 0 calc(25% - 6px); /* Mantener 4 por fila en tablets */
+    padding-bottom: calc(16.67% - 6px); /* Mantener proporción 3:2 */
+  }
+}
+
+@media (max-width: 576px) {
+  .oasis-miniatura {
+    flex: 0 0 calc(50% - 4px); /* 2 por fila en móviles */
+    padding-bottom: calc(33.33% - 4px); /* Mantener proporción 3:2 */
+  }
+  
+  .oasis-selector {
+    gap: 6px;
+  }
+}
