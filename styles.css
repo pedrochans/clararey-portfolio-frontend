@@ -458,7 +458,7 @@ html {
 /* Diseño de cada proyecto en horizontal */
 .proyectos .proyecto-item {
   flex: 0 0 auto;
-  width: 400px; /* Ancho fijo para cada proyecto */
+  width: 480px; /* Aumentado de 400px a 480px */
   cursor: pointer;
   transition: all 0.5s ease;
   opacity: 0.85;
@@ -790,7 +790,7 @@ html {
 /* Media queries para proyectos horizontales */
 @media (max-width: 992px) {
   .proyectos .proyecto-item {
-    width: 350px;
+    width: 420px; /* Aumentado de 350px a 420px */
   }
   
   .proyectos-horizontal {
@@ -801,7 +801,7 @@ html {
 
 @media (max-width: 768px) {
   .proyectos .proyecto-item {
-    width: 300px;
+    width: 360px; /* Aumentado de 300px a 360px */
   }
   
   .proyectos-horizontal {
@@ -815,7 +815,7 @@ html {
 
 @media (max-width: 576px) {
   .proyectos .proyecto-item {
-    width: 250px;
+    width: 300px; /* Aumentado de 250px a 300px */
   }
   
   .proyectos-horizontal {
@@ -836,7 +836,7 @@ html {
 /* Media queries para proyectos horizontales */
 @media (max-width: 992px) {
   .proyectos .proyecto-item {
-    width: 350px;
+    width: 420px; /* Aumentado de 350px a 420px */
   }
   
   .proyectos-horizontal {
@@ -847,7 +847,7 @@ html {
 
 @media (max-width: 768px) {
   .proyectos .proyecto-item {
-    width: 300px;
+    width: 360px; /* Aumentado de 300px a 360px */
   }
   
   .proyectos-horizontal {
@@ -857,7 +857,7 @@ html {
 
 @media (max-width: 576px) {
   .proyectos .proyecto-item {
-    width: 250px;
+    width: 300px; /* Aumentado de 250px a 300px */
   }
   
   .proyectos-horizontal {
