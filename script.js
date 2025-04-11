@@ -836,6 +836,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (galeriaId === 'moodboards') {
                     setupMoodboardsScroll();
                 }
+                // Si es la sección de diseño gráfico, inicializar el scroll effect
+                else if (galeriaId === 'diseno-grafico') {
+                    setupDisenoGraficoScroll();
+                }
                 
                 // Eliminar clase de animación después de completar
                 setTimeout(() => {
@@ -873,6 +877,37 @@ document.addEventListener("DOMContentLoaded", () => {
             
             // Añadir escucha para el evento scroll
             window.addEventListener('scroll', checkMoodboardsVisibility, { passive: true });
+        }
+        
+        /**
+         * Configura el efecto de scroll para la sección de Diseño Gráfico
+         */
+        function setupDisenoGraficoScroll() {
+            const disenoItems = document.querySelectorAll('.diseno-item');
+            
+            // Función para comprobar si un elemento está visible en el viewport
+            function isElementInViewport(el) {
+                const rect = el.getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight * 0.75) &&
+                    rect.bottom >= (window.innerHeight * 0.25)
+                );
+            }
+            
+            // Función para revisar todos los elementos y activar los visibles
+            function checkDisenoItemsVisibility() {
+                disenoItems.forEach(item => {
+                    if (isElementInViewport(item)) {
+                        item.classList.add('visible');
+                    }
+                });
+            }
+            
+            // Revisar visibilidad inicial
+            checkDisenoItemsVisibility();
+            
+            // Añadir escucha para el evento scroll
+            window.addEventListener('scroll', checkDisenoItemsVisibility, { passive: true });
         }
         
         /**

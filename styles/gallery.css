@@ -12,11 +12,12 @@
   font-weight: 350;
 }
 
+/* Ajuste para la galería con tres elementos */
 .galeria-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 40px;
-  margin: 50px 0 10px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 50px; /* Revertido a margen original */
 }
 
 .galeria-item {
@@ -25,13 +26,17 @@
   flex-direction: column;
   background-color: transparent;
   transition: transform 0.4s ease;
+  cursor: pointer;
+  transition: transform 0.5s ease, opacity 0.3s ease;
+  opacity: 0.85;
+  padding: 0; /* Eliminado el padding adicional */
 }
 
 .galeria-imagen {
   position: relative;
   width: 100%;
   height: 0;
-  padding-bottom: 66.67%;
+  padding-bottom: 66.67%; /* Revertido a la proporción 3:2 original */
   overflow: hidden;
   border-radius: 3px;
   box-shadow: var(--shadow-image);
@@ -391,6 +396,87 @@
   animation: fadeIn 0.4s ease forwards;
 }
 
+/* Estilos para la sección de Diseño Gráfico */
+.galeria-diseno-grafico .diseno-grafico-container {
+  display: flex;
+  flex-direction: column;
+  gap: 80px; 
+  margin-top: 30px;
+}
+
+.diseno-item {
+  min-height: 80vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px; 
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.diseno-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.diseno-imagen {
+  width: 90%; 
+  max-width: 1200px; 
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: var(--shadow-image);
+}
+
+.diseno-imagen img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 1.5s ease; 
+}
+
+.diseno-imagen:hover img {
+  transform: scale(1.02); 
+}
+
+.diseno-info {
+  text-align: center;
+  max-width: 800px;
+  margin: 30px auto 0;
+  padding: 0 20px;
+}
+
+.diseno-titulo {
+  font-size: 32px;
+  font-weight: 350;
+  color: var(--color-text);
+  margin: 0 0 15px 0;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.diseno-titulo::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 1px;
+  background-color: var(--color-text-light);
+}
+
+.diseno-descripcion {
+  font-size: 18px;
+  color: var(--color-text-light);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
 /* Media queries para moodboards */
 @media (max-width: 768px) {
   .moodboard-item {
@@ -424,6 +510,25 @@
   }
 }
 
+@media (max-width: 768px) {
+  .diseno-item {
+    min-height: 70vh;
+    padding: 30px 15px;
+  }
+  
+  .diseno-imagen {
+    width: 95%;
+  }
+  
+  .diseno-titulo {
+    font-size: 26px;
+  }
+  
+  .diseno-descripcion {
+    font-size: 16px;
+  }
+}
+
 /* Estilos responsive para ilustraciones */
 @media (max-width: 992px) {
   .ilustracion-principal {
@@ -434,6 +539,11 @@
   .ilustracion-selector {
     width: 100px;
     height: 525px;
+  }
+  
+  .galeria-grid {
+    grid-template-columns: repeat(3, 1fr); /* Mantener tres columnas en tablets */
+    gap: 25px;
   }
 }
 
@@ -465,12 +575,60 @@
     width: 300px;
     height: 450px;
   }
+  
+  .galeria-grid {
+    grid-template-columns: repeat(2, 1fr); /* Reducir a dos columnas en tablets pequeñas */
+    gap: 20px;
+  }
 }
 
 @media (max-width: 576px) {
   .ilustracion-principal {
     width: 260px;
     height: 390px;
+  }
+  
+  .galeria-grid {
+    grid-template-columns: 1fr; /* Una columna en móviles */
+    gap: 30px;
+  }
+}
+
+/* Ajustes responsivos para la grid de galería */
+@media (max-width: 1200px) {
+}
+
+@media (max-width: 992px) {
+  .galeria-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .galeria-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  
+    .galeria-imagen {
+      padding-bottom: 66.67%; /* Mantener la proporción 3:2 */
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .galeria-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  
+    .galeria-imagen {
+      padding-bottom: 66.67%; /* Mantener la proporción 3:2 */
+    }
+  
+    .galeria-item {
+      max-width: none; /* Eliminar límite de ancho */
+      margin: 0; /* Eliminar margen personalizado */
+    }
   }
 }
 
