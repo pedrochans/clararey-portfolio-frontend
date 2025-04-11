@@ -29,6 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Configurar el scroll horizontal de proyectos
     setupProyectosScroll();
     
+    // Llamar explícitamente a setupCielitoBotones
+    setupCielitoBotones();
+    
     /**
      * Configura la vista inicial de la aplicación
      */
@@ -440,6 +443,9 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
         
+        // Configurar botones adicionales para Cielito Lindo
+        setupCielitoBotones();
+        
         /**
          * Muestra los detalles de un proyecto específico
          * @param {string} proyectoId - ID del proyecto a mostrar
@@ -462,6 +468,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (proyectoId === 'proyecto1') {
                     setupProyectoImagenesScroll();
                     setupOasisImageSelector();
+                }
+                // Si es el proyecto Cielito Lindo, inicializar el efecto de scroll para las imágenes
+                // y configurar los botones adicionales
+                else if (proyectoId === 'proyecto2') {
+                    setupProyectoImagenesScroll();
+                    setupCielitoBotones();
                 }
                 
                 // Eliminar clase de animación después de completar
@@ -515,6 +527,23 @@ document.addEventListener("DOMContentLoaded", () => {
             
             // Añadir escucha para el evento scroll
             window.addEventListener('scroll', checkImagenesVisibility, { passive: true });
+        }
+    }
+    
+    /**
+     * Configura los botones adicionales para la sección Cielito Lindo
+     */
+    function setupCielitoBotones() {
+        // Configurar botón para volver arriba
+        const btnVolverArriba = document.querySelector('.btn-volver-arriba');
+        if (btnVolverArriba) {
+            btnVolverArriba.addEventListener('click', () => {
+                // Obtener la sección del proyecto2 y hacer scroll suave hacia arriba
+                const seccionCielito = document.getElementById('proyecto2');
+                if (seccionCielito) {
+                    seccionCielito.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
         }
     }
     

@@ -622,3 +622,174 @@
     gap: 6px;
   }
 }
+
+/* Estilos para la galería de Cielito Lindo */
+.cielito-galeria {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas de igual ancho */
+  gap: 15px; /* Reducido significativamente para aproximar el espacio horizontal y vertical */
+  margin-top: 40px;
+  width: 100%;
+  max-width: 1300px; /* Mantener el ancho para imágenes grandes */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Aplicar margen superior solo a los elementos de la columna derecha (pares) */
+.cielito-imagen-item:nth-child(even) {
+  margin-top: 20px; /* Reducido drásticamente para minimizar el desplazamiento vertical */
+}
+
+/* Eliminar el margin-bottom negativo para las imágenes impares */
+.cielito-imagen-item:nth-child(odd) {
+  margin-bottom: 0;
+}
+
+.cielito-imagen-item {
+  margin-bottom: 0; /* Eliminado el margen inferior para acercar verticalmente las imágenes */
+  width: 100%;
+  max-width: 600px;
+  min-height: auto; /* Sobreescribir min-height heredado */
+}
+
+/* Sobrescribir las propiedades del proyecto-imagen-item para Cielito */
+.cielito-imagen-item.proyecto-imagen-item {
+  min-height: auto; /* Eliminar altura mínima para permitir que las imágenes estén más juntas */
+  padding: 0; /* Eliminar padding que podría agregar espacio */
+  margin-bottom: 0; /* Eliminar margen inferior */
+}
+
+/* Resto de propiedades se mantienen igual */
+.cielito-imagen-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 150%; /* Proporción 2:3 (vertical) */
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: var(--shadow-image);
+}
+
+.cielito-imagen-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+/* Efecto overlay al pasar el ratón */
+.cielito-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.cielito-imagen-container:hover .cielito-overlay {
+  opacity: 1;
+}
+
+.cielito-imagen-container:hover img {
+  transform: scale(1.05);
+  filter: brightness(0.8);
+}
+
+.cielito-info {
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.cielito-info p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.cielito-info strong {
+  font-weight: 500;
+}
+
+/* Media Queries para responsividad */
+@media (max-width: 992px) {
+  .cielito-galeria {
+    gap: 20px;
+    max-width: 900px; /* Ajustado para tablets */
+  }
+  
+  .cielito-imagen-item:nth-child(even) {
+    margin-top: 40px; /* Reducido para tablets */
+  }
+  
+  .cielito-imagen-item {
+    max-width: 450px; /* Ajustado para tablets */
+  }
+}
+
+@media (max-width: 768px) {
+  .cielito-galeria {
+    grid-template-columns: 1fr; /* Una sola columna en móviles */
+    row-gap: 25px; /* Restaurar gap positivo para móviles */
+    max-width: 550px; /* Aumentado para fotos más grandes en móvil */
+  }
+  
+  .cielito-imagen-item:nth-child(even) {
+    margin-top: 0; /* Eliminar desplazamiento en móviles */
+  }
+  
+  .cielito-imagen-item:nth-child(odd) {
+    margin-bottom: 0; /* Eliminar superposición en móviles */
+  }
+  
+  .cielito-imagen-item {
+    margin-bottom: 25px; /* Espacio uniforme entre imágenes en móviles */
+    max-width: 100%; /* Ocupar todo el ancho disponible */
+  }
+}
+
+@media (max-width: 768px) {
+  .cielito-imagen-item {
+    max-width: 400px;
+  }
+  
+  .cielito-info p {
+    font-size: 14px;
+    margin: 8px 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .cielito-imagen-item {
+    max-width: 300px;
+  }
+  
+  .cielito-info p {
+    font-size: 12px;
+    margin: 6px 0;
+  }
+}
+
+/* Estilos para los botones adicionales de Cielito Lindo */
+.cielito-botones {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin: 40px auto;
+  width: 100%;
+}
+
+.btn-ficha-tecnica, .btn-volver-arriba {
+  min-width: 200px;
+  text-align: center;
+}
