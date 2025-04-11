@@ -154,6 +154,15 @@
   border-bottom: 1px solid #ddd;
 }
 
+.form-hint {
+  display: block;
+  color: #777;
+  font-size: 13px;
+  font-style: italic;
+  margin-top: 5px;
+  line-height: 1.4;
+}
+
 .contacto-formulario .btn-primary {
   align-self: flex-end;
   margin-top: 10px;
