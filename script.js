@@ -480,6 +480,23 @@ document.addEventListener("DOMContentLoaded", () => {
                     setupProyectoImagenesScroll();
                     setup3DCarouselArbolesFlores();
                 }
+                // Si es el proyecto Teloclaro, inicializar el efecto de scroll para las imágenes
+                else if (proyectoId === 'proyecto4') {
+                    setupProyectoImagenesScroll();
+                    
+                    // Inicializar Teloclaro - CORREGIDO: Asegurar que se llama y funciona
+                    console.log("Inicializando Teloclaro Scroll");
+                    
+                    // Dar tiempo a que el DOM se actualice antes de buscar los elementos
+                    setTimeout(() => {
+                        setupTeloclaroScroll();
+                        
+                        // Activar manualmente la visibilidad inicial de todos los items para asegurar que se muestran
+                        document.querySelectorAll('.teloclaro-item').forEach(item => {
+                            item.classList.add('visible');
+                        });
+                    }, 300);
+                }
                 
                 // Eliminar clase de animación después de completar
                 setTimeout(() => {
@@ -1075,6 +1092,57 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
         }
+    }
+    
+    /**
+     * Configura el efecto de aparición al hacer scroll para la galería Teloclaro
+     * CORREGIDO: Mejorado para asegurar que funciona correctamente
+     */
+    function setupTeloclaroScroll() {
+        const teloclaroItems = document.querySelectorAll('.teloclaro-item');
+        console.log(`Encontrados ${teloclaroItems.length} items de Teloclaro`);
+        
+        if (!teloclaroItems.length) {
+            console.warn("No se encontraron elementos .teloclaro-item");
+            return;
+        }
+        
+        // Función para comprobar si un elemento está visible en el viewport
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            const isVisible = (
+                rect.top <= (window.innerHeight * 0.8) &&
+                rect.bottom >= (window.innerHeight * 0.2)
+            );
+            return isVisible;
+        }
+        
+        // Función para revisar todos los items y activar los visibles
+        function checkTeloclaroVisibility() {
+            teloclaroItems.forEach((item, index) => {
+                if (isElementInViewport(item)) {
+                    // Solo log si el elemento cambia de estado
+                    if (!item.classList.contains('visible')) {
+                        console.log(`Elemento ${index + 1} ahora visible`);
+                    }
+                    item.classList.add('visible');
+                }
+            });
+        }
+        
+        // Revisar visibilidad inicial
+        console.log("Comprobando visibilidad inicial");
+        checkTeloclaroVisibility();
+        
+        // Añadir escucha para el evento scroll
+        window.addEventListener('scroll', checkTeloclaroVisibility, { passive: true });
+        
+        // También verificar al redimensionar la ventana
+        window.addEventListener('resize', checkTeloclaroVisibility, { passive: true });
+        
+        // Para asegurar que los elementos se muestran incluso sin scroll
+        setTimeout(checkTeloclaroVisibility, 300);
+        setTimeout(checkTeloclaroVisibility, 1000);
     }
     
     /**
