@@ -998,10 +998,8 @@ document.addEventListener("DOMContentLoaded", () => {
      */
     function setup3DCarouselArbolesFlores() {
         const items = document.querySelectorAll('.carousel-3d-item');
-        const prevBtn = document.querySelector('.carousel-prev');
-        const nextBtn = document.querySelector('.carousel-next');
         
-        if (!items.length || !prevBtn || !nextBtn) return;
+        if (!items.length) return;
         
         // Posiciones posibles en el círculo (siempre mirando al frente)
         const positions = ['front', 'right', 'back', 'left'];
@@ -1011,10 +1009,6 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // Inicializar posiciones
         updatePositions();
-        
-        // Añadir eventos a los botones de navegación
-        prevBtn.addEventListener('click', goToPrev);
-        nextBtn.addEventListener('click', goToNext);
         
         // Añadir eventos a los items del carousel
         items.forEach((item, index) => {
@@ -1059,22 +1053,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         
         /**
-         * Rota al elemento anterior
-         */
-        function goToPrev() {
-            currentIndex = (currentIndex - 1 + items.length) % items.length;
-            updatePositions();
-        }
-        
-        /**
-         * Rota al elemento siguiente
-         */
-        function goToNext() {
-            currentIndex = (currentIndex + 1) % items.length;
-            updatePositions();
-        }
-        
-        /**
          * Rota a un índice específico
          * @param {number} index - Índice del elemento a rotar al frente
          */
@@ -1086,12 +1064,14 @@ document.addEventListener("DOMContentLoaded", () => {
             if (steps <= items.length / 2) {
                 // Girar hacia adelante (sentido antihorario)
                 for (let i = 0; i < steps; i++) {
-                    goToNext();
+                    currentIndex = (currentIndex + 1) % items.length;
+                    updatePositions();
                 }
             } else {
                 // Girar hacia atrás (sentido horario)
                 for (let i = 0; i < items.length - steps; i++) {
-                    goToPrev();
+                    currentIndex = (currentIndex - 1 + items.length) % items.length;
+                    updatePositions();
                 }
             }
         }
