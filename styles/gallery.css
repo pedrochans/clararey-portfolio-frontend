@@ -707,57 +707,6 @@
   transition: transform 0.2s ease;
 }
 
-/* Efecto para el botón volver */
-.btn-volver {
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.btn-volver::before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 1px;
-  bottom: -3px;
-  left: 0;
-  background-color: var(--color-text);
-  transform: scaleX(0);
-  transform-origin: bottom left;
-  transition: transform 0.3s ease;
-}
-
-.btn-volver:hover {
-  color: #555;
-}
-
-.btn-volver:hover::before {
-  transform: scaleX(1);
-}
-
-.btn-volver.pulsado {
-  transform: translateX(-5px);
-}
-
-/* Efecto de rotación para los iconos de flechas en botones volver */
-.btn-volver i {
-  display: inline-block;
-  transition: transform 0.3s ease;
-}
-
-.btn-volver:hover i {
-  animation: arrowBounce 0.7s infinite alternate;
-}
-
-@keyframes arrowBounce {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-4px);
-  }
-}
-
 /* Efecto de zoom suave al seleccionar miniaturas de ilustraciones */
 .ilustracion-miniatura.active::after {
   content: '';

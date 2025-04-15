@@ -121,6 +121,90 @@ html {
   margin-top: 0;
 }
 
+/* Estilos unificados para botones de volver */
+.btn-volver {
+  background: transparent;
+  border: none;
+  color: var(--color-text);
+  cursor: pointer;
+  font-family: "Lato", sans-serif;
+  font-size: 1rem;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.btn-volver i, 
+.btn-volver .arrow-text {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  margin-right: 2px;
+}
+
+.btn-volver::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-text);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.btn-volver:hover {
+  color: #555;
+}
+
+.btn-volver:hover::after {
+  transform: scaleX(1);
+}
+
+.btn-volver:hover i,
+.btn-volver:hover .arrow-text {
+  transform: translateX(-5px);
+}
+
+.btn-volver:active {
+  transform: scale(0.98);
+}
+
+.btn-volver.pulsado {
+  transform: translateX(-8px);
+  opacity: 0.7;
+}
+
+.volver-proyectos,
+.volver-galeria {
+  text-align: left;
+  margin-bottom: 40px;
+  padding-left: 5px;
+}
+
+/* Media queries para botones de volver */
+@media (max-width: 768px) {
+  .btn-volver {
+    font-size: 0.95rem;
+  }
+  
+  .btn-volver:hover i,
+  .btn-volver:hover .arrow-text {
+    transform: translateX(-3px);
+  }
+  
+  .volver-proyectos,
+  .volver-galeria {
+    margin-bottom: 30px;
+  }
+}
+
 /* Media queries generales para todos los componentes */
 @media (max-width: 768px) {
   h2 {
