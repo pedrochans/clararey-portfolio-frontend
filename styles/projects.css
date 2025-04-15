@@ -815,3 +815,352 @@
   min-width: 200px;
   text-align: center;
 }
+
+/* Estilos para el carousel 3D de Árboles y Flores */
+.arbol-flores-carousel-container {
+  padding: 80px 20px; 
+  min-height: auto;
+  margin-top: 100px; 
+  width: 100%;
+}
+
+.carousel-title {
+  text-align: center;
+  font-size: 24px; 
+  font-weight: 400;
+  margin-bottom: 50px; 
+  color: var(--color-text);
+}
+
+.arbol-flores-carousel {
+  position: relative;
+  width: 100%;
+  height: 700px; 
+  max-width: 1400px;
+  margin: 0 auto;
+  perspective: 2000px; 
+}
+
+.carousel-3d-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 1s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.carousel-3d-item {
+  position: absolute;
+  width: 380px; 
+  height: 570px; 
+  max-height: 570px;
+  left: 50%;
+  top: 50%;
+  margin-left: -190px; 
+  margin-top: -285px; 
+  transform-style: preserve-3d;
+  transition: all 0.5s ease-out;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: var(--shadow-image);
+  backface-visibility: hidden;
+  background-color: #f8f8f8; 
+}
+
+.carousel-3d-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.5s ease, filter 0.5s ease;
+  border-radius: 10px;
+  image-rendering: -webkit-optimize-contrast;
+  transform: scale(0.96); 
+  padding: 5px;
+}
+
+/* Posiciones en el círculo - siempre mirando al frente */
+.carousel-position-front {
+  transform: translateZ(500px);
+  z-index: 4;
+  opacity: 1;
+  width: 500px;
+  height: 750px;
+  margin-left: -250px; 
+  margin-top: -345px; 
+  box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+  background-color: white;
+}
+
+.carousel-position-right {
+  transform: translateX(380px) translateZ(180px); 
+  z-index: 3;
+  opacity: 0.8; 
+}
+
+.carousel-position-back {
+  transform: translateZ(-500px); 
+  z-index: 1;
+  opacity: 0;
+}
+
+.carousel-position-left {
+  transform: translateX(-380px) translateZ(180px); 
+  z-index: 2;
+  opacity: 0.8; 
+}
+
+/* Estilos para controles de navegación - reposicionados mucho más lejos a los lados */
+.carousel-controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  width: 140%; 
+  left: -20%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.carousel-prev,
+.carousel-next {
+  width: 50px; 
+  height: 50px;
+  border: none;
+  background-color: var(--color-white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: var(--shadow-image);
+  transition: all 0.3s ease;
+  color: var(--color-text);
+  pointer-events: auto;
+  margin: 0; /* Remove horizontal margin */
+}
+
+/* Efectos de hover y estados para imágenes en el carousel - modificado para excluir la imagen frontal */
+.carousel-3d-item:not(.carousel-position-front):hover img {
+  transform: scale(1.05);
+  filter: brightness(0.9);
+}
+
+/* Efecto hover solo para la imagen frontal (sin oscurecer) */
+.carousel-position-front:hover img {
+  transform: scale(1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1400px) {
+  .arbol-flores-carousel {
+    height: 650px;
+  }
+  
+  .carousel-position-front {
+    width: 450px;
+    height: 675px;
+    margin-left: -225px;
+    margin-top: -307.5px;
+    transform: translateZ(450px);
+  }
+  
+  .carousel-3d-item {
+    width: 350px;
+    height: 525px;
+    margin-left: -175px;
+    margin-top: -262.5px;
+  }
+  
+  .carousel-controls {
+    width: 130%;
+    left: -15%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .arbol-flores-carousel {
+    height: 600px;
+  }
+  
+  .carousel-position-front {
+    width: 400px;
+    height: 600px;
+    margin-left: -200px;
+    margin-top: -270px;
+    transform: translateZ(400px);
+  }
+  
+  .carousel-position-right {
+    transform: translateX(320px) translateZ(150px);
+  }
+  
+  .carousel-position-left {
+    transform: translateX(-320px) translateZ(150px);
+  }
+  
+  .carousel-position-back {
+    transform: translateZ(-400px);
+  }
+  
+  .carousel-3d-item {
+    width: 320px;
+    height: 480px;
+    margin-left: -160px;
+    margin-top: -240px;
+  }
+  
+  .carousel-controls {
+    width: 130%;
+    left: -15%;
+  }
+}
+
+@media (max-width: 992px) {
+  .arbol-flores-carousel {
+    height: 550px;
+    perspective: 1500px;
+  }
+  
+  .carousel-3d-item {
+    width: 280px;
+    height: 420px;
+    margin-left: -140px;
+    margin-top: -210px;
+  }
+  
+  .carousel-position-front {
+    width: 350px;
+    height: 525px;
+    margin-left: -175px;
+    margin-top: -232.5px; /* Adjusted from -262.5px to -232.5px */
+    transform: translateZ(350px);
+  }
+  
+  .carousel-position-right {
+    transform: translateX(260px) translateZ(120px);
+  }
+  
+  .carousel-position-back {
+    transform: translateZ(-350px);
+  }
+  
+  .carousel-position-left {
+    transform: translateX(-260px) translateZ(120px);
+  }
+  
+  .carousel-controls {
+    width: 120%;
+    left: -10%;
+    bottom: -70px;
+  }
+  
+  .carousel-prev,
+  .carousel-next {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+    margin: 0 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .arbol-flores-carousel {
+    height: 500px;
+    perspective: 1200px;
+  }
+  
+  .carousel-3d-item {
+    width: 220px;
+    height: 330px;
+    margin-left: -110px;
+    margin-top: -165px;
+  }
+  
+  .carousel-position-front {
+    width: 280px;
+    height: 420px;
+    margin-left: -140px;
+    margin-top: -190px; /* Adjusted from -210px to -190px */
+    transform: translateZ(300px);
+  }
+  
+  .carousel-position-right {
+    transform: translateX(200px) translateZ(100px);
+  }
+  
+  .carousel-position-back {
+    transform: translateZ(-300px);
+  }
+  
+  .carousel-position-left {
+    transform: translateX(-200px) translateZ(100px);
+  }
+  
+  .carousel-controls {
+    width: 120%;
+    left: -10%;
+    bottom: -60px;
+  }
+  
+  .carousel-prev,
+  .carousel-next {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    margin: 0 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .arbol-flores-carousel {
+    height: 450px;
+    perspective: 1000px;
+  }
+  
+  .carousel-3d-item {
+    width: 180px;
+    height: 270px;
+    margin-left: -90px;
+    margin-top: -135px;
+  }
+  
+  .carousel-position-front {
+    width: 220px;
+    height: 330px;
+    margin-left: -110px;
+    margin-top: -155px; /* Adjusted from -165px to -155px */
+    transform: translateZ(250px);
+  }
+  
+  .carousel-position-right {
+    transform: translateX(160px) translateZ(80px);
+  }
+  
+  .carousel-position-back {
+    transform: translateZ(-250px);
+  }
+  
+  .carousel-position-left {
+    transform: translateX(-160px) translateZ(80px);
+  }
+  
+  .carousel-controls {
+    width: 110%;
+    left: -5%;
+    bottom: -60px;
+    gap: 30px;
+  }
+  
+  .carousel-prev,
+  .carousel-next {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+    margin: 0 5px;
+  }
+}

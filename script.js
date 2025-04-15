@@ -475,6 +475,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     setupProyectoImagenesScroll();
                     setupCielitoBotones();
                 }
+                // Si es el proyecto Árboles y Flores, inicializar el carousel 3D
+                else if (proyectoId === 'proyecto3') {
+                    setupProyectoImagenesScroll();
+                    setup3DCarouselArbolesFlores();
+                }
                 
                 // Eliminar clase de animación después de completar
                 setTimeout(() => {
@@ -986,6 +991,110 @@ document.addEventListener("DOMContentLoaded", () => {
             const img = new Image();
             img.src = miniatura.querySelector('img').src;
         });
+    }
+    
+    /**
+     * Configura el carousel 3D para el proyecto Árboles y Flores
+     */
+    function setup3DCarouselArbolesFlores() {
+        const items = document.querySelectorAll('.carousel-3d-item');
+        const prevBtn = document.querySelector('.carousel-prev');
+        const nextBtn = document.querySelector('.carousel-next');
+        
+        if (!items.length || !prevBtn || !nextBtn) return;
+        
+        // Posiciones posibles en el círculo (siempre mirando al frente)
+        const positions = ['front', 'right', 'back', 'left'];
+        
+        // Estado inicial del carrusel
+        let currentIndex = 0;
+        
+        // Inicializar posiciones
+        updatePositions();
+        
+        // Añadir eventos a los botones de navegación
+        prevBtn.addEventListener('click', goToPrev);
+        nextBtn.addEventListener('click', goToNext);
+        
+        // Añadir eventos a los items del carousel
+        items.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                // Si hacemos clic en un elemento que no está al frente, lo rotamos al frente
+                const itemPosition = getItemPosition(index);
+                if (itemPosition !== 'front') {
+                    rotateToPosition(index);
+                }
+            });
+        });
+        
+        /**
+         * Actualiza las posiciones de los elementos según el índice actual
+         */
+        function updatePositions() {
+            items.forEach((item, index) => {
+                // Calcular la posición relativa respecto al elemento frontal
+                const position = getItemPosition(index);
+                
+                // Eliminar todas las clases de posición existentes
+                item.classList.remove('carousel-position-front', 'carousel-position-right', 
+                                      'carousel-position-back', 'carousel-position-left');
+                
+                // Añadir la clase de posición correspondiente
+                item.classList.add(`carousel-position-${position}`);
+                
+                // Actualizar atributo data-position
+                item.setAttribute('data-position', position);
+            });
+        }
+        
+        /**
+         * Obtiene la posición de un elemento según su índice
+         * @param {number} index - El índice del elemento
+         * @returns {string} - La posición: 'front', 'right', 'back', 'left'
+         */
+        function getItemPosition(index) {
+            // Calcular la posición relativa
+            const positionIndex = (index - currentIndex + items.length) % items.length;
+            return positions[positionIndex];
+        }
+        
+        /**
+         * Rota al elemento anterior
+         */
+        function goToPrev() {
+            currentIndex = (currentIndex - 1 + items.length) % items.length;
+            updatePositions();
+        }
+        
+        /**
+         * Rota al elemento siguiente
+         */
+        function goToNext() {
+            currentIndex = (currentIndex + 1) % items.length;
+            updatePositions();
+        }
+        
+        /**
+         * Rota a un índice específico
+         * @param {number} index - Índice del elemento a rotar al frente
+         */
+        function rotateToPosition(index) {
+            // Calcular cuántos pasos debemos rotar para llevar ese elemento al frente
+            const steps = (index - currentIndex + items.length) % items.length;
+            
+            // Determinar la dirección más corta para girar
+            if (steps <= items.length / 2) {
+                // Girar hacia adelante (sentido antihorario)
+                for (let i = 0; i < steps; i++) {
+                    goToNext();
+                }
+            } else {
+                // Girar hacia atrás (sentido horario)
+                for (let i = 0; i < items.length - steps; i++) {
+                    goToPrev();
+                }
+            }
+        }
     }
     
     /**
