@@ -502,6 +502,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     setupProyectoImagenesScroll();
                     console.log("Inicializando Marea Scroll");
                     
+                    // Configurar efecto de aparición con scroll para los bloques de diseño de Marea
+                    setupMareaScrollAnimation();
+                    
                     // Dar tiempo a que el DOM se actualice antes de buscar los elementos
                     setTimeout(() => {
                         // Activar manualmente la visibilidad inicial de todos los items
@@ -1169,6 +1172,56 @@ document.addEventListener("DOMContentLoaded", () => {
         // Para asegurar que los elementos se muestran incluso sin scroll
         setTimeout(checkTeloclaroVisibility, 300);
         setTimeout(checkTeloclaroVisibility, 1000);
+    }
+    
+    /**
+     * Configura la animación de aparición al hacer scroll para los bloques de Marea
+     */
+    function setupMareaScrollAnimation() {
+        const mareaBlocks = document.querySelectorAll('.marea-design-block');
+        
+        if (!mareaBlocks.length) {
+            console.warn("No se encontraron elementos .marea-design-block");
+            return;
+        }
+        
+        console.log(`Encontrados ${mareaBlocks.length} bloques de diseño Marea para animar`);
+        
+        // Función para comprobar si un elemento está visible en el viewport
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top <= (window.innerHeight * 0.85) &&
+                rect.bottom >= (window.innerHeight * 0.15)
+            );
+        }
+        
+        // Función para revisar todos los bloques y activar los visibles
+        function checkMareaBlocksVisibility() {
+            mareaBlocks.forEach((block, index) => {
+                if (isElementInViewport(block)) {
+                    // Solo log si el elemento cambia de estado
+                    if (!block.classList.contains('visible')) {
+                        console.log(`Bloque de diseño Marea ${index + 1} ahora visible`);
+                        block.classList.add('visible');
+                    }
+                }
+            });
+        }
+        
+        // Revisar visibilidad inicial
+        console.log("Comprobando visibilidad inicial de bloques Marea");
+        checkMareaBlocksVisibility();
+        
+        // Añadir escucha para el evento scroll
+        window.addEventListener('scroll', checkMareaBlocksVisibility, { passive: true });
+        
+        // También verificar al redimensionar la ventana
+        window.addEventListener('resize', checkMareaBlocksVisibility, { passive: true });
+        
+        // Para asegurar que los elementos se muestran incluso sin scroll
+        setTimeout(checkMareaBlocksVisibility, 300);
+        setTimeout(checkMareaBlocksVisibility, 1000);
     }
     
     /**

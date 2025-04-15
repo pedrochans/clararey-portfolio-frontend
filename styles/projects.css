@@ -1409,6 +1409,7 @@
   height: 0;
   padding-bottom: 30%; 
   margin-top: 0; 
+  margin-bottom: -400px;
 }
 
 .marea-wide-container img {
@@ -1428,22 +1429,22 @@
 /* New container for design blocks */
 .marea-designs-container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1600px; 
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  padding: 0 20px;
+  gap: 20px; 
+  padding: 0; 
 }
 
 /* Individual design blocks */
 .marea-design-block {
   display: flex;
   align-items: center;
-  gap: 30px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  gap: 100px; 
+  opacity: 0; 
+  transform: translateY(30px); 
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .marea-design-block.visible {
@@ -1456,10 +1457,18 @@
 }
 
 .marea-design-image {
-  flex: 1;
-  border-radius: 5px;
+  flex: 3; 
+  border-radius: 0; /* Remove border radius */
   overflow: hidden;
-  box-shadow: var(--shadow-image);
+  box-shadow: none; 
+  min-height: 450px; 
+  margin: 0; 
+  background-color: transparent; 
+}
+
+.marea-design-text {
+  flex: 0.5; 
+  padding: 50px 100px; 
 }
 
 .marea-design-image img {
@@ -1467,6 +1476,7 @@
   height: auto;
   display: block;
   transition: transform 0.5s ease;
+  background-color: transparent; /* Ensure image background is transparent */
 }
 
 .marea-design-image:hover img {
@@ -1481,19 +1491,20 @@
 .marea-design-text h4 {
   font-size: 24px;
   font-weight: 350;
-  margin-bottom: 15px;
+  margin-bottom: 25px; /* Increased from 15px to create more space below heading */
   color: var(--color-text);
 }
 
 .marea-design-text p {
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.8; /* Increased from 1.6 for better readability */
   color: var(--color-text-light);
+  margin-bottom: 15px; /* Added margin between paragraphs if there are multiple */
 }
 
 /* Set proper spacing for the Marea section */
 #proyecto5 .proyecto-imagen-item:first-child {
-  margin-bottom: -200px; 
+  margin-bottom: -400px; 
 }
 
 .marea-botones {
@@ -1505,6 +1516,15 @@
 
 .marea-botones .btn-primary {
   min-width: 200px;
+}
+
+/* Adjust timing for sequential appearance */
+.marea-design-block:nth-child(2) {
+  transition-delay: 0.2s;
+}
+
+.marea-design-block:nth-child(3) {
+  transition-delay: 0.4s;
 }
 
 /* Responsive adjustments for Marea section */
@@ -1521,8 +1541,20 @@
     margin-left: -5%;
   }
   
+  .marea-design-image {
+    margin: 0 15px; 
+  }
+  
   .marea-design-block {
-    gap: 20px;
+    gap: 40px; 
+  }
+  
+  .marea-design-text {
+    padding: 15px 20px; 
+  }
+  
+  .marea-designs-container {
+    max-width: 95%; 
   }
 }
 
@@ -1536,14 +1568,28 @@
   .marea-design-block, 
   .marea-design-block.reverse {
     flex-direction: column;
-    gap: 15px;
+    gap: 30px; 
+  }
+  
+  .marea-design-image {
+    margin: 0; 
+    min-height: 380px; 
   }
   
   .marea-design-text {
-    padding: 10px 0;
+    padding: 10px 15px;
   }
   
   .marea-design-text h4 {
     font-size: 22px;
+  }
+  
+  .marea-design-image {
+    min-height: 350px; 
+  }
+  
+  .marea-designs-container {
+    max-width: 100%;
+    padding: 0 10px; 
   }
 }
