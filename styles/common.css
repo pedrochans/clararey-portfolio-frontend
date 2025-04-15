@@ -121,7 +121,6 @@ html {
   margin-top: 0;
 }
 
-/* Estilos unificados para botones de volver */
 .btn-volver {
   background: transparent;
   border: none;
@@ -135,11 +134,18 @@ html {
   align-items: center;
   gap: 8px;
   position: relative;
-  overflow: hidden;
+  overflow: visible; 
   transition: transform 0.3s ease, color 0.3s ease;
+  padding-left: 5px; 
 }
 
-.btn-volver i, 
+.btn-volver i {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  margin-right: 2px;
+  position: relative; 
+}
+
 .btn-volver .arrow-text {
   display: inline-block;
   transition: transform 0.3s ease;
@@ -170,6 +176,17 @@ html {
 .btn-volver:hover i,
 .btn-volver:hover .arrow-text {
   transform: translateX(-5px);
+}
+
+/* Alternativa: Efecto de rebote para las flechas en lugar de desplazamiento simple */
+@keyframes gentleBounce {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-5px); }
+}
+
+.btn-volver:hover i {
+  animation: gentleBounce 0.8s ease infinite; /* Usar animación de rebote en lugar de transform */
+  transform: none; /* Eliminar el transform fijo para permitir la animación */
 }
 
 .btn-volver:active {
