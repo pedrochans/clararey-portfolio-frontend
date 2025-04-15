@@ -497,6 +497,32 @@ document.addEventListener("DOMContentLoaded", () => {
                         });
                     }, 300);
                 }
+                // Si es el proyecto Marea, inicializar el efecto de scroll para las imágenes
+                else if (proyectoId === 'proyecto5') {
+                    setupProyectoImagenesScroll();
+                    console.log("Inicializando Marea Scroll");
+                    
+                    // Dar tiempo a que el DOM se actualice antes de buscar los elementos
+                    setTimeout(() => {
+                        // Activar manualmente la visibilidad inicial de todos los items
+                        document.querySelectorAll('#proyecto5 .proyecto-imagen-item').forEach(item => {
+                            if (!item.classList.contains('visible')) {
+                                item.classList.add('visible');
+                                console.log('Añadida clase visible a item de Marea');
+                            }
+                        });
+                        
+                        // Verificar si las imágenes existen y tienen las rutas correctas
+                        document.querySelectorAll('#proyecto5 img').forEach((img, index) => {
+                            console.log(`Marea imagen ${index}: ${img.src} - ¿Cargada? ${img.complete}`);
+                            
+                            // Añadir listener para detectar errores de carga
+                            img.onerror = () => {
+                                console.error(`Error cargando imagen: ${img.src}`);
+                            };
+                        });
+                    }, 300);
+                }
                 
                 // Eliminar clase de animación después de completar
                 setTimeout(() => {
