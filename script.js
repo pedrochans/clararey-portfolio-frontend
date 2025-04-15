@@ -502,29 +502,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     setupProyectoImagenesScroll();
                     console.log("Inicializando Marea Scroll");
                     
-                    // Configurar efecto de aparición con scroll para los bloques de diseño de Marea
+                    // Configurar efecto de aparición para los bloques de diseño de Marea
                     setupMareaScrollAnimation();
                     
-                    // Dar tiempo a que el DOM se actualice antes de buscar los elementos
+                    // Force scroll event after a delay to trigger initial animations
                     setTimeout(() => {
-                        // Activar manualmente la visibilidad inicial de todos los items
-                        document.querySelectorAll('#proyecto5 .proyecto-imagen-item').forEach(item => {
-                            if (!item.classList.contains('visible')) {
-                                item.classList.add('visible');
-                                console.log('Añadida clase visible a item de Marea');
-                            }
-                        });
-                        
-                        // Verificar si las imágenes existen y tienen las rutas correctas
-                        document.querySelectorAll('#proyecto5 img').forEach((img, index) => {
-                            console.log(`Marea imagen ${index}: ${img.src} - ¿Cargada? ${img.complete}`);
-                            
-                            // Añadir listener para detectar errores de carga
-                            img.onerror = () => {
-                                console.error(`Error cargando imagen: ${img.src}`);
-                            };
-                        });
-                    }, 300);
+                        console.log("Forzando evento de scroll para activar animaciones iniciales");
+                        window.dispatchEvent(new Event('scroll'));
+                    }, 500);
                 }
                 
                 // Eliminar clase de animación después de completar
@@ -1176,52 +1161,60 @@ document.addEventListener("DOMContentLoaded", () => {
     
     /**
      * Configura la animación de aparición al hacer scroll para los bloques de Marea
+     * Reimplementación completa para asegurar que funciona correctamente
      */
     function setupMareaScrollAnimation() {
-        const mareaBlocks = document.querySelectorAll('.marea-design-block');
+        // Seleccionamos todos los elementos que queremos animar al hacer scroll
+        const animatedElements = document.querySelectorAll('#proyecto5 .marea-design-block, #proyecto5 .proyecto-imagen-item');
         
-        if (!mareaBlocks.length) {
-            console.warn("No se encontraron elementos .marea-design-block");
+        if (!animatedElements.length) {
+            console.warn("No se encontraron elementos para animar en la sección Marea");
             return;
         }
         
-        console.log(`Encontrados ${mareaBlocks.length} bloques de diseño Marea para animar`);
+        console.log(`Encontrados ${animatedElements.length} elementos para animar en Marea`);
         
-        // Función para comprobar si un elemento está visible en el viewport
+        // Función mejorada para determinar si un elemento está en el viewport
         function isElementInViewport(el) {
             const rect = el.getBoundingClientRect();
+            // Un elemento se considera visible cuando su parte superior está por debajo
+            // del 20% superior de la pantalla y su parte inferior está por encima
+            // del 20% inferior de la pantalla
             return (
-                rect.top <= (window.innerHeight * 0.85) &&
-                rect.bottom >= (window.innerHeight * 0.15)
+                rect.top <= (window.innerHeight * 0.8) &&
+                rect.bottom >= (window.innerHeight * 0.2)
             );
         }
         
-        // Función para revisar todos los bloques y activar los visibles
-        function checkMareaBlocksVisibility() {
-            mareaBlocks.forEach((block, index) => {
-                if (isElementInViewport(block)) {
-                    // Solo log si el elemento cambia de estado
-                    if (!block.classList.contains('visible')) {
-                        console.log(`Bloque de diseño Marea ${index + 1} ahora visible`);
-                        block.classList.add('visible');
+        // Función para verificar y actualizar la visibilidad de los elementos
+        function checkElementsVisibility() {
+            animatedElements.forEach(element => {
+                if (isElementInViewport(element)) {
+                    if (!element.classList.contains('visible')) {
+                        console.log(`Elemento ahora visible: ${element.className}`);
+                        element.classList.add('visible');
                     }
                 }
             });
         }
         
-        // Revisar visibilidad inicial
-        console.log("Comprobando visibilidad inicial de bloques Marea");
-        checkMareaBlocksVisibility();
+        // Inicializar: asegurar que todos los elementos comienzan ocultos
+        animatedElements.forEach(element => {
+            element.classList.remove('visible');
+        });
         
-        // Añadir escucha para el evento scroll
-        window.addEventListener('scroll', checkMareaBlocksVisibility, { passive: true });
+        // Comprobar visibilidad inicial después de un pequeño retraso
+        setTimeout(checkElementsVisibility, 300);
+        
+        // Añadir listener para verificar visibilidad en scroll
+        window.addEventListener('scroll', checkElementsVisibility, { passive: true });
         
         // También verificar al redimensionar la ventana
-        window.addEventListener('resize', checkMareaBlocksVisibility, { passive: true });
+        window.addEventListener('resize', checkElementsVisibility, { passive: true });
         
-        // Para asegurar que los elementos se muestran incluso sin scroll
-        setTimeout(checkMareaBlocksVisibility, 300);
-        setTimeout(checkMareaBlocksVisibility, 1000);
+        // Verificación periódica para asegurar que se muestran los elementos
+        // incluso si no hay eventos de scroll
+        setInterval(checkElementsVisibility, 1000);
     }
     
     /**
