@@ -311,8 +311,53 @@
   margin-top: 15px; 
 }
 
-#proyecto1 .proyecto-descripcion {
-  margin-bottom: 20px; /* Mantener el espacio reducido */
+/* Ajustes para las imágenes en el proyecto Árboles y Flores específicamente */
+#proyecto3 .proyecto-imagen-container {
+  width: 150%; 
+  max-width: 1800px; 
+  margin-left: -25%; 
+  margin-top: 15px;
+  min-height: 400px; 
+  box-shadow: none; 
+  border: none; 
+  border-radius: 0; 
+  background: transparent; 
+}
+
+#proyecto3 .proyecto-imagen-container img {
+  border-radius: 0; 
+}
+
+#proyecto3 .proyecto-imagen-container:hover img {
+  transform: scale(1.02); 
+  filter: none; /
+}
+
+#proyecto3 .proyecto-imagen-item {
+  opacity: 1;
+  transform: translateY(0);
+  min-height: auto;
+}
+
+@media (max-width: 1200px) {
+  #proyecto3 .proyecto-imagen-container {
+    width: 115%;
+    margin-left: -7.5%;
+  }
+}
+
+@media (max-width: 960px) {
+  #proyecto3 .proyecto-imagen-container {
+    width: 110%;
+    margin-left: -5%;
+  }
+}
+
+@media (max-width: 768px) {
+  #proyecto3 .proyecto-imagen-container {
+    width: 100%;
+    margin-left: 0;
+  }
 }
 
 /* Ajuste para pantallas más pequeñas del proyecto Oasis */
