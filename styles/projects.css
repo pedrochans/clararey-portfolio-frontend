@@ -252,23 +252,23 @@
   color: var(--color-text-light);
   max-width: 700px;
   margin: 0 auto;
-  margin-bottom: 40px; /* Cambiado de -400px a 40px para evitar solapamiento y dar espacio adecuado */
+  margin-bottom: 40px; 
 }
 
 /* Estilos para las imágenes con scroll en proyectos */
 .proyecto-imagen-item {
-  min-height: 80vh; /* Reducido de 95vh para mejor proporción */
+  min-height: 80vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 10px 20px; /* Reducido el padding vertical */
-  margin-bottom: 10px; /* Reduced from 20px to create tighter spacing */
+  padding: 10px 20px; 
+  margin-bottom: 10px; 
   opacity: 0;
   transform: translateY(50px);
   transition: opacity 0.8s ease, transform 0.8s ease;
-  padding-top: 5px; /* Reduced padding-top to bring images closer to text */
+  padding-top: 5px; 
 }
 
 .proyecto-imagen-item.visible {
@@ -356,7 +356,7 @@
 /* Ajuste para pantallas más pequeñas del proyecto Oasis */
 @media (max-width: 1200px) {
   #proyecto1 .proyecto-imagen-container {
-    width: 115%; /* Tamaño intermedio para pantallas más pequeñas pero aún grandes */
+    width: 115%; 
     margin-left: -7.5%;
   }
 }
@@ -370,7 +370,7 @@
 
 @media (max-width: 768px) {
   #proyecto1 .proyecto-imagen-container {
-    width: 100%; /* Volver al ancho estándar en pantallas pequeñas */
+    width: 100%; 
     margin-left: 0;
   }
 }
@@ -903,19 +903,19 @@
   transform: translateX(-380px) translateZ(180px); 
   z-index: 2;
   opacity: 0.8;
-  box-shadow: 5px 5px 15px rgba(0,0,0,0.15); /* Default shadow for left items */
-  transition: all 0.5s ease-out, box-shadow 0.5s ease; /* Add box-shadow to transition */
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.15); 
+  transition: all 0.5s ease-out, box-shadow 0.5s ease; 
 }
 
 /* New hover effects with more pronounced rotation and shadow changes */
 .carousel-position-left:hover {
-  transform: translateX(-380px) translateZ(180px) rotateY(25deg); /* Increased from 15deg to 25deg */
-  box-shadow: 15px 5px 25px rgba(0,0,0,0.2); /* Stronger shadow on right side to match tilt */
+  transform: translateX(-380px) translateZ(180px) rotateY(25deg); 
+  box-shadow: 15px 5px 25px rgba(0,0,0,0.2); 
 }
 
 .carousel-position-right:hover {
   transform: translateX(380px) translateZ(180px) rotateY(-25deg); /* Increased from -15deg to -25deg */
-  box-shadow: -15px 5px 25px rgba(0,0,0,0.2); /* Stronger shadow on left side to match tilt */
+  box-shadow: -15px 5px 25px rgba(0,0,0,0.2); 
 }
 
 /* Keep front item hover effect */
@@ -945,12 +945,12 @@
   }
   
   .carousel-position-left:hover {
-    transform: translateX(-320px) translateZ(150px) rotateY(25deg); /* Increased rotation */
+    transform: translateX(-320px) translateZ(150px) rotateY(25deg); 
     box-shadow: 15px 5px 25px rgba(0,0,0,0.2);
   }
   
   .carousel-position-right:hover {
-    transform: translateX(320px) translateZ(150px) rotateY(-25deg); /* Increased rotation */
+    transform: translateX(320px) translateZ(150px) rotateY(-25deg);
     box-shadow: -15px 5px 25px rgba(0,0,0,0.2);
   }
 }
@@ -1006,7 +1006,7 @@
     width: 350px;
     height: 525px;
     margin-left: -175px;
-    margin-top: -232.5px; /* Adjusted from -262.5px to -232.5px */
+    margin-top: -232.5px; 
     transform: translateZ(350px);
   }
   
@@ -1052,7 +1052,7 @@
     width: 280px;
     height: 420px;
     margin-left: -140px;
-    margin-top: -190px; /* Adjusted from -210px to -190px */
+    margin-top: -190px; 
     transform: translateZ(300px);
   }
   
@@ -1098,7 +1098,7 @@
     width: 220px;
     height: 330px;
     margin-left: -110px;
-    margin-top: -155px; /* Adjusted from -165px to -155px */
+    margin-top: -155px; 
     transform: translateZ(250px);
   }
   
@@ -1127,7 +1127,7 @@
   }
 }
 
-/* Estilos para la galería Masonry de Teloclaro - REVISADOS */
+/* Estilos para la galería Masonry de Teloclaro */
 .teloclaro-masonry {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1138,7 +1138,6 @@
   max-width: 1200px;
 }
 
-/* CORREGIDO: Proporciones exactas 2:3 para imágenes portrait */
 .teloclaro-portrait {
   grid-row: span 2;
   position: relative;
@@ -1150,10 +1149,9 @@
 .teloclaro-portrait::before {
   content: "";
   display: block;
-  padding-top: 150%; /* Proporción exacta 2:3 (vertical) */
+  padding-top: 150%; 
 }
 
-/* CORREGIDO: Proporciones exactas 3:2 para imágenes landscape */
 .teloclaro-landscape {
   grid-column: span 2; 
   position: relative;
@@ -1165,10 +1163,9 @@
 .teloclaro-landscape::before {
   content: "";
   display: block;
-  padding-top: 66.67%; /* Proporción exacta 3:2 (horizontal) */
+  padding-top: 66.67%; 
 }
 
-/* Para crear un layout más interesante, vamos a colocar cada item en posiciones específicas */
 .teloclaro-masonry .teloclaro-item:nth-child(1) {
   grid-column: 1 / 2;
   grid-row: 1 / 3;
@@ -1280,7 +1277,7 @@
 }
 
 .teloclaro-info {
-  color: white; /* Changed from dark gray to white for better readability */
+  color: white; 
   text-align: center;
   padding: 20px;
 }
@@ -1288,12 +1285,12 @@
 .teloclaro-info p {
   margin: 10px 0;
   font-size: 16px;
-  color: white; /* Explicitly setting paragraph text to white */
+  color: white; 
 }
 
 .teloclaro-info strong {
   font-weight: 500;
-  color: white; /* Ensuring strong text is also white */
+  color: white;
 }
 
 /* Media queries para responsive */
@@ -1347,7 +1344,6 @@
     max-width: 700px;
   }
   
-  /* Reajustar posiciones para 2 columnas */
   .teloclaro-masonry .teloclaro-item:nth-child(n) {
     grid-column: auto;
     grid-row: auto;
@@ -1402,7 +1398,7 @@
   height: 0;
   padding-bottom: 30%; 
   margin-top: 0; 
-  margin-bottom: 50px; /* Cambiado de -500px a 50px para evitar solapamiento */
+  margin-bottom: 50px; 
 }
 
 /* New container for design blocks */
@@ -1442,14 +1438,14 @@
   border-radius: 0;
   overflow: hidden;
   box-shadow: none; 
-  min-height: 480px; /* Increased from 450px to make images larger */ 
+  min-height: 480px; 
   margin: 0; 
   background-color: transparent; 
 }
 
 .marea-design-text {
   flex: 1.5; 
-  padding: 30px 60px 30px 90px; /* Adjusted padding to give text more space */
+  padding: 30px 60px 30px 90px; 
 }
 
 .marea-design-image img {
@@ -1457,7 +1453,7 @@
   height: auto;
   display: block;
   transition: transform 0.5s ease;
-  background-color: transparent; /* Ensure image background is transparent */
+  background-color: transparent; 
 }
 
 .marea-design-image:hover img {
@@ -1470,23 +1466,23 @@
 }
 
 .marea-design-text h4 {
-  font-size: 32px; /* Increased from 28px to make heading text larger */
+  font-size: 32px; 
   font-weight: 350;
-  margin-bottom: 25px; /* Increased from 15px to create more space below heading */
+  margin-bottom: 25px; 
   color: var(--color-text);
 }
 
 .marea-design-text p {
-  font-size: 19px; /* Increased from 17px to make paragraph text larger */
-  line-height: 1.8; /* Increased from 1.6 for better readability */
+  font-size: 19px; 
+  line-height: 1.8; 
   color: var(--color-text-light);
-  margin-bottom: 15px; /* Added margin between paragraphs if there are multiple */
-  max-width: 800px; /* Increased from 650px to allow text to flow wider */
+  margin-bottom: 15px; 
+  max-width: 800px;
 }
 
 /* Set proper spacing for the Marea section */
 #proyecto5 .proyecto-imagen-item:first-child {
-  margin-bottom: 80px; /* Adjusted from -400px to ensure proper spacing */
+  margin-bottom: 80px; 
 }
 
 /* Responsive adjustments for Marea section */
@@ -1508,8 +1504,8 @@
   }
   
   .marea-design-block {
-    gap: 30px; /* Reduced from 40px for better mobile spacing */
-    margin-bottom: 60px; /* Reduced space between blocks on mobile */
+    gap: 30px; 
+    margin-bottom: 60px;
   }
   
   .marea-design-text {
@@ -1521,11 +1517,11 @@
   }
   
   .marea-design-text h4 {
-    font-size: 28px; /* Adjusted for tablets, increased from 26px */
+    font-size: 28px; 
   }
   
   .marea-design-text p {
-    font-size: 18px; /* Adjusted for tablets, increased from 17px */
+    font-size: 18px; 
   }
 }
 
@@ -1552,15 +1548,15 @@
   }
   
   .marea-design-text h4 {
-    font-size: 26px; /* Slightly reduced for mobile but still larger than before */
+    font-size: 26px; 
   }
   
   .marea-design-text p {
-    font-size: 17px; /* Slightly reduced for mobile but still larger than before */
+    font-size: 17px; 
   }
   
   .marea-design-block {
-    margin-bottom: 50px; /* Further reduced for mobile */
+    margin-bottom: 50px; 
   }
   
   .marea-design-image {
@@ -1594,6 +1590,6 @@
   flex-direction: column;
   align-items: center;
   gap: 15px;
-  margin: 50px auto 0; /* Increased top margin from 40px to 80px to create more space after the last image */
+  margin: 50px auto 0; 
   width: 100%;
 }
