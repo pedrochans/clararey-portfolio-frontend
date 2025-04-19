@@ -1265,13 +1265,32 @@ document.addEventListener('DOMContentLoaded', function() {
     const modal = document.getElementById('modal-ficha-tecnica');
     const modalImg = document.getElementById('modal-imagen');
     const closeBtn = document.querySelector('.close-modal');
+    const loader = document.querySelector('.modal-loader');
     
     // Objeto que mapea cada proyecto con la URL de su ficha técnica
     const fichasTecnicas = {
-        'proyecto1': './img/proyectos/oasis_ficha.png', // Añadido Oasis
+        'proyecto1': './img/proyectos/oasis_ficha.png',
         'proyecto2': './img/proyectos/cielito_ficha.png',
         'proyecto5': './img/proyectos/marea_ficha.png'
     };
+    
+    // Precargamos las imágenes
+    const imageCache = {};
+    precargarImagenes();
+    
+    /**
+     * Precarga las imágenes de fichas técnicas
+     */
+    function precargarImagenes() {
+        Object.values(fichasTecnicas).forEach(url => {
+            const img = new Image();
+            img.onload = () => {
+                console.log(`Imagen precargada: ${url}`);
+                imageCache[url] = true;
+            };
+            img.src = url;
+        });
+    }
     
     // Añadir listener a todos los botones de ficha técnica
     document.querySelectorAll('.btn-ficha-tecnica').forEach(button => {
@@ -1283,10 +1302,37 @@ document.addEventListener('DOMContentLoaded', function() {
             // Obtener la URL de la ficha técnica correspondiente
             const fichaUrl = fichasTecnicas[proyectoId];
             if (fichaUrl) {
-                // Establecer la imagen y mostrar el modal
-                modalImg.src = fichaUrl;
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden'; // Evitar scroll en el fondo
+                // Mostrar el indicador de carga
+                loader.classList.remove('hidden');
+                modalImg.classList.remove('loaded');
+                
+                // Crear una nueva imagen para verificar el estado de carga
+                const img = new Image();
+                
+                img.onload = function() {
+                    // La imagen está cargada, ahora establecer la imagen en el modal
+                    modalImg.src = fichaUrl;
+                    
+                    // Después de un breve retraso para asegurar que la imagen se renderice correctamente
+                    setTimeout(() => {
+                        // Mostrar la imagen y ocultar el loader
+                        modalImg.classList.add('loaded');
+                        loader.classList.add('hidden');
+                    }, 100);
+                    
+                    // Mostrar el modal (solo después de que la imagen esté lista)
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Evitar scroll en el fondo
+                };
+                
+                // Iniciar la carga de la imagen o usar la caché
+                if (imageCache[fichaUrl]) {
+                    // Si la imagen ya está en caché, simular un evento onload
+                    img.onload();
+                } else {
+                    // Si no está en caché, cargar la imagen
+                    img.src = fichaUrl;
+                }
             }
         });
     });
@@ -1294,26 +1340,37 @@ document.addEventListener('DOMContentLoaded', function() {
     // Cerrar el modal al hacer clic en el botón de cerrar
     if (closeBtn) {
         closeBtn.addEventListener('click', function() {
-            modal.classList.remove('active');
-            document.body.style.overflow = ''; // Restaurar scroll
+            cerrarModal();
         });
     }
     
     // Cerrar el modal también al hacer clic fuera de la imagen
     modal.addEventListener('click', function(event) {
         if (event.target === modal) {
-            modal.classList.remove('active');
-            document.body.style.overflow = ''; // Restaurar scroll
+            cerrarModal();
         }
     });
     
     // Cerrar el modal con la tecla escape
     document.addEventListener('keydown', function(event) {
         if (event.key === 'Escape' && modal.classList.contains('active')) {
-            modal.classList.remove('active');
-            document.body.style.overflow = ''; // Restaurar scroll
+            cerrarModal();
         }
     });
+    
+    /**
+     * Cierra el modal y restaura el scroll
+     */
+    function cerrarModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = ''; // Restaurar scroll
+        
+        // Esperar a que termine la animación de cierre antes de resetear la imagen
+        setTimeout(() => {
+            modalImg.classList.remove('loaded');
+            modalImg.src = '';
+        }, 300);
+    }
 });
 
 // Función para actualizar la visibilidad de los indicadores de scroll
