@@ -301,17 +301,22 @@ document.addEventListener("DOMContentLoaded", () => {
         const carouselImages = document.querySelectorAll('.hero-img');
         const indicators = document.querySelectorAll('.indicator');
         let currentImageIndex = 0;
+        let isTransitioning = false;
         let intervalId;
         
-        // Verificar que las imágenes se han cargado correctamente
+        // Verificar que hay imágenes que cargar
+        if (!carouselImages.length) {
+            console.warn("No se encontraron imágenes para el carrusel");
+            return;
+        }
+        
+        // Inicializar: primera imagen activa, resto fuera de la vista
         carouselImages.forEach((img, index) => {
-            img.addEventListener('load', () => {
-                console.log(`Imagen ${index + 1} cargada correctamente`);
-            });
-            
-            img.addEventListener('error', () => {
-                console.error(`Error al cargar la imagen ${index + 1}: ${img.src}`);
-            });
+            if (index === 0) {
+                img.classList.add('active');
+            } else {
+                img.classList.add('enter-left'); // Las demás imágenes esperan a la izquierda
+            }
         });
         
         // Iniciar el carrusel automáticamente
@@ -320,47 +325,71 @@ document.addEventListener("DOMContentLoaded", () => {
         // Añadir eventos a los indicadores
         indicators.forEach(indicator => {
             indicator.addEventListener('click', () => {
+                if (isTransitioning) return;
+                
                 const targetIndex = parseInt(indicator.dataset.index);
-                showImage(targetIndex);
-                resetCarouselTimer();
+                if (targetIndex !== currentImageIndex) {
+                    transitToImage(targetIndex);
+                    resetCarouselTimer();
+                }
             });
         });
         
         /**
-         * Muestra la imagen en el índice especificado
-         * @param {number} index - Índice de la imagen a mostrar
+         * Función que realiza la transición de una imagen a otra
+         * @param {number} nextIndex - Índice de la imagen a mostrar
          */
-        function showImage(index) {
-            // Aplicar animación de salida a la imagen actual (hacia la derecha)
-            if (carouselImages[currentImageIndex]) {
-                carouselImages[currentImageIndex].classList.remove('active');
-                carouselImages[currentImageIndex].classList.add('exit-right');
-                indicators[currentImageIndex].classList.remove('active');
+        function transitToImage(nextIndex) {
+            if (isTransitioning || nextIndex === currentImageIndex) return;
+            isTransitioning = true;
+            
+            // Referencias a las imágenes involucradas
+            const currentImage = carouselImages[currentImageIndex];
+            const nextImage = carouselImages[nextIndex];
+            
+            // Actualizar indicadores
+            indicators[currentImageIndex].classList.remove('active');
+            indicators[nextIndex].classList.add('active');
+            
+            // Preparar la nueva imagen para entrar desde la izquierda
+            nextImage.classList.remove('exit-right');
+            nextImage.classList.add('enter-left');
+            
+            // Forzar un reflow para asegurar que los cambios se aplican
+            void nextImage.offsetWidth;
+            
+            // Hacer la transición: 
+            // - Imagen actual sale por la derecha
+            // - Nueva imagen entra desde la izquierda
+            currentImage.classList.remove('active');
+            currentImage.classList.add('exit-right');
+            nextImage.classList.remove('enter-left');
+            nextImage.classList.add('active');
+            
+            // Después de completar la transición
+            setTimeout(() => {
+                // Actualizar el índice actual
+                currentImageIndex = nextIndex;
                 
-                // Limpieza: eliminar la clase exit-right después de la transición
-                setTimeout(() => {
-                    carouselImages[currentImageIndex].classList.remove('exit-right');
-                }, 1000);
-            }
-            
-            // Actualizar el índice actual
-            currentImageIndex = index;
-            
-            // Si el índice es inválido, volver al principio
-            if (currentImageIndex >= carouselImages.length) {
-                currentImageIndex = 0;
-            }
-            
-            // Mostrar la nueva imagen (entrará desde la izquierda)
-            carouselImages[currentImageIndex].classList.add('active');
-            indicators[currentImageIndex].classList.add('active');
+                // Preparar las demás imágenes para futuras transiciones
+                carouselImages.forEach((img, index) => {
+                    if (index !== currentImageIndex) {
+                        img.classList.remove('active', 'exit-right');
+                        img.classList.add('enter-left');
+                    }
+                });
+                
+                isTransitioning = false;
+            }, 800); // Este tiempo debe coincidir con la duración de la transición CSS
         }
         
         /**
          * Avanza el carrusel a la siguiente imagen
          */
         function nextImage() {
-            showImage((currentImageIndex + 1) % carouselImages.length);
+            // Calcular el índice de la siguiente imagen
+            const nextIndex = (currentImageIndex + 1) % carouselImages.length;
+            transitToImage(nextIndex);
         }
         
         /**
