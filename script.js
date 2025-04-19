@@ -1259,6 +1259,63 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+// Función para manejar los botones de ficha técnica
+document.addEventListener('DOMContentLoaded', function() {
+    // Referencias al modal y sus elementos
+    const modal = document.getElementById('modal-ficha-tecnica');
+    const modalImg = document.getElementById('modal-imagen');
+    const closeBtn = document.querySelector('.close-modal');
+    
+    // Objeto que mapea cada proyecto con la URL de su ficha técnica
+    const fichasTecnicas = {
+        'proyecto1': './img/proyectos/oasis_ficha.png', // Añadido Oasis
+        'proyecto2': './img/proyectos/cielito_ficha.png',
+        'proyecto5': './img/proyectos/marea_ficha.png'
+    };
+    
+    // Añadir listener a todos los botones de ficha técnica
+    document.querySelectorAll('.btn-ficha-tecnica').forEach(button => {
+        button.addEventListener('click', function() {
+            // Determinar qué proyecto es basado en el ancestro más cercano con id
+            const proyectoEl = this.closest('.proyecto-detalle');
+            const proyectoId = proyectoEl.id;
+            
+            // Obtener la URL de la ficha técnica correspondiente
+            const fichaUrl = fichasTecnicas[proyectoId];
+            if (fichaUrl) {
+                // Establecer la imagen y mostrar el modal
+                modalImg.src = fichaUrl;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Evitar scroll en el fondo
+            }
+        });
+    });
+    
+    // Cerrar el modal al hacer clic en el botón de cerrar
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; // Restaurar scroll
+        });
+    }
+    
+    // Cerrar el modal también al hacer clic fuera de la imagen
+    modal.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; // Restaurar scroll
+        }
+    });
+    
+    // Cerrar el modal con la tecla escape
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && modal.classList.contains('active')) {
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; // Restaurar scroll
+        }
+    });
+});
+
 // Función para actualizar la visibilidad de los indicadores de scroll
 function updateScrollIndicators() {
     const wrapper = document.querySelector('.proyectos-wrapper');
