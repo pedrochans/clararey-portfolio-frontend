@@ -1258,3 +1258,62 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+// Función para actualizar la visibilidad de los indicadores de scroll
+function updateScrollIndicators() {
+    const wrapper = document.querySelector('.proyectos-wrapper');
+    if (!wrapper) return;
+    
+    const leftIndicator = document.querySelector('.left-indicator');
+    const rightIndicator = document.querySelector('.right-indicator');
+    
+    // Si no hay desbordamiento horizontal, ocultar ambos indicadores
+    if (wrapper.scrollWidth <= wrapper.clientWidth) {
+        leftIndicator.classList.remove('active');
+        rightIndicator.classList.remove('active');
+        return;
+    }
+    
+    // Mostrar/ocultar indicador izquierdo basado en la posición del scroll
+    if (wrapper.scrollLeft <= 10) {
+        leftIndicator.classList.remove('active');
+    } else {
+        leftIndicator.classList.add('active');
+    }
+    
+    // Mostrar/ocultar indicador derecho basado en la posición del scroll
+    if (wrapper.scrollLeft + wrapper.clientWidth >= wrapper.scrollWidth - 10) {
+        rightIndicator.classList.remove('active');
+    } else {
+        rightIndicator.classList.add('active');
+    }
+}
+
+// Configurar los eventos para los indicadores de scroll
+document.addEventListener('DOMContentLoaded', function() {
+    const wrapper = document.querySelector('.proyectos-wrapper');
+    const leftIndicator = document.querySelector('.left-indicator');
+    const rightIndicator = document.querySelector('.right-indicator');
+    
+    if (wrapper && leftIndicator && rightIndicator) {
+        // Actualizar indicadores inicialmente
+        updateScrollIndicators();
+        
+        // Actualizar al hacer scroll
+        wrapper.addEventListener('scroll', updateScrollIndicators);
+        
+        // Actualizar al cambiar el tamaño de la ventana
+        window.addEventListener('resize', updateScrollIndicators);
+        
+        // Configurar clicks en los botones de navegación con mayor desplazamiento
+        leftIndicator.addEventListener('click', function() {
+            // Aumentado de 300 a 600 píxeles (aproximadamente 1.5 proyectos)
+            wrapper.scrollBy({ left: -600, behavior: 'smooth' });
+        });
+        
+        rightIndicator.addEventListener('click', function() {
+            // Aumentado de 300 a 600 píxeles (aproximadamente 1.5 proyectos)
+            wrapper.scrollBy({ left: 600, behavior: 'smooth' });
+        });
+    }
+});
