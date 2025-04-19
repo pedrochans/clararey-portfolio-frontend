@@ -26,11 +26,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // Configurar el selector de ilustraciones
     setupIlustracionesSelector();
     
-    // Configurar el scroll horizontal de proyectos
-    setupProyectosScroll();
+    // Configurar el scroll horizontal de proyectos - ya no necesitamos esto para el nuevo selector
+    // setupProyectosScroll();
     
     // Llamar explícitamente a setupCielitoBotones
     setupCielitoBotones();
+    
+    // Configurar el nuevo carrusel 3D para proyectos
+    setupProyectos3DCarousel();
     
     /**
      * Configura la vista inicial de la aplicación
@@ -220,10 +223,16 @@ document.addEventListener("DOMContentLoaded", () => {
             detalle.classList.remove('visible');
         });
         
-        // Mostrar el contenedor de scroll de proyectos (en lugar de la grid)
+        // Mostrar SOLO el carrusel 3D (no el contenedor de scroll antiguo)
+        const carrusel3D = document.querySelector('.proyectos-carousel3d-container');
+        if (carrusel3D) {
+            carrusel3D.classList.remove('oculta');
+        }
+        
+        // Asegurarse de que el contenedor de scroll antiguo permanezca oculto
         const proyectosScrollContainer = document.querySelector('.proyectos-scroll-container');
         if (proyectosScrollContainer) {
-            proyectosScrollContainer.classList.remove('oculta');
+            proyectosScrollContainer.style.display = 'none';
         }
     }
     
@@ -412,8 +421,8 @@ document.addEventListener("DOMContentLoaded", () => {
      * Configura los eventos para la navegación entre proyectos y sus detalles
      */
     function setupProyectosEventos() {
-        // Obtener elementos
-        const proyectoItems = document.querySelectorAll('.proyecto-item[data-proyecto]');
+        // Obtener elementos - MODIFICADO: excluir los elementos del carrusel 3D
+        const proyectoItems = document.querySelectorAll('.proyecto-item[data-proyecto]:not(.carousel-3d-container .proyecto-item)');
         const botonesVolver = document.querySelectorAll('.btn-volver');
         const proyectosScrollContainer = document.querySelector('.proyectos-scroll-container');
         
@@ -480,70 +489,141 @@ document.addEventListener("DOMContentLoaded", () => {
          * @param {string} proyectoId - ID del proyecto a mostrar
          */
         function mostrarDetalleProyecto(proyectoId) {
+            console.log(`Mostrando detalle de proyecto: ${proyectoId}`);
+            
             // Ocultar el contenedor de scroll de proyectos
             document.querySelector('.proyectos-scroll-container').classList.add('oculta');
             
             // Mostrar el detalle del proyecto seleccionado
             const detalleProyecto = document.getElementById(proyectoId);
             if (detalleProyecto) {
+                // IMPORTANTE: Establecer el display explícitamente antes de cualquier animación
+                detalleProyecto.style.display = 'block';
+                detalleProyecto.style.visibility = 'visible';
+                
+                // Forzar reflow 
+                void detalleProyecto.offsetWidth;
+                
                 // Añadir clase para la animación de entrada
                 detalleProyecto.classList.add('entrando');
                 detalleProyecto.classList.add('visible');
                 
-                // Scroll suave hasta el detalle
+                // Aplicar forzosamente visibilidad a todos los elementos internos
+                const allChildElements = detalleProyecto.querySelectorAll('*');
+                allChildElements.forEach(el => {
+                    el.style.opacity = '1';
+                    el.style.visibility = 'visible';
+                    
+                    // Si es un contenedor con posicionamiento relativo/absoluto, asegurarnos que es visible
+                    const position = window.getComputedStyle(el).position;
+                    if (position === 'relative' || position === 'absolute') {
+                        el.style.display = 'block';
+                    }
+                });
+                
+                // Hacer visible explícitamente todas las imágenes
+                detalleProyecto.querySelectorAll('img').forEach(img => {
+                    img.style.display = 'block';
+                    img.style.opacity = '1';
+                    img.style.visibility = 'visible';
+                    
+                    // Verificar que la imagen esté cargada
+                    if (!img.complete) {
+                        console.log(`Cargando imagen: ${img.src}`);
+                        img.onload = () => console.log(`Imagen cargada: ${img.src}`);
+                        img.onerror = () => console.error(`Error al cargar imagen: ${img.src}`);
+                    }
+                });
+                
+                // Hacer visibles explícitamente todos los elementos de imagen del proyecto
+                detalleProyecto.querySelectorAll('.proyecto-imagen-item').forEach(item => {
+                    item.classList.add('visible');
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                    item.style.visibility = 'visible';
+                    item.style.display = 'block';
+                });
+                
+                // Hacer scroll suave al detalle
                 detalleProyecto.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 
-                // Si es el proyecto Oasis, inicializar el efecto de scroll para las imágenes y el selector
+                // Tratamiento específico para cada proyecto
                 if (proyectoId === 'proyecto1') {
+                    console.log('Inicializando Oasis...');
+                    
+                    // Hacer visible la galería primero para asegurar que existe en el DOM
+                    const oasisGaleria = detalleProyecto.querySelector('.oasis-galeria');
+                    if (oasisGaleria) {
+                        oasisGaleria.style.visibility = 'visible';
+                        oasisGaleria.style.opacity = '1';
+                        oasisGaleria.style.display = 'block';
+                        
+                        // Forzar reflow
+                        void oasisGaleria.offsetWidth;
+                        
+                        console.log('Galería de Oasis encontrada, aplicando visibilidad');
+                    } else {
+                        console.error('No se encontró la galería de Oasis');
+                    }
+                    
+                    // Hacer la imagen principal visible
+                    const oasisMain = document.getElementById('oasis-main');
+                    if (oasisMain) {
+                        oasisMain.style.display = 'block';
+                        oasisMain.style.opacity = '1';
+                        oasisMain.style.visibility = 'visible';
+                        
+                        // Cargar imagen si es necesario
+                        if (!oasisMain.complete) {
+                            console.log(`Cargando imagen principal de Oasis: ${oasisMain.src}`);
+                            const imgLoader = new Image();
+                            imgLoader.onload = () => {
+                                console.log('Imagen principal de Oasis cargada correctamente');
+                                oasisMain.src = imgLoader.src; // Recargar para asegurar
+                            };
+                            imgLoader.src = oasisMain.src;
+                        }
+                        
+                        console.log('Imagen principal de Oasis configurada');
+                    } else {
+                        console.error('No se encontró la imagen principal de Oasis');
+                    }
+                    
+                    // Inicializar miniaturas
+                    const miniaturas = detalleProyecto.querySelectorAll('.oasis-miniatura');
+                    miniaturas.forEach((miniatura, idx) => {
+                        miniatura.style.visibility = 'visible';
+                        miniatura.style.opacity = idx === 0 ? '1' : '0.7'; // Primera activa, resto ligeramente transparente
+                        
+                        // Verificar que las imágenes de miniaturas estén cargadas
+                        const img = miniatura.querySelector('img');
+                        if (img && !img.complete) {
+                            console.log(`Precargando miniatura ${idx}: ${img.src}`);
+                            const preloader = new Image();
+                            preloader.src = img.src;
+                        }
+                    });
+                    
+                    // Finalmente configurar efectos y eventos
                     setupProyectoImagenesScroll();
                     setupOasisImageSelector();
                 }
-                // Si es el proyecto Cielito Lindo, inicializar el efecto de scroll para las imágenes
-                // y configurar los botones adicionales
-                else if (proyectoId === 'proyecto2') {
-                    setupProyectoImagenesScroll();
-                    setupCielitoBotones();
-                }
-                // Si es el proyecto Árboles y Flores, inicializar el carousel 3D
-                else if (proyectoId === 'proyecto3') {
-                    setupProyectoImagenesScroll();
-                    setup3DCarouselArbolesFlores();
-                }
-                // Si es el proyecto Teloclaro, inicializar el efecto de scroll para las imágenes
-                else if (proyectoId === 'proyecto4') {
-                    setupProyectoImagenesScroll();
-                    
-                    // Inicializar Teloclaro - CORREGIDO: Asegurar que se llama y funciona
-                    console.log("Inicializando Teloclaro Scroll");
-                    
-                    // Dar tiempo a que el DOM se actualice antes de buscar los elementos
-                    setTimeout(() => {
-                        setupTeloclaroScroll();
-                        
-                        // Activar manualmente la visibilidad inicial de todos los items para asegurar que se muestran
-                        document.querySelectorAll('.teloclaro-item').forEach(item => {
-                            item.classList.add('visible');
-                        });
-                    }, 300);
-                }
-                // Si es el proyecto Marea, inicializar el efecto de scroll para las imágenes
-                else if (proyectoId === 'proyecto5') {
-                    setupProyectoImagenesScroll();
-                    console.log("Inicializando Marea Scroll");
-                    
-                    // Configurar efecto de aparición para los bloques de diseño de Marea
-                    setupMareaScrollAnimation();
-                    
-                    // Force scroll event after a delay to trigger initial animations
-                    setTimeout(() => {
-                        console.log("Forzando evento de scroll para activar animaciones iniciales");
-                        window.dispatchEvent(new Event('scroll'));
-                    }, 500);
-                }
+                // ...existing code for other projects...
                 
                 // Eliminar clase de animación después de completar
                 setTimeout(() => {
                     detalleProyecto.classList.remove('entrando');
+                    
+                    // Segunda comprobación de visibilidad para asegurar que todo esté visible
+                    detalleProyecto.querySelectorAll('img, .proyecto-imagen-item').forEach(el => {
+                        if (window.getComputedStyle(el).opacity !== '1' || 
+                            window.getComputedStyle(el).visibility !== 'visible') {
+                            console.log('Forzando visibilidad en elemento:', el);
+                            el.style.opacity = '1';
+                            el.style.visibility = 'visible';
+                            el.style.display = el.tagName === 'IMG' ? 'block' : 'block';
+                        }
+                    });
                 }, 600);
             }
         }
@@ -616,71 +696,92 @@ document.addEventListener("DOMContentLoaded", () => {
      * Configura la funcionalidad del selector de imágenes de Oasis
      */
     function setupOasisImageSelector() {
+        console.log('Configurando selector de imágenes Oasis');
+        
         const miniaturas = document.querySelectorAll('.oasis-miniatura');
         const imagenPrincipalContainer = document.querySelector('.oasis-imagen-principal');
         const imagenPrincipal = document.getElementById('oasis-main');
         
-        if (!miniaturas.length || !imagenPrincipal) return;
+        console.log(`Selector Oasis: encontradas ${miniaturas.length} miniaturas`);
+        console.log('Imagen principal:', imagenPrincipal ? 'Encontrada' : 'No encontrada');
+        
+        if (!miniaturas.length || !imagenPrincipal) {
+            console.error("No se encontraron elementos para el selector de Oasis");
+            return;
+        }
+        
+        // Asegurar que los contenedores sean visibles
+        if (imagenPrincipalContainer) {
+            imagenPrincipalContainer.style.display = 'block';
+            imagenPrincipalContainer.style.visibility = 'visible';
+            imagenPrincipalContainer.style.opacity = '1';
+        }
+        
+        // Asegurar que la imagen principal esté visible y cargada
+        imagenPrincipal.style.display = 'block';
+        imagenPrincipal.style.visibility = 'visible';
+        imagenPrincipal.style.opacity = '1';
         
         // Asegurarse de que la imagen principal coincida con la miniatura activa al cargar
         const miniaturActiva = document.querySelector('.oasis-miniatura.active');
         if (miniaturActiva && imagenPrincipal) {
-            imagenPrincipal.src = miniaturActiva.querySelector('img').src;
+            const imgSrc = miniaturActiva.querySelector('img').src;
+            imagenPrincipal.src = imgSrc;
+            console.log(`Configurada imagen principal: ${imgSrc}`);
+            
+            // Forzar carga completa
+            const tempImg = new Image();
+            tempImg.onload = () => console.log('Imagen principal verificada');
+            tempImg.src = imgSrc;
         }
         
-        // Precargar las imágenes para transiciones más suaves
-        miniaturas.forEach(miniatura => {
-            const img = new Image();
-            img.src = miniatura.querySelector('img').src;
-        });
-        
-        miniaturas.forEach(miniatura => {
+        // Precargar todas las imágenes
+        miniaturas.forEach((miniatura, idx) => {
+            miniatura.style.display = 'block';
+            miniatura.style.visibility = 'visible';
+            miniatura.style.opacity = miniatura.classList.contains('active') ? '1' : '0.7';
+            
+            const img = miniatura.querySelector('img');
+            if (img) {
+                img.style.display = 'block';
+                img.style.visibility = 'visible';
+                img.style.opacity = '1';
+                
+                // Precargar
+                const preloader = new Image();
+                preloader.src = img.src;
+            }
+            
+            // Configurar evento click
             miniatura.addEventListener('click', () => {
-                // No hacer nada si ya está activa o si hay una transición en curso
+                console.log(`Click en miniatura ${idx}`);
+                
+                // Si ya está activa o hay una transición, no hacer nada
                 if (miniatura.classList.contains('active') || 
                     imagenPrincipalContainer.classList.contains('loading')) return;
                 
-                // Quitar la clase active de todas las miniaturas
+                // Actualizar clases active
                 miniaturas.forEach(m => m.classList.remove('active'));
-                
-                // Añadir la clase active a la miniatura seleccionada
                 miniatura.classList.add('active');
                 
-                // Obtener la URL de la nueva imagen
+                // Cambiar imagen principal con animación
                 const newImageSrc = miniatura.querySelector('img').src;
+                console.log(`Cambiando a imagen: ${newImageSrc}`);
                 
-                // No hacer nada si es la misma imagen
-                if (imagenPrincipal.src === newImageSrc) return;
-                
-                // Iniciar la transición
                 imagenPrincipalContainer.classList.add('loading');
-                imagenPrincipalContainer.classList.add('changing');
+                imagenPrincipal.style.opacity = '0.5'; // Disminuir opacidad durante transición
                 
-                // Tiempo para que inicie la animación de salida
                 setTimeout(() => {
-                    // Cambiar la fuente de la imagen
                     imagenPrincipal.src = newImageSrc;
-                    
-                    // Cuando la imagen se carga
                     imagenPrincipal.onload = () => {
-                        // Quitar clase de cambio para iniciar la animación de entrada
-                        imagenPrincipalContainer.classList.remove('changing');
-                        
-                        // Dar tiempo a la animación de entrada y luego quitar loading
-                        setTimeout(() => {
-                            imagenPrincipalContainer.classList.remove('loading');
-                        }, 300);
-                    };
-                    
-                    // Manejo de error en la carga
-                    imagenPrincipal.onerror = () => {
-                        console.error('Error al cargar la imagen:', newImageSrc);
-                        imagenPrincipalContainer.classList.remove('changing');
+                        imagenPrincipal.style.opacity = '1';
                         imagenPrincipalContainer.classList.remove('loading');
                     };
                 }, 200);
             });
         });
+        
+        console.log('Configuración del selector de Oasis completada');
     }
     
     /**
@@ -1255,6 +1356,189 @@ document.addEventListener("DOMContentLoaded", () => {
         imagenes.forEach(img => {
             img.setAttribute('loading', 'lazy');
             // Opcionalmente, si es posible, añade también width y height
+        });
+    }
+    
+    /**
+     * Configura el carrusel 3D para el selector de proyectos
+     */
+    function setupProyectos3DCarousel() {
+        const container = document.querySelector('.proyectos-carousel3d-container .carousel-3d-container');
+        if (!container) return;
+        const items = Array.from(container.querySelectorAll('.proyecto-item'));
+        const infoCentral = document.querySelector('.proyectos-info-central');
+        const infoTitle = infoCentral?.querySelector('.proyecto-title');
+        const infoCat = infoCentral?.querySelector('.proyecto-category');
+        if (!items.length || !infoCentral) return;
+
+        // Extrae títulos/categorías de las subsecciones
+        const proyectosInfo = items.map(item => {
+            const id = item.getAttribute('data-proyecto');
+            const detalle = document.getElementById(id);
+            return {
+                id,
+                titulo: detalle?.querySelector('.proyecto-titulo')?.textContent || '',
+                categoria: detalle?.querySelector('.proyecto-categoria')?.textContent || ''
+            };
+        });
+
+        const positions = ['position-front','position-right','position-far-right','position-back','position-far-left','position-left'];
+        let currentIndex = 0;
+        let isRotating = false;
+
+        // Ocultar todas las subsecciones al inicio para garantizar un estado limpio
+        document.querySelectorAll('.proyecto-detalle').forEach(detalle => {
+            detalle.classList.remove('visible');
+        });
+
+        // Remover cualquier manejador de evento existente de los items del carrusel
+        items.forEach(item => {
+            // Clonar el elemento para eliminar todos los event listeners
+            const newItem = item.cloneNode(true);
+            item.parentNode.replaceChild(newItem, item);
+        });
+
+        // Volver a obtener la referencia a los items después de clonarlos
+        const updatedItems = Array.from(container.querySelectorAll('.proyecto-item'));
+
+        function updatePositions() {
+            updatedItems.forEach((item, idx) => {
+                positions.forEach(pos => item.classList.remove(pos));
+                
+                // Eliminar enlace si existe
+                const link = item.querySelector('.proyecto-link');
+                if (link) {
+                    const img = link.querySelector('img');
+                    if (img) item.querySelector('.proyecto-imagen').appendChild(img);
+                    link.remove();
+                }
+                
+                const posIdx = (idx - currentIndex + updatedItems.length) % updatedItems.length;
+                item.classList.add(positions[posIdx]);
+                
+                // Solo las imágenes deben ser visibles, sin enlaces
+                const img = item.querySelector('.proyecto-imagen img');
+                if (!img) {
+                    // Si solo hay un <a>, extrae el img
+                    const a = item.querySelector('.proyecto-link');
+                    if (a) {
+                        const img2 = a.querySelector('img');
+                        if (img2) {
+                            item.querySelector('.proyecto-imagen').innerHTML = "";
+                            item.querySelector('.proyecto-imagen').appendChild(img2);
+                        }
+                        a.remove();
+                    }
+                }
+                
+                // Actualizar la información central si es la imagen frontal
+                if (positions[posIdx] === 'position-front') {
+                    updateCentralInfo(idx);
+                }
+            });
+        }
+        
+        function updateCentralInfo(idx) {
+            infoCentral.classList.add('changing');
+            setTimeout(() => {
+                infoTitle.textContent = proyectosInfo[idx].titulo;
+                infoCat.textContent = proyectosInfo[idx].categoria;
+                infoCentral.classList.remove('changing');
+            }, 200);
+        }
+        
+        function rotateTo(idx) {
+            if (isRotating) return; // Evitar rotaciones simultáneas
+            
+            isRotating = true;
+            
+            const steps = (idx - currentIndex + items.length) % items.length;
+            if (steps <= items.length/2) rotateSteps(steps);
+            else rotateSteps(items.length-steps, true);
+            
+            // Permitir nuevas rotaciones después de un tiempo adecuado
+            setTimeout(() => {
+                isRotating = false;
+            }, steps * 250); // El tiempo depende del número de pasos
+        }
+        
+        function rotateSteps(steps, reverse=false) {
+            if (steps<=0) return;
+            if (reverse) currentIndex = (currentIndex-1+items.length)%items.length;
+            else currentIndex = (currentIndex+1)%items.length;
+            updatePositions();
+            setTimeout(() => { 
+                if (steps>1) rotateSteps(steps-1,reverse); 
+            }, 220);
+        }
+        
+        // Gestionar los clics en los items del carrusel
+        updatedItems.forEach((item, idx) => {
+            // Añadir una clase especial para identificarlos como parte del carrusel
+            item.classList.add('carousel-3d-proyecto-item');
+            
+            item.addEventListener('click', (ev) => {
+                ev.preventDefault();
+                ev.stopPropagation();
+                
+                console.log("Clic en item del carrusel:", idx, "Es frontal:", item.classList.contains('position-front'));
+                
+                // No hacer nada si el carrusel está rotando
+                if (isRotating) return;
+                
+                // Obtener el ID del proyecto asociado a este item
+                const id = item.getAttribute('data-proyecto');
+                
+                // VERIFICAR EXPLÍCITAMENTE si el elemento tiene la clase position-front
+                if (item.classList.contains('position-front')) {
+                    // Solo para la imagen frontal: navegar a la subsección
+                    item.classList.add('pulsado');
+                    setTimeout(() => item.classList.remove('pulsado'), 300);
+                    
+                    // Ocultar todas las subsecciones primero
+                    document.querySelectorAll('.proyecto-detalle').forEach(detalle => {
+                        detalle.classList.remove('visible');
+                    });
+                    
+                    // Ocultar el carrusel
+                    const carrusel = document.querySelector('.proyectos-carousel3d-container');
+                    if (carrusel) carrusel.classList.add('oculta');
+                    
+                    // Mostrar la subsección correspondiente
+                    const detalleProyecto = document.getElementById(id);
+                    if (detalleProyecto) {
+                        detalleProyecto.classList.add('entrando');
+                        detalleProyecto.classList.add('visible');
+                        detalleProyecto.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        setTimeout(() => {
+                            detalleProyecto.classList.remove('entrando');
+                        }, 600);
+                    }
+                } else {
+                    // Para imágenes secundarias: SOLO rotar el carrusel, sin mostrar subsección
+                    rotateTo(idx);
+                }
+            });
+        });
+        
+        // Inicialización de posiciones
+        updatePositions();
+        
+        // Botones de volver de los detalles de proyecto
+        document.querySelectorAll('.btn-volver').forEach(boton => {
+            boton.addEventListener('click', function() {
+                // Ocultar la subsección 
+                const detalleProyecto = this.closest('.proyecto-detalle');
+                if (detalleProyecto) {
+                    detalleProyecto.classList.remove('visible');
+                    
+                    // Mostrar el carrusel después de un breve retraso
+                    setTimeout(() => {
+                        const carrusel = document.querySelector('.proyectos-carousel3d-container');
+                        if (carrusel) carrusel.classList.remove('oculta');
+                    }, 300);
+                }
+            });
         });
     }
 });

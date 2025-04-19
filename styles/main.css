@@ -12,3 +12,31 @@
 @import 'projects.css';
 @import 'gallery.css';
 @import 'contact.css';
+
+/* Fix para que los elementos de proyecto estén siempre visibles */
+.proyecto-detalle {
+  position: relative;
+  z-index: 10;
+}
+
+.proyecto-detalle.visible {
+  min-height: 500px;
+}
+
+.proyecto-imagen-item {
+  position: relative;
+  z-index: 2;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* Ajustes temporales de depuración */
+.debug-visible {
+  border: 2px solid red !important;
+  min-height: 100px !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  display: block !important;
+}

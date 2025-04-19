@@ -543,6 +543,9 @@
   width: 100%;
   max-width: 1800px;
   margin: 40px auto 0;
+  visibility: visible !important;
+  opacity: 1 !important;
+  display: block !important;
 }
 
 .oasis-imagen-principal {
@@ -556,6 +559,9 @@
   margin-bottom: 15px;
   background-color: #f5f5f5; /* Fondo para cuando la imagen está cargando */
   transition: all 0.3s ease;
+  visibility: visible !important;
+  opacity: 1 !important;
+  display: block !important;
 }
 
 .oasis-imagen-principal img {
@@ -567,41 +573,43 @@
   object-fit: cover;
   border-radius: 5px;
   transition: opacity 0.4s ease, transform 0.4s ease;
-  opacity: 1;
+  opacity: 1 !important;
   transform: scale(1);
-}
-
-.oasis-imagen-principal.changing img {
-  opacity: 0;
-  transform: scale(1.03);
+  visibility: visible !important;
+  display: block !important;
 }
 
 .oasis-selector {
   display: flex;
-  justify-content: space-between; /* Alinear con los bordes */
+  justify-content: space-between;
   flex-wrap: wrap;
-  gap: 8px; /* Reducir el espacio entre miniaturas */
-  width: 100%; /* Ocupar todo el ancho de la imagen principal */
+  gap: 8px;
+  width: 100%;
   margin: 0 auto;
+  visibility: visible !important;
+  opacity: 1 !important;
+  display: flex !important;
 }
 
 .oasis-miniatura {
-  flex: 0 0 calc(25% - 6px); /* 4 miniaturas por fila, ligeramente más pequeñas */
+  flex: 0 0 calc(25% - 6px);
   height: 0;
-  padding-bottom: calc(16.67% - 6px); /* Proporción 3:2 (33.33% ÷ 2 = 16.67%) */
+  padding-bottom: calc(16.67% - 6px);
   position: relative;
   overflow: hidden;
   border-radius: 3px;
   cursor: pointer;
   transition: all 0.3s ease;
   opacity: 0.7;
-  margin-bottom: 8px; /* Espacio entre filas */
+  margin-bottom: 8px;
+  visibility: visible !important;
+  display: block !important;
 }
 
 .oasis-miniatura.active {
-  opacity: 1;
-  transform: translateY(-3px); /* Reducir el desplazamiento para miniaturas más pequeñas */
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1); /* Sombra más sutil */
+  opacity: 1 !important;
+  transform: translateY(-3px);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
 .oasis-miniatura img {
@@ -612,11 +620,9 @@
   height: 100%;
   object-fit: cover;
   border-radius: 3px;
-}
-
-.oasis-miniatura:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
+  visibility: visible !important;
+  opacity: 1 !important;
+  display: block !important;
 }
 
 /* Ajustes responsive para la galería de Oasis */
@@ -1592,4 +1598,368 @@
   gap: 15px;
   margin: 50px auto 0; 
   width: 100%;
+}
+
+/* Estilos para el carrusel 3D de proyectos */
+.proyectos-carousel3d-container {
+  position: relative;
+  width: 100%;
+  height: 650px;
+  max-width: 1300px;
+  margin: 40px auto 80px;
+  perspective: 2000px;
+}
+
+.proyectos-carousel3d-container .carousel-3d-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.proyectos-carousel3d-container .proyecto-item {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  left: 50%;
+  top: 50%;
+  margin-left: -200px;
+  margin-top: -200px;
+  transform-style: preserve-3d;
+  transition: all 0.5s ease-out;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: var(--shadow-image);
+  background-color: white;
+  opacity: 0;
+}
+
+/* Ajustar el contenedor de imagen para el carrusel 3D */
+.proyectos-carousel3d-container .proyecto-imagen {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  padding-bottom: 0;
+}
+
+.proyectos-carousel3d-container .proyecto-imagen img,
+.proyectos-carousel3d-container .proyecto-imagen a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.proyectos-carousel3d-container .proyecto-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+/* Posiciones en el carrusel 3D */
+.proyectos-carousel3d-container .proyecto-item.position-front {
+  transform: translateZ(400px);
+  z-index: 6;
+  opacity: 1;
+}
+
+.proyectos-carousel3d-container .proyecto-item.position-right {
+  transform: translateZ(250px) translateX(300px);
+  z-index: 5;
+  opacity: 0.85;
+}
+
+.proyectos-carousel3d-container .proyecto-item.position-far-right {
+  transform: translateZ(150px) translateX(500px);
+  z-index: 4;
+  opacity: 0.7;
+}
+
+.proyectos-carousel3d-container .proyecto-item.position-back {
+  transform: translateZ(-400px);
+  opacity: 0;
+}
+
+.proyectos-carousel3d-container .proyecto-item.position-far-left {
+  transform: translateZ(150px) translateX(-500px);
+  z-index: 4;
+  opacity: 0.7;
+}
+
+.proyectos-carousel3d-container .proyecto-item.position-left {
+  transform: translateZ(250px) translateX(-300px);
+  z-index: 5;
+  opacity: 0.85;
+}
+
+/* Efecto hover para proyecto principal */
+.proyectos-carousel3d-container .proyecto-item.position-front:hover .proyecto-imagen img,
+.proyectos-carousel3d-container .proyecto-item.position-front:hover .proyecto-link img {
+  transform: scale(1.05);
+  filter: brightness(1.05);
+}
+
+.proyectos-carousel3d-container .proyecto-item.position-front::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background: linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.proyectos-carousel3d-container .proyecto-item.position-front:hover::after {
+  opacity: 1;
+}
+
+.proyectos-carousel3d-container .proyecto-item.pulsado {
+  transform: scale(0.95) translateZ(400px);
+  transition: transform 0.3s ease;
+}
+
+/* Información central del proyecto */
+.proyectos-info-central {
+  position: absolute;
+  bottom: -70px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.proyectos-info-central.changing {
+  opacity: 0;
+}
+
+.proyectos-info-central .proyecto-title {
+  font-size: 32px;
+  font-weight: 350;
+  margin: 0 0 10px;
+  color: var(--color-text);
+}
+
+.proyectos-info-central .proyecto-category {
+  font-size: 18px;
+  font-style: italic;
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+/* Ocultar el contenedor cuando se muestra un detalle */
+.proyectos-carousel3d-container.oculta {
+  display: none;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .proyectos-carousel3d-container {
+    height: 550px;
+  }
+  
+  .proyectos-carousel3d-container .proyecto-item {
+    width: 350px;
+    height: 350px;
+    margin-left: -175px;
+    margin-top: -175px;
+  }
+  
+  .proyectos-carousel3d-container .proyecto-item.position-front {
+    transform: translateZ(350px);
+  }
+  
+  .proyectos-carousel3d-container .proyecto-item.position-right {
+    transform: translateZ(200px) translateX(250px);
+  }
+  
+  .proyectos-carousel3d-container .proyecto-item.position-far-right {
+    transform: translateZ(130px) translateX(400px);
+  }
+  
+  .proyectos-carousel3d-container .proyecto-item.position-far-left {
+    transform: translateZ(130px) translateX(-400px);
+  }
+  
+  .proyectos-carousel3d-container .proyecto-item.position-left {
+    transform: translateZ(200px) translateX(-250px);
+  }
+}
+
+@media (max-width: 992px) {
+  .proyectos-carousel3d-container {
+    height: 500px;
+  }
+  
+  .proyectos-carousel3d-container .proyecto-item {
+    width: 320px;
+    height: 320px;
+    margin-left: -160px;
+    margin-top: -160px;
+  }
+  
+  .proyectos-carousel3d-container .proyecto-item.position-front {
+    transform: translateZ(320px);
+  }
+  
+  .proyectos-carousel3d-container .proyecto-item.position-right {
+    transform: translateZ(180px) translateX(220px);
+  }
+  
+  .proyectos-carousel3d-container .proyecto-item.position-far-right {
+    transform: translateZ(120px) translateX(350px);
+  }
+  
+  .proyectos-carousel3d-container .proyecto-item.position-far-left {
+    transform: translateZ(120px) translateX(-350px);
+  }
+  
+  .proyectos-carousel3d-container .proyecto-item.position-left {
+    transform: translateZ(180px) translateX(-220px);
+  }
+}
+
+@media (max-width: 768px) {
+  .proyectos-carousel3d-container {
+    height: 450px;
+  }
+  
+  .proyectos-carousel3d-container .proyecto-item {
+    width: 280px;
+    height: 280px;
+    margin-left: -140px;
+    margin-top: -140px;
+  }
+  
+  .proyectos-carousel3d-container .proyecto-item.position-front {
+    transform: translateZ(280px);
+  }
+  
+  .proyectos-carousel3d-container .proyecto-item.position-right {
+    transform: translateZ(150px) translateX(180px);
+  }
+  
+  .proyectos-carousel3d-container .proyecto-item.position-far-right {
+    transform: translateZ(100px) translateX(260px);
+  }
+  
+  .proyectos-carousel3d-container .proyecto-item.position-far-left {
+    transform: translateZ(100px) translateX(-260px);
+  }
+  
+  .proyectos-carousel3d-container .proyecto-item.position-left {
+    transform: translateZ(150px) translateX(-180px);
+  }
+  
+  .proyectos-info-central {
+    bottom: -50px;
+  }
+  
+  .proyectos-info-central .proyecto-title {
+    font-size: 26px;
+  }
+  
+  .proyectos-info-central .proyecto-category {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .proyectos-carousel3d-container {
+    height: 350px;
+    margin-bottom: 70px;
+  }
+  
+  .proyectos-carousel3d-container .proyecto-item {
+    width: 220px;
+    height: 220px;
+    margin-left: -110px;
+    margin-top: -110px;
+  }
+  
+  .proyectos-carousel3d-container .proyecto-item.position-front {
+    transform: translateZ(220px);
+  }
+  
+  .proyectos-carousel3d-container .proyecto-item.position-right {
+    transform: translateZ(120px) translateX(160px);
+  }
+  
+  .proyectos-carousel3d-container .proyecto-item.position-far-right {
+    transform: translateZ(80px) translateX(200px);
+  }
+  
+  .proyectos-carousel3d-container .proyecto-item.position-far-left {
+    transform: translateZ(80px) translateX(-200px);
+  }
+  
+  .proyectos-carousel3d-container .proyecto-item.position-left {
+    transform: translateZ(120px) translateX(-160px);
+  }
+  
+  .proyectos-info-central .proyecto-title {
+    font-size: 22px;
+  }
+  
+  .proyectos-info-central .proyecto-category {
+    font-size: 14px;
+  }
+}
+
+/* Asegurar que las imágenes sean visibles en los proyectos */
+.proyecto-detalle.visible {
+  display: block !important; /* Fuerza la visibilidad */
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible; /* Asegura que es visible */
+}
+
+.proyecto-detalle.visible .proyecto-imagen-item {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* Corregir problemas de visibilidad para todas las imágenes en subsecciones */
+.proyecto-imagen-item.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+/* Fuerza la visibilidad para proyecto-detalle */
+.proyecto-detalle.visible {
+  display: block !important;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  visibility: visible !important;
+  overflow: visible !important;
+  height: auto !important;
+  min-height: 200px !important;
+}
+
+/* Asegurar que las imágenes y elementos del proyecto sean visibles */
+.proyecto-detalle.visible .proyecto-imagen-item,
+.proyecto-detalle.visible img,
+.proyecto-detalle.visible .proyecto-imagen-container {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  transform: translateY(0) !important;
+}
+
+/* Asegurarse de que los contenedores de proyecto tengan altura suficiente */
+#proyecto1, #proyecto2, #proyecto3, #proyecto4, #proyecto5, #proyecto6 {
+  min-height: 500px !important;
 }

@@ -97,88 +97,61 @@
             <div class="container">
                 <h2>Proyectos</h2>
                 
-                <div class="proyectos-scroll-container">
-                    <div class="scroll-indicator left-indicator">
-                        <i class="fa-solid fa-chevron-left"></i>
-                    </div>
-                    
-                    <div class="proyectos-wrapper">
-                        <div class="proyectos-horizontal">
-                            <!-- Proyecto 1 -->
-                            <div class="proyecto-item" data-proyecto="proyecto1">
-                                <div class="proyecto-imagen">
-                                    <img src="./img/03_pr_oasis.png" alt="Proyecto Oasis" loading="lazy">
-                                </div>
-                                <div class="proyecto-info">
-                                    <h3>Oasis</h3>
-                                    <span class="categoria">Complementos</span>
-                                </div>
+                <!-- Nuevo carrusel 3D de proyectos -->
+                <div class="proyectos-carousel3d-container">
+                    <div class="carousel-3d-container">
+                        <!-- Proyecto 1 -->
+                        <div class="proyecto-item" data-proyecto="proyecto1">
+                            <div class="proyecto-imagen">
+                                <img src="./img/03_pr_oasis.png" alt="Proyecto Oasis" loading="lazy">
                             </div>
-                            
-                            <!-- Proyecto 2 -->
-                            <div class="proyecto-item" data-proyecto="proyecto2">
-                                <div class="proyecto-imagen">
-                                    <img src="./img/03_pr_cielito_lindo.png" alt="Proyecto Cielito Lindo" loading="lazy">
-                                </div>
-                                <div class="proyecto-info">
-                                    <h3>Cielito Lindo</h3>
-                                    <span class="categoria">Diseño</span>
-                                </div>
+                        </div>
+                        
+                        <!-- Proyecto 2 -->
+                        <div class="proyecto-item" data-proyecto="proyecto2">
+                            <div class="proyecto-imagen">
+                                <img src="./img/03_pr_cielito_lindo.png" alt="Proyecto Cielito Lindo" loading="lazy">
                             </div>
-                            
-                            <!-- Proyecto 3 -->
-                            <div class="proyecto-item" data-proyecto="proyecto3">
-                                <div class="proyecto-imagen">
-                                    <img src="./img/03_pr_arboles_flores.jpg" alt="Proyecto Árboles y flores" loading="lazy">
-                                </div>
-                                <div class="proyecto-info">
-                                    <h3>Árboles y flores</h3>
-                                    <span class="categoria">Moda Infantil</span>
-                                </div>
+                        </div>
+                        
+                        <!-- Proyecto 3 -->
+                        <div class="proyecto-item" data-proyecto="proyecto3">
+                            <div class="proyecto-imagen">
+                                <img src="./img/03_pr_arboles_flores.jpg" alt="Proyecto Árboles y flores" loading="lazy">
                             </div>
-                            
-                            <!-- Proyecto 4 -->
-                            <div class="proyecto-item" data-proyecto="proyecto4">
-                                <div class="proyecto-imagen">
-                                    <img src="./img/03_pr_teloclaro_2.png" alt="Proyecto Teloclaro" loading="lazy">
-                                </div>
-                                <div class="proyecto-info">
-                                    <h3>Teloclaro</h3>
-                                    <span class="categoria">Marca Comercial</span>
-                                </div>
+                        </div>
+                        
+                        <!-- Proyecto 4 -->
+                        <div class="proyecto-item" data-proyecto="proyecto4">
+                            <div class="proyecto-imagen">
+                                <img src="./img/03_pr_teloclaro_2.png" alt="Proyecto Teloclaro" loading="lazy">
                             </div>
-                            
-                            <!-- Proyecto 5 -->
-                            <div class="proyecto-item" data-proyecto="proyecto5">
-                                <div class="proyecto-imagen">
-                                    <img src="./img/03_pr_marea.png" alt="Proyecto Marea" loading="lazy">
-                                </div>
-                                <div class="proyecto-info">
-                                    <h3>Marea</h3>
-                                    <span class="categoria">Diseño</span>
-                                </div>
+                        </div>
+                        
+                        <!-- Proyecto 5 -->
+                        <div class="proyecto-item" data-proyecto="proyecto5">
+                            <div class="proyecto-imagen">
+                                <img src="./img/03_pr_marea.png" alt="Proyecto Marea" loading="lazy">
                             </div>
-                            
-                            <!-- Proyecto 6 -->
-                            <div class="proyecto-item" data-proyecto="proyecto6">
-                                <div class="proyecto-imagen">
-                                    <img src="./img/proyectos/proyecto6.jpg" alt="Proyecto 6" loading="lazy">
-                                </div>
-                                <div class="proyecto-info">
-                                    <h3>Nombre del Proyecto</h3>
-                                    <span class="categoria">Categoría</span>
-                                </div>
+                        </div>
+                        
+                        <!-- Proyecto 6 -->
+                        <div class="proyecto-item" data-proyecto="proyecto6">
+                            <div class="proyecto-imagen">
+                                <img src="./img/proyectos/proyecto6.jpg" alt="Proyecto 6" loading="lazy">
                             </div>
                         </div>
                     </div>
                     
-                    <div class="scroll-indicator right-indicator active">
-                        <i class="fa-solid fa-chevron-right"></i>
+                    <!-- Información central del proyecto actual -->
+                    <div class="proyectos-info-central">
+                        <h3 class="proyecto-title">Oasis</h3>
+                        <span class="proyecto-category">Complementos</span>
                     </div>
-                    
-                    <div class="scroll-progress">
-                        <div class="scroll-progress-bar"></div>
-                    </div>
+                </div>
+                
+                <!-- Contenedor de scroll original (completamente oculto) -->
+                <div class="proyectos-scroll-container" style="display: none;">
                 </div>
             </div>
 
