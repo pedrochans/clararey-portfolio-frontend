@@ -252,7 +252,7 @@
   color: var(--color-text-light);
   max-width: 700px;
   margin: 0 auto;
-  margin-bottom: -400px; /* Further reduced from 20px to 10px to create less space between text and image */
+  margin-bottom: 40px; /* Cambiado de -400px a 40px para evitar solapamiento y dar espacio adecuado */
 }
 
 /* Estilos para las imágenes con scroll en proyectos */
@@ -1402,21 +1402,7 @@
   height: 0;
   padding-bottom: 30%; 
   margin-top: 0; 
-  margin-bottom: -500px; /* Reduced from 80px to decrease space between wide image and design blocks */
-}
-
-.marea-wide-container img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 1.5s ease;
-}
-
-.marea-wide-container:hover img {
-  transform: scale(1.02);
+  margin-bottom: 50px; /* Cambiado de -500px a 50px para evitar solapamiento */
 }
 
 /* New container for design blocks */
