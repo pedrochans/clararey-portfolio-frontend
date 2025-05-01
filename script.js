@@ -1381,10 +1381,10 @@ function updateScrollIndicators() {
     const leftIndicator = document.querySelector('.left-indicator');
     const rightIndicator = document.querySelector('.right-indicator');
     
-    // Si no hay desbordamiento horizontal, ocultar ambos indicadores
+    // Si no hay desbordamiento horizontal, ocultar indicador izquierdo pero mantener el derecho
     if (wrapper.scrollWidth <= wrapper.clientWidth) {
         leftIndicator.classList.remove('active');
-        rightIndicator.classList.remove('active');
+        // No ocultamos rightIndicator aunque no haya scroll, para garantizar al menos un indicador visible
         return;
     }
     
@@ -1398,6 +1398,11 @@ function updateScrollIndicators() {
     // Mostrar/ocultar indicador derecho basado en la posición del scroll
     if (wrapper.scrollLeft + wrapper.clientWidth >= wrapper.scrollWidth - 10) {
         rightIndicator.classList.remove('active');
+        // Si estamos al final del scroll y el izquierdo no está activo, forzar su activación
+        // para garantizar que al menos un indicador esté visible
+        if (!leftIndicator.classList.contains('active')) {
+            leftIndicator.classList.add('active');
+        }
     } else {
         rightIndicator.classList.add('active');
     }
@@ -1410,8 +1415,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const rightIndicator = document.querySelector('.right-indicator');
     
     if (wrapper && leftIndicator && rightIndicator) {
+        // Asegurar que el indicador derecho esté activo por defecto
+        rightIndicator.classList.add('active');
+        
         // Actualizar indicadores inicialmente
-        updateScrollIndicators();
+        setTimeout(updateScrollIndicators, 100); // Añadir un pequeño retraso para asegurar que los elementos están cargados
         
         // Actualizar al hacer scroll
         wrapper.addEventListener('scroll', updateScrollIndicators);

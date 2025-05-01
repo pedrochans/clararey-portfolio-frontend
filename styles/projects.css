@@ -115,7 +115,7 @@
   margin-top: 0;
 }
 
-/* Flechas de navegación */
+
 .scroll-indicator {
   position: absolute;
   top: 50%;
@@ -131,30 +131,24 @@
   cursor: pointer;
   z-index: 10;
   transition: all 0.3s ease;
-  opacity: 0;
+  opacity: 0; /* Inicialmente oculto por defecto */
   pointer-events: none;
 }
 
-.scroll-indicator.active {
+/* Hacer que el indicador derecho esté visible por defecto */
+.right-indicator {
+  right: 15px;
   opacity: 1;
-  pointer-events: auto;
-}
-
-.scroll-indicator:hover {
-  transform: translateY(-50%) scale(1.1);
+  pointer-events: auto; 
 }
 
 .left-indicator {
   left: 15px;
 }
 
-.right-indicator {
-  right: 15px;
-}
-
-.scroll-indicator i {
-  color: var(--color-text);
-  font-size: 18px;
+.scroll-indicator.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* Barra de progreso de scroll */
@@ -363,7 +357,7 @@
 
 @media (max-width: 960px) {
   #proyecto1 .proyecto-imagen-container {
-    width: 110%; /* Reducir proporcionalmente para pantallas medianas */
+    width: 110%; 
     margin-left: -5%;
   }
 }
@@ -465,7 +459,7 @@
 /* Media queries para proyecto imágenes con scroll */
 @media (max-width: 768px) {
   .proyecto-imagen-item {
-    min-height: 60vh; /* Reducido de 80vh para mejor visualización en móviles */
+    min-height: 60vh;
     padding: 20px 15px;
   }
   
