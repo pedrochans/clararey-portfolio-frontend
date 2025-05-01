@@ -1013,7 +1013,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 submitButton.disabled = true;
                 
                 // Send data to backend API
-                fetch('https://your-render-app.onrender.com/api/contact', {
+                fetch('https://clararey-portfolio-backend.onrender.com/api/contact', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
