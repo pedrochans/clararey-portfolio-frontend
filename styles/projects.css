@@ -687,6 +687,7 @@
   overflow: hidden;
   border-radius: 5px;
   box-shadow: var(--shadow-image);
+  cursor: default; 
 }
 
 .cielito-imagen-container img {
@@ -713,6 +714,7 @@
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
+  cursor: default; 
 }
 
 .cielito-imagen-container:hover .cielito-overlay {
@@ -1208,7 +1210,7 @@
 /* Estilos para los items */
 .teloclaro-item {
   position: relative;
-  cursor: pointer;
+  cursor: default; 
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.5s ease;
@@ -1269,6 +1271,7 @@
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
+  cursor: default;
 }
 
 .teloclaro-item:hover .teloclaro-overlay {
