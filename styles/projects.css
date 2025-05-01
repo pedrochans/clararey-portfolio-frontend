@@ -1654,11 +1654,11 @@
 .modal-content {
     position: relative;
     background-color: white;
-    width: 80%; /* Reducido de 92% a 80% */
+    width: 80%; 
     height: auto;
-    max-width: 1200px; /* Añadido un ancho máximo */
-    max-height: 90vh; /* Reducido ligeramente */
-    padding: 30px 15px 15px; /* Reducido el padding */
+    max-width: 1200px; 
+    max-height: 90vh; 
+    padding: 30px 15px 15px; 
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     overflow: hidden;
@@ -1669,7 +1669,7 @@
 
 #modal-imagen {
     max-width: 100%;
-    max-height: 85vh; /* Ajustado para el nuevo tamaño */
+    max-height: 85vh; 
     width: auto;
     height: auto;
     object-fit: contain;
@@ -1690,10 +1690,10 @@
     right: 10px;
     font-size: 28px;
     font-weight: bold;
-    color: #333; /* Color oscuro para contraste con fondo blanco */
+    color: #333; 
     cursor: pointer;
     z-index: 10;
-    background-color: transparent; /* Fondo transparente */
+    background-color: transparent; 
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -1704,7 +1704,7 @@
 }
 
 .close-modal:hover {
-    color: #000; /* Negro al hacer hover */
+    color: #000; 
 }
 
 /* Loader con fondo blanco */
@@ -1717,7 +1717,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white; /* Cambiado a blanco */
+    background-color: white; 
     z-index: 5;
 }
 
@@ -1728,8 +1728,8 @@
 .loader-spinner {
     width: 50px;
     height: 50px;
-    border: 5px solid rgba(0, 0, 0, 0.1); /* Cambiado para ser visible en fondo blanco */
-    border-top-color: #555; /* Color oscuro */
+    border: 5px solid rgba(0, 0, 0, 0.1); 
+    border-top-color: #555;
     animation: spin 1s linear infinite;
 }
 
