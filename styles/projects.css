@@ -246,7 +246,7 @@
   color: var(--color-text-light);
   max-width: 700px;
   margin: 0 auto;
-  margin-bottom: 40px; 
+  margin-bottom: -20px; 
 }
 
 /* Estilos para las imágenes con scroll en proyectos */
@@ -1400,9 +1400,9 @@
   box-shadow: var(--shadow-image);
   position: relative;
   height: 0;
-  padding-bottom: 30%; 
+  padding-bottom: 30%;
   margin-top: 0; 
-  margin-bottom: 50px; 
+  margin-bottom: 0; 
 }
 
 /* New container for design blocks */
@@ -1414,7 +1414,7 @@
   flex-direction: column;
   gap: 20px; 
   padding: 0; 
-  margin-top: 0; 
+  margin-top: -20px;
 }
 
 /* Individual design blocks - Revised animation approach */
