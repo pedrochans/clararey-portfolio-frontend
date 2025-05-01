@@ -115,7 +115,6 @@
   margin-top: 0;
 }
 
-
 .scroll-indicator {
   position: absolute;
   top: 50%;
@@ -131,7 +130,7 @@
   cursor: pointer;
   z-index: 10;
   transition: all 0.3s ease;
-  opacity: 0; /* Inicialmente oculto por defecto */
+  opacity: 0;
   pointer-events: none;
 }
 
@@ -317,7 +316,7 @@
 
 #proyecto3 .proyecto-imagen-container:hover img {
   transform: scale(1.02); 
-  filter: none; /
+  filter: none; 
 }
 
 #proyecto3 .proyecto-imagen-item {
@@ -542,13 +541,13 @@
 .oasis-imagen-principal {
   width: 100%;
   height: 0;
-  padding-bottom: 66.67%; /* Proporción 3:2 */
+  padding-bottom: 66.67%;
   position: relative;
   overflow: hidden;
   border-radius: 5px;
   box-shadow: var(--shadow-image);
   margin-bottom: 15px;
-  background-color: #f5f5f5; /* Fondo para cuando la imagen está cargando */
+  background-color: #f5f5f5;
   transition: all 0.3s ease;
 }
 
@@ -572,30 +571,30 @@
 
 .oasis-selector {
   display: flex;
-  justify-content: space-between; /* Alinear con los bordes */
+  justify-content: space-between;
   flex-wrap: wrap;
-  gap: 8px; /* Reducir el espacio entre miniaturas */
-  width: 100%; /* Ocupar todo el ancho de la imagen principal */
+  gap: 8px;
+  width: 100%;
   margin: 0 auto;
 }
 
 .oasis-miniatura {
-  flex: 0 0 calc(25% - 6px); /* 4 miniaturas por fila, ligeramente más pequeñas */
+  flex: 0 0 calc(25% - 6px);
   height: 0;
-  padding-bottom: calc(16.67% - 6px); /* Proporción 3:2 (33.33% ÷ 2 = 16.67%) */
+  padding-bottom: calc(16.67% - 6px);
   position: relative;
   overflow: hidden;
   border-radius: 3px;
   cursor: pointer;
   transition: all 0.3s ease;
   opacity: 0.7;
-  margin-bottom: 8px; /* Espacio entre filas */
+  margin-bottom: 8px;
 }
 
 .oasis-miniatura.active {
   opacity: 1;
-  transform: translateY(-3px); /* Reducir el desplazamiento para miniaturas más pequeñas */
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1); /* Sombra más sutil */
+  transform: translateY(-3px);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
 .oasis-miniatura img {
@@ -616,15 +615,15 @@
 /* Ajustes responsive para la galería de Oasis */
 @media (max-width: 992px) {
   .oasis-miniatura {
-    flex: 0 0 calc(25% - 6px); /* Mantener 4 por fila en tablets */
-    padding-bottom: calc(16.67% - 6px); /* Mantener proporción 3:2 */
+    flex: 0 0 calc(25% - 6px);
+    padding-bottom: calc(16.67% - 6px);
   }
 }
 
 @media (max-width: 576px) {
   .oasis-miniatura {
-    flex: 0 0 calc(50% - 4px); /* 2 por fila en móviles */
-    padding-bottom: calc(33.33% - 4px); /* Mantener proporción 3:2 */
+    flex: 0 0 calc(50% - 4px);
+    padding-bottom: calc(33.33% - 4px);
   }
   
   .oasis-selector {
@@ -645,45 +644,41 @@
 /* Estilos para la galería de Cielito Lindo */
 .cielito-galeria {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Dos columnas de igual ancho */
-  gap: 15px; /* Reducido significativamente para aproximar el espacio horizontal y vertical */
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
   margin-top: 40px;
   width: 100%;
-  max-width: 1300px; /* Mantener el ancho para imágenes grandes */
+  max-width: 1300px;
   margin-left: auto;
   margin-right: auto;
 }
 
-/* Aplicar margen superior solo a los elementos de la columna derecha (pares) */
 .cielito-imagen-item:nth-child(even) {
-  margin-top: 20px; /* Reducido drásticamente para minimizar el desplazamiento vertical */
+  margin-top: 20px;
 }
 
-/* Eliminar el margin-bottom negativo para las imágenes impares */
 .cielito-imagen-item:nth-child(odd) {
   margin-bottom: 0;
 }
 
 .cielito-imagen-item {
-  margin-bottom: 0; /* Eliminado el margen inferior para acercar verticalmente las imágenes */
+  margin-bottom: 0;
   width: 100%;
   max-width: 600px;
-  min-height: auto; /* Sobreescribir min-height heredado */
+  min-height: auto;
 }
 
-/* Sobrescribir las propiedades del proyecto-imagen-item para Cielito */
 .cielito-imagen-item.proyecto-imagen-item {
-  min-height: auto; /* Eliminar altura mínima para permitir que las imágenes estén más juntas */
-  padding: 0; /* Eliminar padding que podría agregar espacio */
-  margin-bottom: 0; /* Eliminar margen inferior */
+  min-height: auto;
+  padding: 0;
+  margin-bottom: 0;
 }
 
-/* Resto de propiedades se mantienen igual */
 .cielito-imagen-container {
   position: relative;
   width: 100%;
   height: 0;
-  padding-bottom: 150%; /* Proporción 2:3 (vertical) */
+  padding-bottom: 150%;
   overflow: hidden;
   border-radius: 5px;
   box-shadow: var(--shadow-image);
@@ -700,7 +695,6 @@
   transition: transform 0.5s ease, filter 0.5s ease;
 }
 
-/* Efecto overlay al pasar el ratón */
 .cielito-overlay {
   position: absolute;
   top: 0;
@@ -745,36 +739,36 @@
 @media (max-width: 992px) {
   .cielito-galeria {
     gap: 20px;
-    max-width: 900px; /* Ajustado para tablets */
+    max-width: 900px;
   }
   
   .cielito-imagen-item:nth-child(even) {
-    margin-top: 40px; /* Reducido para tablets */
+    margin-top: 40px;
   }
   
   .cielito-imagen-item {
-    max-width: 450px; /* Ajustado para tablets */
+    max-width: 450px;
   }
 }
 
 @media (max-width: 768px) {
   .cielito-galeria {
-    grid-template-columns: 1fr; /* Una sola columna en móviles */
-    row-gap: 25px; /* Restaurar gap positivo para móviles */
-    max-width: 550px; /* Aumentado para fotos más grandes en móvil */
+    grid-template-columns: 1fr;
+    row-gap: 25px;
+    max-width: 550px;
   }
   
   .cielito-imagen-item:nth-child(even) {
-    margin-top: 0; /* Eliminar desplazamiento en móviles */
+    margin-top: 0;
   }
   
   .cielito-imagen-item:nth-child(odd) {
-    margin-bottom: 0; /* Eliminar superposición en móviles */
+    margin-bottom: 0;
   }
   
   .cielito-imagen-item {
-    margin-bottom: 25px; /* Espacio uniforme entre imágenes en móviles */
-    max-width: 100%; /* Ocupar todo el ancho disponible */
+    margin-bottom: 25px;
+    max-width: 100%;
   }
 }
 
@@ -894,7 +888,6 @@
   cursor: default; 
 }
 
-/* Posiciones en el círculo - siempre mirando al frente */
 .carousel-position-right {
   transform: translateX(380px) translateZ(180px); 
   z-index: 3;
@@ -940,7 +933,7 @@
   }
   
   .carousel-position-front {
-    width: 470px; /* Increased from 450px */
+    width: 470px;
     height: 675px;
     margin-left: -235px; 
     margin-top: -307.5px;
@@ -1210,7 +1203,6 @@
   transition: all 0.5s ease;
 }
 
-/* CORREGIDO: Eliminar duplicaciones y conflictos */
 .teloclaro-item.visible {
   opacity: 1;
   transform: translateY(0);
@@ -1301,7 +1293,6 @@
     max-width: 900px;
   }
   
-  /* Reajustar posiciones para 3 columnas */
   .teloclaro-masonry .teloclaro-item:nth-child(1) {
     grid-column: 1 / 2;
     grid-row: 1 / 3;
