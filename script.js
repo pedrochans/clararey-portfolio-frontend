@@ -998,12 +998,46 @@ document.addEventListener("DOMContentLoaded", () => {
             formulario.addEventListener('submit', function(event) {
                 event.preventDefault();
                 
-                // Aquí se puede agregar la lógica para enviar el formulario
-                // Por ejemplo, usando fetch() para enviar a un backend
+                // Get form data
+                const formData = {
+                    nombre: document.getElementById('nombre').value,
+                    apellido: document.getElementById('apellido').value,
+                    email: document.getElementById('email').value,
+                    mensaje: document.getElementById('mensaje').value
+                };
                 
-                // Por ahora, solo mostramos un mensaje de confirmación
-                alert('¡Gracias por tu mensaje! Te responderemos lo antes posible.');
-                formulario.reset();
+                // Show loading state
+                const submitButton = formulario.querySelector('button[type="submit"]');
+                const originalButtonText = submitButton.textContent;
+                submitButton.textContent = 'Enviando...';
+                submitButton.disabled = true;
+                
+                // Send data to backend API
+                fetch('https://your-render-app.onrender.com/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('¡Gracias por tu mensaje! Te responderemos lo antes posible.');
+                        formulario.reset();
+                    } else {
+                        alert('Error al enviar el mensaje: ' + (data.error || 'Error desconocido'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.');
+                })
+                .finally(() => {
+                    // Restore button state
+                    submitButton.textContent = originalButtonText;
+                    submitButton.disabled = false;
+                });
             });
         }
     }
