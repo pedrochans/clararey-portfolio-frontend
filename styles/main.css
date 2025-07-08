@@ -1,3 +1,34 @@
+/* Modal feedback personalizado para formulario de contacto */
+#custom-feedback-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0; width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.25);
+  align-items: center; justify-content: center;
+}
+#custom-feedback-modal.active { display: flex; }
+.cfm-content {
+  background: #fff;
+  color: #111;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+  padding: 32px 28px 22px 28px;
+  min-width: 320px; max-width: 90vw;
+  text-align: center;
+  position: relative;
+  font-family: 'Lato', Arial, sans-serif;
+}
+.cfm-icon { margin-bottom: 12px; }
+.cfm-message { font-size: 1.13em; margin-bottom: 8px; }
+.cfm-close {
+  position: absolute; top: 10px; right: 16px;
+  font-size: 1.5em; color: #888; cursor: pointer;
+  transition: color 0.2s;
+}
+.cfm-close:hover { color: #000; }
+#custom-feedback-modal.success .cfm-content { border: 2px solid #1a1a1a; }
+#custom-feedback-modal.error .cfm-content { border: 2px solid #c00; }
 /* Main CSS file that imports all component styles */
 
 /* Import base styles and variables */

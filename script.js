@@ -1073,7 +1073,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
                 .then(data => {
                     if (data.success) {
-                        alert('¡Gracias por tu mensaje! Te responderé lo antes posible.');
+                        showCustomModal('¡Gracias por tu mensaje!<br>Te responderé lo antes posible.', 'success');
                         formulario.reset();
                         // Ocultar el hint de preview
                         const hint = document.querySelector('.form-hint');
@@ -1081,12 +1081,37 @@ document.addEventListener("DOMContentLoaded", () => {
                             hint.style.display = 'none';
                         }
                     } else {
-                        alert('Error al enviar el mensaje: ' + (data.message || 'Error desconocido'));
+                        showCustomModal('Error al enviar el mensaje:<br>' + (data.message || 'Error desconocido'), 'error');
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('Error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde o escribe directamente a clarareigle5@gmail.com');
+                    showCustomModal('Error al enviar el mensaje.<br>Por favor, inténtalo de nuevo más tarde o escribe directamente a <a href="mailto:clarareigle5@gmail.com">clarareigle5@gmail.com</a>', 'error');
+// Modal personalizado para feedback de envío de formulario
+function showCustomModal(message, type = 'info') {
+    let modal = document.getElementById('custom-feedback-modal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'custom-feedback-modal';
+        modal.innerHTML = `
+            <div class="cfm-content">
+                <span class="cfm-close">&times;</span>
+                <div class="cfm-icon"></div>
+                <div class="cfm-message"></div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector('.cfm-close').onclick = () => modal.classList.remove('active');
+    }
+    // Icono según tipo
+    const iconDiv = modal.querySelector('.cfm-icon');
+    iconDiv.innerHTML = type === 'success' ? '<i class="fa-solid fa-circle-check" style="color:#1a1a1a;font-size:2.2em;"></i>' : '<i class="fa-solid fa-circle-exclamation" style="color:#c00;font-size:2.2em;"></i>';
+    // Mensaje
+    modal.querySelector('.cfm-message').innerHTML = message;
+    modal.className = 'active ' + type;
+    // Cerrar automáticamente tras 4s si es éxito
+    if(type==='success') setTimeout(()=>modal.classList.remove('active'), 4000);
+}
                 })
                 .finally(() => {
                     // Restore button state
