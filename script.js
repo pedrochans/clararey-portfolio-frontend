@@ -32,6 +32,37 @@ document.addEventListener("DOMContentLoaded", () => {
     // Llamar explícitamente a setupCielitoBotones
     setupCielitoBotones();
     
+    // Wait for image loader to be available and integrate
+    if (window.imageLoader) {
+        integrateImageLoader();
+    } else {
+        // Wait for image loader to be initialized
+        document.addEventListener('imageLoaderReady', integrateImageLoader);
+    }
+    
+    /**
+     * Función para integrar el cargador de imágenes
+     */
+    function integrateImageLoader() {
+        // Override section transitions to load images on demand
+        const originalShowSection = showSection;
+        showSection = function(targetSectionId) {
+            // Call original function
+            const result = originalShowSection.call(this, targetSectionId);
+            
+            // Load images for the target section
+            if (window.imageLoader) {
+                if (targetSectionId.startsWith('proyecto')) {
+                    window.imageLoader.loadProjectImagesOnDemand(targetSectionId);
+                } else if (['ilustraciones', 'moodboards', 'diseno-grafico'].includes(targetSectionId)) {
+                    window.imageLoader.loadGalleryImagesOnDemand(targetSectionId);
+                }
+            }
+            
+            return result;
+        };
+    }
+    
     /**
      * Configura la vista inicial de la aplicación
      */
@@ -1198,7 +1229,7 @@ document.addEventListener("DOMContentLoaded", () => {
         function checkTeloclaroVisibility() {
             teloclaroItems.forEach((item, index) => {
                 if (isElementInViewport(item)) {
-                    // Solo log si el elemento cambia de estado
+                    // Solo log if el elemento cambia de estado
                     if (!item.classList.contains('visible')) {
                         console.log(`Elemento ${index + 1} ahora visible`);
                     }

@@ -12,6 +12,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Enlace al nuevo archivo CSS principal que importa todos los demás -->
     <link rel="stylesheet" href="styles/main.css">
+    
+    <!-- Preload critical images for immediate display -->
+    <link rel="preload" as="image" href="./img/01_ini_ofelia.jpg">
+    <link rel="preload" as="image" href="./img/01_ini_cielito.jpg">
+    <link rel="preload" as="image" href="./img/01_ini_yerma.jpeg">
+    <link rel="preload" as="image" href="./img/01_ini_oasis.JPG">
+    <link rel="preload" as="image" href="./img/02_sobre_mi_video.mp4">
+    
+    <!-- Preload project preview images for smooth navigation -->
+    <link rel="preload" as="image" href="./img/03_pr_oasis.png">
+    <link rel="preload" as="image" href="./img/03_pr_cielito_lindo.png">
+    <link rel="preload" as="image" href="./img/03_pr_arboles_flores.jpg">
+    <link rel="preload" as="image" href="./img/03_pr_teloclaro_2.png">
+    <link rel="preload" as="image" href="./img/03_pr_marea.png">
+    <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/gallery-animations.css">
 </head>
 <body>
@@ -40,10 +55,10 @@
             <div class="hero-container">
                 <div class="hero-carousel">
                     <!-- Las imágenes del carrusel -->
-                    <img src="./img/01_ini_ofelia.jpg" alt="Imagen principal 1" class="hero-img active" loading="lazy">
-                    <img src="./img/01_ini_cielito.jpg" alt="Imagen principal 2" class="hero-img" loading="lazy">
-                    <img src="./img/01_ini_yerma.jpeg" alt="Imagen principal 3" class="hero-img" loading="lazy">
-                    <img src="./img/01_ini_oasis.JPG" alt="Imagen principal 4" class="hero-img" loading="lazy">
+                    <img src="./img/01_ini_ofelia.jpg" alt="Imagen principal 1" class="hero-img active">
+                    <img src="./img/01_ini_cielito.jpg" alt="Imagen principal 2" class="hero-img">
+                    <img src="./img/01_ini_yerma.jpeg" alt="Imagen principal 3" class="hero-img">
+                    <img src="./img/01_ini_oasis.JPG" alt="Imagen principal 4" class="hero-img">
                 </div>
                 <div class="hero-content">
                     <p>Portfolio</p>
@@ -107,7 +122,7 @@
                             <!-- Proyecto 1 -->
                             <div class="proyecto-item" data-proyecto="proyecto1">
                                 <div class="proyecto-imagen">
-                                    <img src="./img/03_pr_oasis.png" alt="Proyecto Oasis" loading="lazy">
+                                    <img src="./img/03_pr_oasis.png" alt="Proyecto Oasis">
                                 </div>
                                 <div class="proyecto-info">
                                     <h3>Oasis</h3>
@@ -118,7 +133,7 @@
                             <!-- Proyecto 2 -->
                             <div class="proyecto-item" data-proyecto="proyecto2">
                                 <div class="proyecto-imagen">
-                                    <img src="./img/03_pr_cielito_lindo.png" alt="Proyecto Cielito Lindo" loading="lazy">
+                                    <img src="./img/03_pr_cielito_lindo.png" alt="Proyecto Cielito Lindo">
                                 </div>
                                 <div class="proyecto-info">
                                     <h3>Cielito Lindo</h3>
@@ -129,7 +144,7 @@
                             <!-- Proyecto 3 -->
                             <div class="proyecto-item" data-proyecto="proyecto3">
                                 <div class="proyecto-imagen">
-                                    <img src="./img/03_pr_arboles_flores.jpg" alt="Proyecto Árboles y flores" loading="lazy">
+                                    <img src="./img/03_pr_arboles_flores.jpg" alt="Proyecto Árboles y flores">
                                 </div>
                                 <div class="proyecto-info">
                                     <h3>Árboles y flores</h3>
@@ -140,7 +155,7 @@
                             <!-- Proyecto 4 -->
                             <div class="proyecto-item" data-proyecto="proyecto4">
                                 <div class="proyecto-imagen">
-                                    <img src="./img/03_pr_teloclaro_2.png" alt="Proyecto Teloclaro" loading="lazy">
+                                    <img src="./img/03_pr_teloclaro_2.png" alt="Proyecto Teloclaro">
                                 </div>
                                 <div class="proyecto-info">
                                     <h3>Teloclaro</h3>
@@ -151,7 +166,7 @@
                             <!-- Proyecto 5 -->
                             <div class="proyecto-item" data-proyecto="proyecto5">
                                 <div class="proyecto-imagen">
-                                    <img src="./img/03_pr_marea.png" alt="Proyecto Marea" loading="lazy">
+                                    <img src="./img/03_pr_marea.png" alt="Proyecto Marea">
                                 </div>
                                 <div class="proyecto-info">
                                     <h3>Marea</h3>
@@ -208,11 +223,11 @@
                         <div class="proyecto-imagen-item">
                             <div class="oasis-galeria">
                                 <div class="oasis-imagen-principal">
-                                    <img src="./img/proyectos/oasis_sel_1.jpeg" alt="Oasis Detalle" loading="lazy" id="oasis-main">
+                                    <img src="./img/proyectos/oasis_sel_1.jpg" alt="Oasis Detalle" id="oasis-main">
                                 </div>
                                 <div class="oasis-selector">
                                     <div class="oasis-miniatura active" data-index="0">
-                                        <img src="./img/proyectos/oasis_sel_1.jpeg" alt="Oasis Vista 1" loading="lazy">
+                                        <img src="./img/proyectos/oasis_sel_1.jpg" alt="Oasis Vista 1">
                                     </div>
                                     <div class="oasis-miniatura" data-index="1">
                                         <img src="./img/proyectos/oasis_sel_2.jpg" alt="Oasis Vista 2" loading="lazy">
@@ -329,7 +344,7 @@
                         <!-- Imagen 5 -->
                         <div class="proyecto-imagen-item cielito-imagen-item">
                             <div class="cielito-imagen-container">
-                                <img src="./img/proyectos/cielito_5.jpg" alt="Cielito Lindo - Imagen 5" loading="lazy">
+                                <img data-src="./img/proyectos/cielito_5.jpg" alt="Cielito Lindo - Imagen 5" loading="lazy">
                                 <div class="cielito-overlay">
                                     <div class="cielito-info">
                                         <p><strong>Diseño:</strong> Clara Rey</p>
@@ -344,7 +359,7 @@
                         <!-- Imagen 6 -->
                         <div class="proyecto-imagen-item cielito-imagen-item">
                             <div class="cielito-imagen-container">
-                                <img src="./img/proyectos/cielito_6.jpg" alt="Cielito Lindo - Imagen 6" loading="lazy">
+                                <img data-src="./img/proyectos/cielito_6.jpg" alt="Cielito Lindo - Imagen 6" loading="lazy">
                                 <div class="cielito-overlay">
                                     <div class="cielito-info">
                                         <p><strong>Diseño:</strong> Clara Rey</p>
@@ -359,7 +374,7 @@
                         <!-- Imagen 7 -->
                         <div class="proyecto-imagen-item cielito-imagen-item">
                             <div class="cielito-imagen-container">
-                                <img src="./img/proyectos/cielito_7.jpg" alt="Cielito Lindo - Imagen 7" loading="lazy">
+                                <img data-src="./img/proyectos/cielito_7.jpg" alt="Cielito Lindo - Imagen 7" loading="lazy">
                                 <div class="cielito-overlay">
                                     <div class="cielito-info">
                                         <p><strong>Diseño:</strong> Clara Rey</p>
@@ -374,7 +389,7 @@
                         <!-- Imagen 8 -->
                         <div class="proyecto-imagen-item cielito-imagen-item">
                             <div class="cielito-imagen-container">
-                                <img src="./img/proyectos/cielito_8.jpg" alt="Cielito Lindo - Imagen 8" loading="lazy">
+                                <img data-src="./img/proyectos/cielito_8.jpg" alt="Cielito Lindo - Imagen 8" loading="lazy">
                                 <div class="cielito-overlay">
                                     <div class="cielito-info">
                                         <p><strong>Diseño:</strong> Clara Rey</p>
@@ -389,7 +404,7 @@
                         <!-- Imagen 9 -->
                         <div class="proyecto-imagen-item cielito-imagen-item">
                             <div class="cielito-imagen-container">
-                                <img src="./img/proyectos/cielito_9.jpg" alt="Cielito Lindo - Imagen 9" loading="lazy">
+                                <img data-src="./img/proyectos/cielito_9.jpg" alt="Cielito Lindo - Imagen 9" loading="lazy">
                                 <div class="cielito-overlay">
                                     <div class="cielito-info">
                                         <p><strong>Diseño:</strong> Clara Rey</p>
@@ -404,7 +419,7 @@
                         <!-- Imagen 10 -->
                         <div class="proyecto-imagen-item cielito-imagen-item">
                             <div class="cielito-imagen-container">
-                                <img src="./img/proyectos/cielito_10.jpg" alt="Cielito Lindo - Imagen 10" loading="lazy">
+                                <img data-src="./img/proyectos/cielito_10.jpg" alt="Cielito Lindo - Imagen 10" loading="lazy">
                                 <div class="cielito-overlay">
                                     <div class="cielito-info">
                                         <p><strong>Diseño:</strong> Clara Rey</p>
@@ -419,7 +434,7 @@
                         <!-- Imagen 11 -->
                         <div class="proyecto-imagen-item cielito-imagen-item">
                             <div class="cielito-imagen-container">
-                                <img src="./img/proyectos/cielito_11.jpg" alt="Cielito Lindo - Imagen 11" loading="lazy">
+                                <img data-src="./img/proyectos/cielito_11.jpg" alt="Cielito Lindo - Imagen 11" loading="lazy">
                                 <div class="cielito-overlay">
                                     <div class="cielito-info">
                                         <p><strong>Diseño:</strong> Clara Rey</p>
@@ -434,7 +449,7 @@
                         <!-- Imagen 12 -->
                         <div class="proyecto-imagen-item cielito-imagen-item">
                             <div class="cielito-imagen-container">
-                                <img src="./img/proyectos/cielito_12.jpg" alt="Cielito Lindo - Imagen 12" loading="lazy">
+                                <img data-src="./img/proyectos/cielito_12.jpg" alt="Cielito Lindo - Imagen 12" loading="lazy">
                                 <div class="cielito-overlay">
                                     <div class="cielito-info">
                                         <p><strong>Diseño:</strong> Clara Rey</p>
@@ -624,7 +639,7 @@
                         <!-- Imagen ancha con relación de aspecto más amplia -->
                         <div class="proyecto-imagen-item visible">
                             <div class="proyecto-imagen-container marea-wide-container">
-                                <img src="./img/proyectos/marea_1.png" alt="Marea - Colección" loading="lazy">
+                                <img src="./img/proyectos/marea_1.png" alt="Marea - Colección">
                             </div>
                         </div>
                         
@@ -633,7 +648,7 @@
                             <!-- Diseño 1 -->
                             <div class="marea-design-block visible">
                                 <div class="marea-design-image">
-                                    <img src="./img/proyectos/marea_2.png" alt="Marea - Diseño 1" loading="lazy">
+                                    <img src="./img/proyectos/marea_2.png" alt="Marea - Diseño 1">
                                 </div>
                                 <div class="marea-design-text">
                                     <h4>Look 1</h4>
@@ -644,7 +659,7 @@
                             <!-- Diseño 2 -->
                             <div class="marea-design-block reverse visible">
                                 <div class="marea-design-image">
-                                    <img src="./img/proyectos/marea_3.png" alt="Marea - Diseño 2" loading="lazy">
+                                    <img src="./img/proyectos/marea_3.png" alt="Marea - Diseño 2">
                                 </div>
                                 <div class="marea-design-text">
                                     <h4>Look 2</h4>
@@ -655,7 +670,7 @@
                             <!-- Diseño 3 -->
                             <div class="marea-design-block visible">
                                 <div class="marea-design-image">
-                                    <img src="./img/proyectos/marea_4.png" alt="Marea - Diseño 3" loading="lazy">
+                                    <img src="./img/proyectos/marea_4.png" alt="Marea - Diseño 3">
                                 </div>
                                 <div class="marea-design-text">
                                     <h4>Look 3</h4>
@@ -667,7 +682,7 @@
                         <!-- Imagen de Mar de Orzán movida al final con el pie de foto añadido dentro de la imagen -->
                         <div class="proyecto-imagen-item visible">
                             <div class="proyecto-imagen-container" style="position: relative;">
-                                <img src="./img/03_pr_marea.png" alt="Marea - Imagen Principal" loading="lazy">
+                                <img src="./img/03_pr_marea.png" alt="Marea - Imagen Principal">
                                 <div class="imagen-caption">'Mar de Orzán', Luis Seoane.</div>
                             </div>
                         </div>
@@ -690,7 +705,7 @@
                     <!-- Ilustraciones -->
                     <div class="galeria-item" data-galeria="ilustraciones">
                         <div class="galeria-imagen">
-                            <img src="./img/04_gal_ilustraciones.png" alt="Ilustraciones" loading="lazy">
+                            <img src="./img/04_gal_ilustraciones.png" alt="Ilustraciones">
                         </div>
                         <div class="galeria-info">
                             <h3>Ilustraciones</h3>
@@ -701,7 +716,7 @@
                     <!-- Moodboards -->
                     <div class="galeria-item" data-galeria="moodboards">
                         <div class="galeria-imagen">
-                            <img src="./img/04_gal_moodboards.png" alt="Moodboards" loading="lazy">
+                            <img src="./img/04_gal_moodboards.png" alt="Moodboards">
                         </div>
                         <div class="galeria-info">
                             <h3>Moodboards</h3>
@@ -712,7 +727,7 @@
                     <!-- Diseño Gráfico -->
                     <div class="galeria-item" data-galeria="diseno-grafico">
                         <div class="galeria-imagen">
-                            <img src="./img/d_grafico/d_grafico_1.jpg" alt="Diseño Gráfico" loading="lazy">
+                            <img src="./img/d_grafico/d_grafico_1.jpg" alt="Diseño Gráfico">
                         </div>
                         <div class="galeria-info">
                             <h3>Diseño Gráfico</h3>
@@ -731,20 +746,20 @@
                         <div class="ilustracion-viewer">
                             <div class="ilustracion-selector">
                                 <div class="ilustracion-miniatura active" data-index="0">
-                                    <img src="./img/ilustraciones/bus_riders_1.jpg" alt="Ilustración 1" loading="lazy">
+                                    <img src="./img/ilustraciones/bus_riders_1.jpg" alt="Ilustración 1">
                                 </div>
                                 <div class="ilustracion-miniatura" data-index="1">
-                                    <img src="./img/ilustraciones/bus_riders_2.jpg" alt="Ilustración 2" loading="lazy">
+                                    <img src="./img/ilustraciones/bus_riders_2.jpg" alt="Ilustración 2">
                                 </div>
                                 <div class="ilustracion-miniatura" data-index="2">
-                                    <img src="./img/ilustraciones/bus_riders_3.jpg" alt="Ilustración 3" loading="lazy">
+                                    <img src="./img/ilustraciones/bus_riders_3.jpg" alt="Ilustración 3">
                                 </div>
                                 <div class="ilustracion-miniatura" data-index="3">
-                                    <img src="./img/ilustraciones/bus_riders_4.jpg" alt="Ilustración 4" loading="lazy">
+                                    <img src="./img/ilustraciones/bus_riders_4.jpg" alt="Ilustración 4">
                                 </div>
                             </div>
                             <div class="ilustracion-principal">
-                                <img src="./img/ilustraciones/bus_riders_1.jpg" alt="Ilustración principal" loading="lazy" id="ilustracion-main">
+                                <img src="./img/ilustraciones/bus_riders_1.jpg" alt="Ilustración principal" id="ilustracion-main">
                             </div>
                         </div>
                         
@@ -979,6 +994,7 @@
         </div>
     </div>
 
+    <script src="js/image-loader.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

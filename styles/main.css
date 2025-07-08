@@ -12,3 +12,38 @@
 @import 'projects.css';
 @import 'gallery.css';
 @import 'contact.css';
+
+/* Image loading optimization styles */
+img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+img[loading="lazy"].loaded {
+    opacity: 1;
+}
+
+/* Placeholder effect for images being loaded */
+.image-placeholder {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Ensure images in containers maintain aspect ratio during load */
+.proyecto-imagen-container, .cielito-imagen-container, .ilustracion-miniatura {
+    position: relative;
+    overflow: hidden;
+}
+
+.proyecto-imagen-container img, .cielito-imagen-container img, .ilustracion-miniatura img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}

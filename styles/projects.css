@@ -1387,10 +1387,17 @@
   border-radius: 5px;
   box-shadow: var(--shadow-image);
   position: relative;
-  height: 0;
-  padding-bottom: 30%;
+  height: auto;
+  min-height: 200px;
   margin-top: 0; 
   margin-bottom: 0; 
+}
+
+.marea-wide-container img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
 }
 
 /* New container for design blocks */
