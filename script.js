@@ -1031,11 +1031,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 // Get form data
                 const formData = {
-                    nombre: document.getElementById('nombre').value,
-                    apellido: document.getElementById('apellido').value,
-                    email: document.getElementById('email').value,
-                    mensaje: document.getElementById('mensaje').value
+                    nombre: document.getElementById('nombre').value.trim(),
+                    apellido: document.getElementById('apellido').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    mensaje: document.getElementById('mensaje').value.trim()
                 };
+                
+                // Validar campos básicos en el frontend
+                if (!formData.nombre || !formData.apellido || !formData.email || !formData.mensaje) {
+                    alert('Por favor, completa todos los campos.');
+                    return;
+                }
+                
+                if (!isValidEmail(formData.email)) {
+                    alert('Por favor, introduce un email válido.');
+                    return;
+                }
                 
                 // Show loading state
                 const submitButton = formulario.querySelector('button[type="submit"]');
@@ -1043,26 +1054,39 @@ document.addEventListener("DOMContentLoaded", () => {
                 submitButton.textContent = 'Enviando...';
                 submitButton.disabled = true;
                 
+                // URL del backend en Render (actualiza con tu URL real)
+                const backendURL = 'https://clara-portfolio-backend.onrender.com/contact';
+                
                 // Send data to backend API
-                fetch('https://clararey-portfolio-backend.onrender.com/api/contact', {
+                fetch(backendURL, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(formData)
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     if (data.success) {
-                        alert('¡Gracias por tu mensaje! Te responderemos lo antes posible.');
+                        alert('¡Gracias por tu mensaje! Te responderé lo antes posible.');
                         formulario.reset();
+                        // Ocultar el hint de preview
+                        const hint = document.querySelector('.form-hint');
+                        if (hint) {
+                            hint.style.display = 'none';
+                        }
                     } else {
-                        alert('Error al enviar el mensaje: ' + (data.error || 'Error desconocido'));
+                        alert('Error al enviar el mensaje: ' + (data.message || 'Error desconocido'));
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('Error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.');
+                    alert('Error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde o escribe directamente a clarareigle5@gmail.com');
                 })
                 .finally(() => {
                     // Restore button state
@@ -1071,6 +1095,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             });
         }
+    }
+    
+    /**
+     * Validar formato de email
+     */
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
     }
     
     /**
