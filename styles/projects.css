@@ -47,13 +47,13 @@
   flex: 0 0 auto;
   width: 480px;
   cursor: pointer;
-  transition: all 0.5s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
   opacity: 0.85;
   transform-origin: center;
 }
 
 .proyectos .proyecto-item:hover {
-  transform: translateY(-10px) scale(1.02);
+  transform: translateY(-8px) scale(1.03);
   opacity: 1;
   z-index: 2;
 }
@@ -76,8 +76,10 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease, filter 0.5s ease;
+  transition: transform 0.3s ease, filter 0.3s ease;
   border-radius: 3px;
+  will-change: transform;
+  transform: scale(1);
 }
 
 /* Efectos hover para proyectos */
@@ -282,11 +284,11 @@
   width: 100%;
   height: auto;
   display: block;
-  transition: transform 1.5s ease;
+  transition: transform 0.3s ease;
 }
 
 .proyecto-imagen-container:hover img {
-  transform: scale(1.02);
+  transform: scale(1.05);
 }
 
 /* Ajustes para las imágenes en el proyecto Oasis específicamente */
@@ -315,7 +317,7 @@
 }
 
 #proyecto3 .proyecto-imagen-container:hover img {
-  transform: scale(1.02); 
+  transform: scale(1.05); 
   filter: none; 
 }
 
@@ -608,8 +610,8 @@
 }
 
 .oasis-miniatura:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
+  opacity: 1;
+  transform: translateY(-3px) scale(1.02);
 }
 
 /* Ajustes responsive para la galería de Oasis */
@@ -692,7 +694,9 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease, filter 0.5s ease;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  will-change: transform;
+  transform: scale(1);
 }
 
 .cielito-overlay {
@@ -716,8 +720,8 @@
 }
 
 .cielito-imagen-container:hover img {
-  transform: scale(1.05);
-  filter: brightness(0.8);
+  transform: scale(1.03);
+  filter: brightness(0.9);
 }
 
 .cielito-info {
@@ -852,7 +856,7 @@
   margin-left: -190px; 
   margin-top: -285px; 
   transform-style: preserve-3d;
-  transition: all 0.5s ease-out;
+  transition: transform 0.3s ease-out, z-index 0s;
   cursor: pointer;
   overflow: hidden;
   border-radius: 12px;
@@ -866,7 +870,7 @@
   width: 100%;
   height: 100%;
   object-fit: contain; 
-  transition: transform 0.5s ease, filter 0.5s ease;
+  transition: transform 0.3s ease, filter 0.3s ease;
   border-radius: 8px; 
   image-rendering: -webkit-optimize-contrast;
   transform: scale(1); 
@@ -1200,12 +1204,18 @@
   cursor: default; 
   opacity: 0;
   transform: translateY(30px);
-  transition: all 0.5s ease;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .teloclaro-item.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Asegurar que las transiciones de hover solo se aplican cuando el item está visible */
+.teloclaro-item.visible:hover img {
+  transform: scale(1.03);
+  filter: brightness(0.9);
 }
 
 /* Aplicar retraso en la animación para crear efecto escalonado */
@@ -1240,7 +1250,9 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease, filter 0.5s ease;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  will-change: transform;
+  transform: scale(1);
 }
 
 /* Efectos hover */
@@ -1264,10 +1276,10 @@
   opacity: 1;
 }
 
-.teloclaro-item:hover img {
-  transform: scale(1.05);
-  filter: brightness(0.8);
-}
+/* .teloclaro-item:hover img {
+  transform: scale(1.03);
+  filter: brightness(0.9);
+} */
 
 .teloclaro-info {
   color: white; 
@@ -1451,7 +1463,7 @@
   width: 100%;
   height: auto;
   display: block;
-  transition: transform 0.5s ease;
+  transition: transform 0.3s ease;
   background-color: transparent; 
 }
 
@@ -1741,4 +1753,63 @@
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+/* Optimizaciones para transiciones suaves - evitar efectos bruscos */
+img[loading="lazy"] {
+  transition: opacity 0.3s ease;
+}
+
+img[loading="lazy"].loaded {
+  opacity: 1;
+}
+
+/* Asegurar que las clases del image-loader no interfieran con hover */
+img.image-placeholder {
+  opacity: 0.7;
+  filter: blur(1px);
+}
+
+img.loaded {
+  opacity: 1;
+  filter: none;
+}
+
+/* Asegurar que todas las imágenes con hover tengan transiciones suaves */
+.proyecto-imagen img,
+.cielito-imagen-container img,
+.teloclaro-item img,
+.marea-design-image img,
+.oasis-imagen-principal img,
+.carousel-3d-item img {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Regla universal para hover suave en todas las imágenes */
+.proyecto-imagen img,
+.teloclaro-item img,
+.cielito-imagen-container img,
+.marea-design-image img,
+.galeria-imagen img {
+  transform: scale(1);
+  filter: brightness(1);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Hover universal suave */
+.proyecto-item:hover .proyecto-imagen img,
+.teloclaro-item:hover img,
+.cielito-imagen-container:hover img,
+.marea-design-image:hover img,
+.galeria-item:hover .galeria-imagen img {
+  transform: scale(1.03) !important;
+}
+
+/* Filtros específicos para algunos elementos */
+.teloclaro-item:hover img,
+.cielito-imagen-container:hover img {
+  filter: brightness(0.9) !important;
 }
