@@ -1055,7 +1055,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 submitButton.disabled = true;
                 
                 // URL del backend en Render (actualiza con tu URL real)
-                const backendURL = 'https://clararey-portfolio-backend.onrender.com/contact';
+                const backendURL = 'https://clararey-portfolio-backend.onrender.com/api/contact';
                 
                 // Send data to backend API
                 fetch(backendURL, {
