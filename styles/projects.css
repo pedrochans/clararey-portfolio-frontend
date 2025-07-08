@@ -1389,8 +1389,8 @@
   position: relative;
   height: auto;
   min-height: 200px;
-  margin-top: 0; 
-  margin-bottom: 0; 
+  margin-top: 20px; 
+  margin-bottom: 40px; 
 }
 
 .marea-wide-container img {
@@ -1409,7 +1409,7 @@
   flex-direction: column;
   gap: 20px; 
   padding: 0; 
-  margin-top: -20px;
+  margin-top: 20px;
 }
 
 /* Individual design blocks - Revised animation approach */
@@ -1420,7 +1420,7 @@
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 1s ease, transform 1s ease;
-  margin-bottom: 0px;
+  margin-bottom: 30px;
 }
 
 .marea-design-block.visible {
@@ -1481,7 +1481,17 @@
 
 /* Set proper spacing for the Marea section */
 #proyecto5 .proyecto-imagen-item:first-child {
-  margin-bottom: 80px; 
+  margin-bottom: 30px; 
+}
+
+/* Reduce spacing between Marea description and images */
+#proyecto5 .proyecto-descripcion {
+  margin-bottom: 30px;
+}
+
+/* Reduce spacing in marea design blocks */
+.marea-design-block {
+  margin-bottom: 40px;
 }
 
 /* Responsive adjustments for Marea section */
@@ -1496,6 +1506,8 @@
   .marea-wide-container {
     width: 110%;
     margin-left: -5%;
+    margin-top: 15px;
+    margin-bottom: 30px;
   }
   
   .marea-design-image {
@@ -1504,7 +1516,7 @@
   
   .marea-design-block {
     gap: 30px; 
-    margin-bottom: 60px;
+    margin-bottom: 40px;
   }
   
   .marea-design-text {
@@ -1513,6 +1525,7 @@
   
   .marea-designs-container {
     max-width: 95%; 
+    margin-top: 15px;
   }
   
   .marea-design-text h4 {
@@ -1528,18 +1541,20 @@
   .marea-wide-container {
     width: 100%;
     margin-left: 0;
-    padding-bottom: 40%;
+    margin-top: 10px;
+    margin-bottom: 25px;
   }
   
   .marea-design-block, 
   .marea-design-block.reverse {
     flex-direction: column;
-    gap: 30px; 
+    gap: 25px; 
+    margin-bottom: 35px; 
   }
   
   .marea-design-image {
     margin: 0; 
-    min-height: 380px; 
+    min-height: 350px; 
   }
   
   .marea-design-text {
@@ -1554,17 +1569,10 @@
     font-size: 17px; 
   }
   
-  .marea-design-block {
-    margin-bottom: 50px; 
-  }
-  
-  .marea-design-image {
-    min-height: 350px; 
-  }
-  
   .marea-designs-container {
     max-width: 100%;
     padding: 0 10px; 
+    margin-top: 10px;
   }
 }
 
@@ -1589,7 +1597,7 @@
   flex-direction: column;
   align-items: center;
   gap: 15px;
-  margin: 50px auto 0; 
+  margin: 30px auto 0; 
   width: 100%;
 }
 
