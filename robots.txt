@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://clararey-portfolio.vercel.app/sitemap.xml

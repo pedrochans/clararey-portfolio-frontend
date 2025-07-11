@@ -10,8 +10,20 @@
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
     <link rel="shortcut icon" href="/favicon/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="MyWebSite" />
+    <meta name="apple-mobile-web-app-title" content="Clara Rey Portfolio" />
     <link rel="manifest" href="/favicon/site.webmanifest" />
+
+    <!-- SEO mejorado -->
+    <meta name="keywords" content="diseño de moda, portfolio, Clara Rey, diseñadora, moda sostenible, upcycling">
+    <meta name="author" content="Clara Rey">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph para redes sociales -->
+    <meta property="og:title" content="Clara Rey - Portfolio de Moda">
+    <meta property="og:description" content="Portfolio de diseño y moda de Clara Rey. Proyectos de moda sostenible, upcycling y diseño artesanal.">
+    <meta property="og:image" content="https://clararey-portfolio.vercel.app/img/00_logo_cr.jpg">
+    <meta property="og:url" content="https://clararey-portfolio.vercel.app">
+    <meta property="og:type" content="website">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,6 +32,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Enlace al nuevo archivo CSS principal que importa todos los demás -->
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/gallery-animations.css">
+    <link rel="stylesheet" href="styles/mobile.css">
 
     <!-- Vercel Analytics -->
     <script defer src="https://analytics.vercel.app/v1/web.js"></script>
@@ -37,18 +51,27 @@
     <link rel="preload" as="image" href="./img/03_pr_arboles_flores.jpg">
     <link rel="preload" as="image" href="./img/03_pr_teloclaro_2.png">
     <link rel="preload" as="image" href="./img/03_pr_marea.png">
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/gallery-animations.css">
 </head>
 <body>
+    <!-- Skip to content para accesibilidad -->
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+    
     <!-- Barra de navegación principal -->
     <header class="main-header">
         <div class="logo">
             <a href="#inicio" class="logo-link" data-section="inicio">
-                <img src="./img/00_logo_cr.jpg" alt="Logo de Clara Rey">
+                <img src="./img/00_logo_cr.jpg" alt="Logo de Clara Rey - Diseñadora de Moda">
             </a>
         </div>
-        <nav class="main-nav">
+        
+        <!-- Hamburger menu para móvil -->
+        <div class="hamburger-menu">
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+        </div>
+        
+        <nav class="main-nav" role="navigation" aria-label="Navegación principal">
             <ul>
                 <li><a href="#inicio" class="nav-link" data-section="inicio">Inicio</a></li>
                 <li><a href="#sobre-mi" class="nav-link" data-section="sobre-mi">Sobre mí</a></li>
@@ -60,7 +83,7 @@
     </header>
 
     <!-- Contenedor principal para el sistema de secciones -->
-    <main class="sections-container">
+    <main class="sections-container" id="main-content">
         <!-- Sección de inicio/presentación -->
         <section id="inicio" class="hero section active">
             <div class="hero-container">

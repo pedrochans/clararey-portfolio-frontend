@@ -32,6 +32,20 @@ document.addEventListener("DOMContentLoaded", () => {
     // Llamar explícitamente a setupCielitoBotones
     setupCielitoBotones();
     
+    // Configurar funcionalidad móvil
+    setupMobileMenu();
+    setupMobileProjects();
+    setupMobileScrolling();
+    setupMobileHeroCarousel();
+    
+    // Escuchar cambios de orientación
+    window.addEventListener('orientationchange', handleOrientationChange);
+    
+    // Detectar si es dispositivo táctil
+    if ('ontouchstart' in window) {
+        document.body.classList.add('touch-device');
+    }
+    
     // Wait for image loader to be available and integrate
     if (window.imageLoader) {
         integrateImageLoader();
@@ -1536,3 +1550,186 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// ====================================
+// MOBILE FUNCTIONALITY
+// ====================================
+
+function setupMobileMenu() {
+    const hamburger = document.querySelector('.hamburger-menu');
+    const nav = document.querySelector('.main-nav');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    if (hamburger && nav) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+        });
+        
+        // Cerrar menú al hacer click en un enlace
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                nav.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            });
+        });
+        
+        // Cerrar menú al hacer click fuera
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !nav.contains(e.target)) {
+                hamburger.classList.remove('active');
+                nav.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            }
+        });
+        
+        // Cerrar menú al presionar Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                hamburger.classList.remove('active');
+                nav.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            }
+        });
+    }
+}
+
+// Mobile touch events para proyectos
+function setupMobileProjects() {
+    const projectsContainer = document.querySelector('.proyectos-horizontal');
+    if (!projectsContainer) return;
+    
+    let startX = 0;
+    let scrollLeft = 0;
+    let isDown = false;
+    
+    projectsContainer.addEventListener('touchstart', (e) => {
+        isDown = true;
+        startX = e.touches[0].pageX - projectsContainer.offsetLeft;
+        scrollLeft = projectsContainer.scrollLeft;
+    });
+    
+    projectsContainer.addEventListener('touchmove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.touches[0].pageX - projectsContainer.offsetLeft;
+        const walk = (x - startX) * 2;
+        projectsContainer.scrollLeft = scrollLeft - walk;
+    });
+    
+    projectsContainer.addEventListener('touchend', () => {
+        isDown = false;
+    });
+}
+
+// Detectar orientación móvil
+function handleOrientationChange() {
+    // Reajustar algunos elementos después del cambio de orientación
+    setTimeout(() => {
+        window.dispatchEvent(new Event('resize'));
+    }, 100);
+}
+
+// Mejorar scroll horizontal en móvil
+function setupMobileScrolling() {
+    const scrollContainers = document.querySelectorAll('.proyectos-horizontal, .carousel-3d-container');
+    
+    scrollContainers.forEach(container => {
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        
+        container.addEventListener('mousedown', (e) => {
+            isDown = true;
+            container.style.cursor = 'grabbing';
+            startX = e.pageX - container.offsetLeft;
+            scrollLeft = container.scrollLeft;
+        });
+        
+        container.addEventListener('mouseleave', () => {
+            isDown = false;
+            container.style.cursor = 'grab';
+        });
+        
+        container.addEventListener('mouseup', () => {
+            isDown = false;
+            container.style.cursor = 'grab';
+        });
+        
+        container.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - container.offsetLeft;
+            const walk = (x - startX) * 2;
+            container.scrollLeft = scrollLeft - walk;
+        });
+    });
+}
+
+// Carrusel táctil para la sección Hero
+function setupMobileHeroCarousel() {
+    const heroCarousel = document.querySelector('.hero-carousel');
+    const heroImages = document.querySelectorAll('.hero-img');
+    const indicators = document.querySelectorAll('.indicator');
+    
+    if (!heroCarousel || heroImages.length === 0) return;
+    
+    let startX = 0;
+    let currentIndex = 0;
+    let isDown = false;
+    let hasMoved = false;
+    
+    // Touch events
+    heroCarousel.addEventListener('touchstart', (e) => {
+        isDown = true;
+        hasMoved = false;
+        startX = e.touches[0].clientX;
+    }, { passive: true });
+    
+    heroCarousel.addEventListener('touchmove', (e) => {
+        if (!isDown) return;
+        hasMoved = true;
+    }, { passive: true });
+    
+    heroCarousel.addEventListener('touchend', (e) => {
+        if (!isDown || !hasMoved) return;
+        
+        isDown = false;
+        const endX = e.changedTouches[0].clientX;
+        const diffX = startX - endX;
+        const threshold = 50; // Mínimo movimiento para cambiar imagen
+        
+        if (Math.abs(diffX) > threshold) {
+            if (diffX > 0) {
+                // Swipe left - siguiente imagen
+                currentIndex = (currentIndex + 1) % heroImages.length;
+            } else {
+                // Swipe right - imagen anterior
+                currentIndex = (currentIndex - 1 + heroImages.length) % heroImages.length;
+            }
+            
+            // Actualizar la imagen activa
+            updateHeroImage(currentIndex);
+        }
+    }, { passive: true });
+    
+    // Función para actualizar la imagen del hero
+    function updateHeroImage(index) {
+        // Remover clase active de todas las imágenes e indicadores
+        heroImages.forEach(img => img.classList.remove('active'));
+        indicators.forEach(indicator => indicator.classList.remove('active'));
+        
+        // Añadir clase active a la imagen e indicador actual
+        heroImages[index].classList.add('active');
+        if (indicators[index]) {
+            indicators[index].classList.add('active');
+        }
+        
+        // Actualizar el índice global si existe la variable
+        if (window.currentImageIndex !== undefined) {
+            window.currentImageIndex = index;
+        }
+    }
+}
