@@ -66,9 +66,23 @@
   z-index: 1;
 }
 
+/* Image entering from right */
+.hero-img.enter-right {
+  transform: translateX(100%);
+  opacity: 0;
+  z-index: 1;
+}
+
 /* Image exiting to right */
 .hero-img.exit-right {
   transform: translateX(100%);
+  opacity: 0;
+  z-index: 1;
+}
+
+/* Image exiting to left */
+.hero-img.exit-left {
+  transform: translateX(-100%);
   opacity: 0;
   z-index: 1;
 }

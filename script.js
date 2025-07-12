@@ -451,6 +451,22 @@ document.addEventListener("DOMContentLoaded", () => {
             clearInterval(intervalId);
             startCarousel();
         }
+        
+        /**
+         * Función para ir a una imagen anterior
+         */
+        function previousImage() {
+            const prevIndex = (currentImageIndex - 1 + carouselImages.length) % carouselImages.length;
+            transitToImage(prevIndex);
+        }
+        
+        // Exponer funciones globalmente para integración con control táctil
+        window.resetCarouselTimer = resetCarouselTimer;
+        window.startCarousel = startCarousel;
+        window.carouselInterval = intervalId;
+        window.nextCarouselImage = nextImage;
+        window.previousCarouselImage = previousImage;
+        window.goToCarouselImage = transitToImage;
     }
     
     /**
@@ -1670,6 +1686,9 @@ function setupMobileScrolling() {
 
 // Carrusel táctil para la sección Hero
 function setupMobileHeroCarousel() {
+    // Solo activar en dispositivos móviles
+    if (window.innerWidth > 767) return;
+    
     const heroCarousel = document.querySelector('.hero-carousel');
     const heroImages = document.querySelectorAll('.hero-img');
     const indicators = document.querySelectorAll('.indicator');
@@ -1677,59 +1696,201 @@ function setupMobileHeroCarousel() {
     if (!heroCarousel || heroImages.length === 0) return;
     
     let startX = 0;
-    let currentIndex = 0;
+    let startY = 0;
+    let currentX = 0;
     let isDown = false;
     let hasMoved = false;
+    let startTime = 0;
     
-    // Touch events
-    heroCarousel.addEventListener('touchstart', (e) => {
+    // Variables para gestión del carrusel
+    let currentImageIndex = 0;
+    let isTransitioning = false;
+    
+    // Inicializar el índice actual basado en la imagen activa
+    heroImages.forEach((img, index) => {
+        if (img.classList.contains('active')) {
+            currentImageIndex = index;
+        }
+    });
+    
+    // Touch events para gestos de deslizamiento
+    heroCarousel.addEventListener('touchstart', handleTouchStart, { passive: false });
+    heroCarousel.addEventListener('touchmove', handleTouchMove, { passive: false });
+    heroCarousel.addEventListener('touchend', handleTouchEnd, { passive: false });
+    
+    function handleTouchStart(e) {
+        if (isTransitioning) return;
+        
         isDown = true;
         hasMoved = false;
-        startX = e.touches[0].clientX;
-    }, { passive: true });
-    
-    heroCarousel.addEventListener('touchmove', (e) => {
-        if (!isDown) return;
-        hasMoved = true;
-    }, { passive: true });
-    
-    heroCarousel.addEventListener('touchend', (e) => {
-        if (!isDown || !hasMoved) return;
+        startTime = Date.now();
         
-        isDown = false;
-        const endX = e.changedTouches[0].clientX;
-        const diffX = startX - endX;
-        const threshold = 50; // Mínimo movimiento para cambiar imagen
+        const touch = e.touches[0];
+        startX = touch.clientX;
+        startY = touch.clientY;
+        currentX = startX;
         
-        if (Math.abs(diffX) > threshold) {
-            if (diffX > 0) {
-                // Swipe left - siguiente imagen
-                currentIndex = (currentIndex + 1) % heroImages.length;
-            } else {
-                // Swipe right - imagen anterior
-                currentIndex = (currentIndex - 1 + heroImages.length) % heroImages.length;
-            }
-            
-            // Actualizar la imagen activa
-            updateHeroImage(currentIndex);
-        }
-    }, { passive: true });
-    
-    // Función para actualizar la imagen del hero
-    function updateHeroImage(index) {
-        // Remover clase active de todas las imágenes e indicadores
-        heroImages.forEach(img => img.classList.remove('active'));
-        indicators.forEach(indicator => indicator.classList.remove('active'));
-        
-        // Añadir clase active a la imagen e indicador actual
-        heroImages[index].classList.add('active');
-        if (indicators[index]) {
-            indicators[index].classList.add('active');
-        }
-        
-        // Actualizar el índice global si existe la variable
-        if (window.currentImageIndex !== undefined) {
-            window.currentImageIndex = index;
+        // Pausar el carrusel automático si existe
+        if (window.carouselInterval) {
+            clearInterval(window.carouselInterval);
         }
     }
+    
+    function handleTouchMove(e) {
+        if (!isDown) return;
+        
+        const touch = e.touches[0];
+        currentX = touch.clientX;
+        const currentY = touch.clientY;
+        
+        const diffX = Math.abs(currentX - startX);
+        const diffY = Math.abs(currentY - startY);
+        
+        // Solo considerar movimiento horizontal si es mayor que el vertical
+        if (diffX > diffY && diffX > 10) {
+            hasMoved = true;
+            e.preventDefault(); // Prevenir scroll vertical
+        }
+    }
+    
+    function handleTouchEnd(e) {
+        if (!isDown) return;
+        
+        isDown = false;
+        
+        if (!hasMoved) return;
+        
+        const endTime = Date.now();
+        const timeDiff = endTime - startTime;
+        const distance = Math.abs(currentX - startX);
+        const velocity = distance / timeDiff;
+        
+        // Configurar umbrales para diferentes tipos de gestos
+        const minDistance = 50;
+        const minVelocity = 0.3;
+        const quickSwipeTime = 300;
+        
+        // Determinar si fue un swipe válido
+        const isQuickSwipe = timeDiff < quickSwipeTime && velocity > minVelocity;
+        const isLongSwipe = distance > minDistance;
+        
+        if (isQuickSwipe || isLongSwipe) {
+            const direction = currentX > startX ? 'right' : 'left';
+            
+            if (direction === 'left') {
+                // Swipe hacia la izquierda - siguiente imagen
+                nextImage();
+            } else {
+                // Swipe hacia la derecha - imagen anterior
+                previousImage();
+            }
+        }
+        
+        // Reiniciar el carrusel automático después de un breve delay
+        setTimeout(restartAutoCarousel, 3000);
+    }
+    
+    function restartAutoCarousel() {
+        // Usar las funciones globales del carrusel principal
+        if (typeof window.resetCarouselTimer === 'function') {
+            window.resetCarouselTimer();
+        } else if (typeof window.startCarousel === 'function') {
+            window.startCarousel();
+        }
+    }
+    
+    // Intentar usar las funciones del carrusel principal si están disponibles
+    function nextImage() {
+        if (isTransitioning) return;
+        
+        if (typeof window.nextCarouselImage === 'function') {
+            window.nextCarouselImage();
+            return;
+        }
+        
+        const nextIndex = (currentImageIndex + 1) % heroImages.length;
+        transitToImage(nextIndex);
+    }
+    
+    function previousImage() {
+        if (isTransitioning) return;
+        
+        if (typeof window.previousCarouselImage === 'function') {
+            window.previousCarouselImage();
+            return;
+        }
+        
+        const prevIndex = (currentImageIndex - 1 + heroImages.length) % heroImages.length;
+        transitToImage(prevIndex);
+    }
+    
+    function transitToImage(nextIndex) {
+        if (isTransitioning || nextIndex === currentImageIndex) return;
+        
+        isTransitioning = true;
+        
+        // Referencias a las imágenes
+        const currentImage = heroImages[currentImageIndex];
+        const nextImage = heroImages[nextIndex];
+        
+        // Actualizar indicadores
+        indicators.forEach(indicator => indicator.classList.remove('active'));
+        if (indicators[nextIndex]) {
+            indicators[nextIndex].classList.add('active');
+        }
+        
+        // Determinar dirección de la transición
+        const isNext = nextIndex > currentImageIndex || 
+                      (currentImageIndex === heroImages.length - 1 && nextIndex === 0);
+        
+        // Preparar la nueva imagen
+        nextImage.classList.remove('exit-right', 'exit-left', 'active');
+        if (isNext) {
+            nextImage.classList.add('enter-right');
+        } else {
+            nextImage.classList.add('enter-left');
+        }
+        
+        // Forzar reflow
+        void nextImage.offsetWidth;
+        
+        // Ejecutar transición
+        currentImage.classList.remove('active');
+        if (isNext) {
+            currentImage.classList.add('exit-left');
+            nextImage.classList.remove('enter-right');
+        } else {
+            currentImage.classList.add('exit-right');
+            nextImage.classList.remove('enter-left');
+        }
+        nextImage.classList.add('active');
+        
+        // Limpiar después de la transición
+        setTimeout(() => {
+            currentImageIndex = nextIndex;
+            
+            // Limpiar todas las clases de transición
+            heroImages.forEach((img, index) => {
+                if (index !== currentImageIndex) {
+                    img.classList.remove('active', 'exit-right', 'exit-left', 'enter-right', 'enter-left');
+                }
+            });
+            
+            isTransitioning = false;
+        }, 800); // Debe coincidir con la duración CSS
+    }
+    
+    function restartAutoCarousel() {
+        // Usar las funciones globales del carrusel principal
+        if (typeof window.resetCarouselTimer === 'function') {
+            window.resetCarouselTimer();
+        } else if (typeof window.startCarousel === 'function') {
+            window.startCarousel();
+        }
+    }
+    
+    // Hacer las funciones disponibles globalmente para integración
+    window.mobileCarouselNext = nextImage;
+    window.mobileCarouselPrev = previousImage;
+    window.mobileCarouselGoTo = transitToImage;
 }
