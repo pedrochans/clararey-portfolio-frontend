@@ -140,8 +140,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const targetSectionId = this.dataset.section;
         const targetSection = document.getElementById(targetSectionId);
         
-        // Si ya estamos en esa sección, no hacer nada
-        if (currentSection === targetSection) return;
+        // Si ya estamos en esa sección, verificar si debemos volver a la vista principal
+        if (currentSection === targetSection) {
+            // Para proyectos y galería, asegurar que se muestre la vista principal
+            if (targetSectionId === 'proyectos') {
+                ensureMainProjectsView();
+            } else if (targetSectionId === 'galeria') {
+                ensureMainGalleryView();
+            }
+            return;
+        }
         
         // Iniciar la transición
         isTransitioning = true;
@@ -175,6 +183,13 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
             completeExit(fromSection);
             prepareForEntry(toSection);
+            
+            // Asegurar que se muestre la vista principal para proyectos y galería
+            if (toSection.id === 'proyectos') {
+                ensureMainProjectsView();
+            } else if (toSection.id === 'galeria') {
+                ensureMainGalleryView();
+            }
             
             // Actualizar la sección actual
             currentSection = toSection;
@@ -326,6 +341,13 @@ document.addEventListener("DOMContentLoaded", () => {
             targetSection.classList.add("active");
             activeLink.classList.add("active");
             currentSection = targetSection;
+            
+            // Asegurar que se muestre la vista principal para proyectos y galería
+            if (sectionId === 'proyectos') {
+                ensureMainProjectsView();
+            } else if (sectionId === 'galeria') {
+                ensureMainGalleryView();
+            }
         }
     }
     
@@ -438,7 +460,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         
         /**
-         * Inicia el carrusel automático
+         * Inicia el carrusel automáticamente
          */
         function startCarousel() {
             intervalId = setInterval(nextImage, 5000); // Cambiar cada 5 segundos
@@ -1893,4 +1915,68 @@ function setupMobileHeroCarousel() {
     window.mobileCarouselNext = nextImage;
     window.mobileCarouselPrev = previousImage;
     window.mobileCarouselGoTo = transitToImage;
+}
+
+/**
+ * Asegura que se muestre la vista principal de proyectos (selector de proyectos)
+ */
+function ensureMainProjectsView() {
+    const proyectosScrollContainer = document.querySelector('.proyectos-scroll-container');
+    const proyectoDetalles = document.querySelectorAll('.proyecto-detalle');
+    
+    // Si hay detalles de proyecto visibles, ocultarlos y mostrar el selector
+    let hasVisibleDetails = false;
+    proyectoDetalles.forEach(detalle => {
+        if (detalle.classList.contains('visible')) {
+            hasVisibleDetails = true;
+            detalle.classList.remove('visible');
+            detalle.classList.add('saliendo');
+            // Limpiar clases después de un tiempo
+            setTimeout(() => {
+                detalle.classList.remove('saliendo');
+            }, 600);
+        }
+    });
+    
+    // Si había detalles visibles, mostrar el contenedor principal con animación
+    if (hasVisibleDetails && proyectosScrollContainer) {
+        proyectosScrollContainer.classList.remove('oculta');
+        proyectosScrollContainer.classList.add('entrando');
+        // Limpiar clase de animación después de la transición
+        setTimeout(() => {
+            proyectosScrollContainer.classList.remove('entrando');
+        }, 600);
+    }
+}
+
+/**
+ * Asegura que se muestre la vista principal de galería (grid de galería)
+ */
+function ensureMainGalleryView() {
+    const galeriaGrid = document.querySelector('.galeria-grid');
+    const galeriaDetalles = document.querySelectorAll('.galeria-detalle');
+    
+    // Si hay detalles de galería visibles, ocultarlos y mostrar la grid
+    let hasVisibleDetails = false;
+    galeriaDetalles.forEach(detalle => {
+        if (detalle.classList.contains('visible')) {
+            hasVisibleDetails = true;
+            detalle.classList.remove('visible');
+            detalle.classList.add('saliendo');
+            // Limpiar clases después de un tiempo
+            setTimeout(() => {
+                detalle.classList.remove('saliendo');
+            }, 600);
+        }
+    });
+    
+    // Si había detalles visibles, mostrar la grid principal con animación
+    if (hasVisibleDetails && galeriaGrid) {
+        galeriaGrid.classList.remove('oculta');
+        galeriaGrid.classList.add('entrando');
+        // Limpiar clase de animación después de la transición
+        setTimeout(() => {
+            galeriaGrid.classList.remove('entrando');
+        }, 600);
+    }
 }
