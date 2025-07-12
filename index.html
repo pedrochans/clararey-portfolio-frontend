@@ -36,6 +36,9 @@
     <link rel="stylesheet" href="styles/mobile.css">
 
     <!-- Vercel Analytics -->
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
     <script defer src="https://analytics.vercel.app/v1/web.js"></script>
     
     <!-- Preload critical images for immediate display -->
@@ -1028,6 +1031,7 @@
     </div>
 
     <script src="js/image-loader.js"></script>
+    <script src="js/analytics.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
