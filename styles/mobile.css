@@ -127,6 +127,7 @@
         transition: all 0.3s ease;
         transform-origin: center;
         pointer-events: none !important;
+        position: relative;
     }
     
     .hamburger-menu.active .hamburger-line {
@@ -134,8 +135,13 @@
     }
     
     .hamburger-menu.active .hamburger-line:nth-child(1) {
-        transform: rotate(45deg) translateY(6px) !important;
+        transform: rotate(45deg) translate(0px, 0px) !important;
         background: white !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        margin-left: -12px !important;
+        margin-top: -1px !important;
     }
     
     .hamburger-menu.active .hamburger-line:nth-child(2) {
@@ -143,8 +149,13 @@
     }
     
     .hamburger-menu.active .hamburger-line:nth-child(3) {
-        transform: rotate(-45deg) translateY(-6px) !important;
+        transform: rotate(-45deg) translate(0px, 0px) !important;
         background: white !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        margin-left: -12px !important;
+        margin-top: -1px !important;
     }
     
     /* Mobile Navigation - Pantalla completa */
@@ -189,9 +200,12 @@
         border-radius: 8px;
     }
     
-    .main-nav a:hover,
+    .main-nav a:hover {
+        color: #ccc !important;
+    }
+    
     .main-nav a.active {
-        color: white;
+        color: white !important;
     }
     
     /* === HERO SECTION === */
@@ -557,11 +571,21 @@
     }
     
     .hamburger-menu.active .hamburger-line:nth-child(1) {
-        transform: rotate(45deg) translateY(5px) !important;
+        transform: rotate(45deg) translate(0px, 0px) !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        margin-left: -10px !important;
+        margin-top: -1px !important;
     }
     
     .hamburger-menu.active .hamburger-line:nth-child(3) {
-        transform: rotate(-45deg) translateY(-5px) !important;
+        transform: rotate(-45deg) translate(0px, 0px) !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        margin-left: -10px !important;
+        margin-top: -1px !important;
     }
 }
 
@@ -700,6 +724,11 @@
     
     .mobile-padding {
         padding: 1rem;
+    }
+    
+    /* Forzar estilos del menú activo en móvil */
+    .main-nav.active a.active {
+        color: white !important;
     }
 }
 
