@@ -287,27 +287,51 @@
     }
     
     /* === PROYECTOS === */
+    /* Cambiar de scroll horizontal a grid vertical como galería */
     .proyectos-scroll-container {
         position: relative;
-        overflow: hidden;
+        overflow: visible; /* Permitir que el contenido sea visible */
+    }
+    
+    .proyectos-wrapper {
+        overflow: visible; /* Eliminar scroll horizontal */
     }
     
     .proyectos-horizontal {
-        gap: 1rem;
-        padding: 0 1rem;
+        display: grid; /* Cambiar de flex a grid */
+        grid-template-columns: 1fr; /* Una columna en móvil igual que galería */
+        gap: 1.5rem; /* Mismo gap que galería */
+        padding: 0 1rem; /* Mantener padding lateral consistente */
     }
     
     .proyecto-item {
-        min-width: 250px;
-        flex-shrink: 0;
+        width: 100%; /* Ancho completo disponible */
+        min-width: auto; /* Eliminar min-width fijo */
+        display: flex; /* Hacer el item flex para control de alineación */
+        flex-direction: column; /* Columna vertical */
+        align-items: center; /* Centrar contenido horizontalmente */
+        margin-bottom: 1rem; /* Espacio adicional entre proyectos */
+    }
+    
+    /* Asegurar que las imágenes de proyecto estén bien alineadas */
+    .proyecto-imagen {
+        width: 100%;
+        max-width: 100%; /* Asegurar que no se desborde */
+        margin-bottom: 1rem; /* Espacio entre imagen y texto */
+    }
+    
+    .proyecto-info {
+        width: 100%;
+        text-align: center; /* Centrar texto en móvil */
+        padding: 0.5rem 0; /* Padding vertical para el texto */
     }
     
     .scroll-indicator {
-        display: none;
+        display: none; /* Ocultar indicadores de scroll */
     }
     
     .scroll-progress {
-        margin-top: 1rem;
+        display: none; /* Ocultar barra de progreso ya que no hay scroll horizontal */
     }
     
     /* Proyectos - Subsecciones */
@@ -641,11 +665,19 @@
     }
     
     .proyectos-horizontal {
+        display: grid; /* Usar grid también en tablet */
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablet igual que galería */
         gap: 1.5rem;
+        padding: 0 2rem; /* Ajustar padding para tablet */
     }
     
     .proyecto-item {
-        min-width: 280px;
+        width: 100%; /* Ancho completo de la columna */
+        min-width: auto; /* Eliminar min-width fijo */
+        display: flex; /* Mantener flex para alineación */
+        flex-direction: column; /* Columna vertical */
+        align-items: center; /* Centrar contenido */
+        margin-bottom: 1rem; /* Espacio entre proyectos */
     }
     
     .galeria-grid {
@@ -716,10 +748,7 @@
     cursor: pointer;
 }
 
-.touch-device .proyectos-horizontal {
-    -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
-}
+/* Los proyectos ahora usan grid, no necesitan scroll optimization */
 
 /* ========================================
    UTILITIES FOR MOBILE

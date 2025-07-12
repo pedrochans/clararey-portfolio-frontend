@@ -1636,30 +1636,9 @@ function setupMobileMenu() {
 
 // Mobile touch events para proyectos
 function setupMobileProjects() {
-    const projectsContainer = document.querySelector('.proyectos-horizontal');
-    if (!projectsContainer) return;
-    
-    let startX = 0;
-    let scrollLeft = 0;
-    let isDown = false;
-    
-    projectsContainer.addEventListener('touchstart', (e) => {
-        isDown = true;
-        startX = e.touches[0].pageX - projectsContainer.offsetLeft;
-        scrollLeft = projectsContainer.scrollLeft;
-    });
-    
-    projectsContainer.addEventListener('touchmove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.touches[0].pageX - projectsContainer.offsetLeft;
-        const walk = (x - startX) * 2;
-        projectsContainer.scrollLeft = scrollLeft - walk;
-    });
-    
-    projectsContainer.addEventListener('touchend', () => {
-        isDown = false;
-    });
+    // Los proyectos ahora usan grid vertical en móvil, no necesitan scroll horizontal
+    // Esta función se mantiene para compatibilidad pero no hace nada
+    return;
 }
 
 // Detectar orientación móvil
@@ -1672,7 +1651,9 @@ function handleOrientationChange() {
 
 // Mejorar scroll horizontal en móvil
 function setupMobileScrolling() {
-    const scrollContainers = document.querySelectorAll('.proyectos-horizontal, .carousel-3d-container');
+    // Solo aplicar a elementos que realmente necesitan scroll horizontal
+    // Excluir .proyectos-horizontal ya que ahora usa grid vertical en móvil
+    const scrollContainers = document.querySelectorAll('.carousel-3d-container');
     
     scrollContainers.forEach(container => {
         let isDown = false;
